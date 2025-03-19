@@ -15,6 +15,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChallengesController;
 use App\Http\Controllers\PayoutsController;
+use App\Http\Controllers\KycController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,9 @@ Route::middleware('auth')->group(function () {
 	
 	//Payouts
 	Route::get('/payouts', [PayoutsController::class, 'index'])->name('payouts');
+	
+	//Kyc
+	Route::get('/kyc', [KycController::class, 'index'])->name('kyc');
 	
 	//ChangePassword
 	Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');

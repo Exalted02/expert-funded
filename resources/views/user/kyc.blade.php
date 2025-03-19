@@ -1,0 +1,124 @@
+@extends('layouts.app')
+@section('content')
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<!-- Page Content -->
+	<div class="content container-fluid">
+	
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col-md-4">
+					<h3 class="page-title">KYC</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">KYC</a></li>
+						<li class="breadcrumb-item active">KYC</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+		
+		<!-- Search Filter -->
+		<div class="filter-filelds">
+			<div class="row filter-row">
+				<div class="col-xl-2">  
+					 <div class="input-block">
+						 <select class="select" name="search_status">
+							<option value="">All History</option>
+						</select>
+					 </div>
+				</div>
+				<div class="col-xl-2">  
+					 <div class="input-block">
+						 <input type="search" class="form-control floating" name="search_name" placeholder="Search by email">
+					 </div>
+				</div>
+				<div class="col-xl-2">  
+				<a href="javascript:void(0);" class="btn btn-success w-100 search-data"><i class="fa-solid fa-magnifying-glass"></i> {{ __('search') }} </a> 
+				</div>
+				<div class="col-xl-2 p-r-0">
+					<button type="reset" class="btn custom-reset w-100 reset-button" data-id="1">
+						<i class="fa-solid fa-rotate-left"></i> Reset
+					</button>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-striped custom-table datatable">
+						<thead>
+							<tr>
+								<th>Full Name</th>
+								<th>Email</th>
+								<th>KYC Requested At</th>
+								<th>Status</th>
+								<th class="text-end">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Pawel Rys</td>
+								<td>pawelrys@gmail.com</td>
+								<td>18 Mar 25</td>
+								<td>
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-warning dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}</a>
+										</div>
+									</div>
+								</td>
+								<td class="text-end">
+									<div class="dropdown dropdown-action">
+										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>Elias Rivera</td>
+								<td>eliasrivera@gmail.com</td>
+								<td>17 Mar 25</td>
+								<td>
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}</a>
+										</div>
+									</div>
+								</td>
+								<td class="text-end">
+									<div class="dropdown dropdown-action">
+										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!-- /Page Content -->
+@include('modal.payouts-modal')
+@include('modal.common')
+@endsection 
+@section('scripts')
+@include('_includes.footer')
+<script src="{{ url('front-assets/js/page/payouts.js') }}"></script>
+@endsection

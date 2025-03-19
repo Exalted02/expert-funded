@@ -109,7 +109,18 @@
 								<td>18 Mar 25</td>
 								<td>$1,730,55</td>
 								<td>100K 1 Phase(FUNDED</td>
-								<td><span class="text-success">Pending</span></td>
+								{{--<td><span class="text-danger">Cancelled</span></td>--}}
+								<td>
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('pending') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('pending') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-danger"></i> {{ __('cancelled') }}</a>
+										</div>
+									</div>
+								</td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -125,7 +136,17 @@
 								<td>17 Mar 25</td>
 								<td>$7,072,80</td>
 								<td>100K 1 Phase(FUNDED)</td>
-								<td><span class="text-danger">Cancelled</span></td>
+								<td>
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-danger dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-danger"></i> {{ __('cancelled') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('pending') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-danger"></i> {{ __('cancelled') }}</a>
+										</div>
+									</div>
+								</td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
