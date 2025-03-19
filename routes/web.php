@@ -14,6 +14,7 @@ use App\Http\Controllers\ChangePasswordController;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChallengesController;
+use App\Http\Controllers\PayoutsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,9 @@ Route::middleware('auth')->group(function () {
 	
 	//Challenges
 	Route::get('/challenges', [ChallengesController::class, 'index'])->name('challenges');
+	
+	//Payouts
+	Route::get('/payouts', [PayoutsController::class, 'index'])->name('payouts');
 	
 	//ChangePassword
 	Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');

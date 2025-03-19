@@ -9,52 +9,30 @@
 		<div class="page-header">
 			<div class="row align-items-center">
 				<div class="col-md-4">
-					<h3 class="page-title">Challenges</h3>
+					<h3 class="page-title">Payouts</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="">Challenges</a></li>
-						<li class="breadcrumb-item active">Challenges</li>
+						<li class="breadcrumb-item"><a href="">Payouts</a></li>
+						<li class="breadcrumb-item active">Payouts</li>
 					</ul>
 				</div>
-				<div class="col-md-8 float-end ms-auto">
+				{{--<div class="col-md-8 float-end ms-auto">
 					<div class="d-flex title-head">
-						<div class="form-sort m-r-5">
-							<a href="javascript:void(0);" class="list-view btn btn-link"><i class="fa-solid fa-file-export"></i>Download CSV</a>
+						<div class="view-icons">
+							<a href="javascript:void(0);" class="list-view btn btn-link" id="filter_search"><i class="las la-filter"></i></a>
 						</div>
-						<a href="javascript:void(0)" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_challenge"><i class="la la-plus-circle"></i> Create Challenges</a>
 					</div>
-				</div>
+				</div>--}}
 			</div>
 		</div>
 		<!-- /Page Header -->
+		
+		<!-- Search Filter -->
 		<div class="filter-filelds">
 			<div class="row filter-row">
 				<div class="col-xl-2">  
 					 <div class="input-block">
 						 <select class="select" name="search_status">
-							<option value="">{{ __('please_select') }}</option>
-							<option value="1">Last 30 Days</option>
-							<option value="0">Last 2 Months</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All Steps</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All Challenges</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All States</option>
+							<option value="">All History</option>
 						</select>
 					 </div>
 				</div>
@@ -63,9 +41,9 @@
 						 <input type="search" class="form-control floating" name="search_name" placeholder="Search by email">
 					 </div>
 				</div>
-				{{--<div class="col-xl-2">  
+				<div class="col-xl-2">  
 				<a href="javascript:void(0);" class="btn btn-success w-100 search-data"><i class="fa-solid fa-magnifying-glass"></i> {{ __('search') }} </a> 
-				</div>--}}
+				</div>
 				<div class="col-xl-2 p-r-0">
 					<button type="reset" class="btn custom-reset w-100 reset-button" data-id="1">
 						<i class="fa-solid fa-rotate-left"></i> Reset
@@ -73,9 +51,42 @@
 				</div>
 			</div>
 		</div>
-		
 		<hr>
-		
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+				<div class="card dash-widget">
+					<div class="card-body">
+						<span class="dash-widget-icon"><i class="fa-solid fa-money-bill-wave text-primary"></i></span>
+						<div class="dash-widget-info">
+							<h3 class="text-primary">112</h3>
+							<span>Pending Payouts</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+				<div class="card dash-widget">
+					<div class="card-body">
+						<span class="dash-widget-icon"><i class="fa-solid fa-xmark text-danger"></i></span>
+						<div class="dash-widget-info">
+							<h3 class="text-danger">44</h3>
+							<span>Rejected Payouts</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+				<div class="card dash-widget">
+					<div class="card-body">
+						<span class="dash-widget-icon"><i class="fa-solid fa-check text-success"></i></span>
+						<div class="dash-widget-info">
+							<h3 class="text-success">37</h3>
+							<span>Completed Payouts</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
@@ -84,27 +95,21 @@
 							<tr>
 								<th>Trader Account</th>
 								<th>Trader Email</th>
+								<th>Created At</th>
+								<th>Amount</th>
 								<th>Challenge</th>
-								<th>Tag</th>
-								<th>State</th>
-								<th>Step</th>
-								<th>Equity</th>
-								<th>Broker Group</th>
-								<th>Proof Document</th>
+								<th>Status</th>
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>9002207</td>
+								<td>9011204</td>
 								<td>sarango@gmail.com</td>
-								<td>50K 1 Phase</td>
-								<td>None</td>
-								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
-								<td>Phase 1</td>
-								<td>$15,256,12</td>
-								<td>ST_USD(DEMO)</td>
-								<td> </td>
+								<td>18 Mar 25</td>
+								<td>$1,730,55</td>
+								<td>100K 1 Phase(FUNDED</td>
+								<td><span class="text-success">Pending</span></td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -115,15 +120,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td>9002217</td>
+								<td>9010485</td>
 								<td>decyanjohnson@gmail.com</td>
-								<td>100K 1 Phase</td>
-								<td>None</td>
-								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
-								<td>Phase 1</td>
-								<td>$40,589,19</td>
-								<td>ST_USD(DEMO)</td>
-								<td> </td>
+								<td>17 Mar 25</td>
+								<td>$7,072,80</td>
+								<td>100K 1 Phase(FUNDED)</td>
+								<td><span class="text-danger">Cancelled</span></td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -141,10 +143,10 @@
 	</div>
 </div>
 	<!-- /Page Content -->
-@include('modal.challenges-modal')
+@include('modal.payouts-modal')
 @include('modal.common')
 @endsection 
 @section('scripts')
 @include('_includes.footer')
-<script src="{{ url('front-assets/js/page/challenges.js') }}"></script>
+<script src="{{ url('front-assets/js/page/payouts.js') }}"></script>
 @endsection

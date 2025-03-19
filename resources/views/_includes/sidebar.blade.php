@@ -32,6 +32,9 @@
 				<li class="{{ request()->routeIs('challenges') ? 'active' : '' }}">
 					<a href="{{ route('challenges')}}"><i class="la la-desktop"></i> <span> Challenges </span></a>
 				</li>
+				<li class="{{ request()->routeIs('payouts') ? 'active' : '' }}">
+					<a href="{{ route('payouts')}}"><i class="la la-money"></i> <span> Payouts </span></a>
+				</li>
 				<li class="{{ request()->routeIs('email-management','email-management-edit') ? 'active' : '' }}">
 					<a href="{{ route('email-management') }}"><i class="fa-regular fa-envelope"></i> <span> {{ __('email_management') }} </span></a>
 				</li>

@@ -56,7 +56,6 @@
 				</div>
 			</form>
 		</div>--}}
-		<hr>
 		<div class="filter-filelds">
 			<div class="row filter-row">
 				<div class="col-xl-2">  
@@ -83,6 +82,7 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
