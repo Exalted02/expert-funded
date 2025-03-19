@@ -78,7 +78,7 @@
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+											<a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
 										</div>
 									</div>
 								</td>
@@ -102,7 +102,7 @@
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+											<a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
 										</div>
 									</div>
 								</td>
@@ -115,10 +115,10 @@
 	</div>
 </div>
 	<!-- /Page Content -->
-@include('modal.payouts-modal')
+@include('modal.kyc-modal')
 @include('modal.common')
 @endsection 
 @section('scripts')
 @include('_includes.footer')
-<script src="{{ url('front-assets/js/page/payouts.js') }}"></script>
+<script src="{{ url('front-assets/js/page/kyc.js') }}"></script>
 @endsection
