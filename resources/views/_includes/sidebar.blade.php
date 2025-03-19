@@ -21,10 +21,16 @@
 			</nav>
 			<ul class="sidebar-vertical">
 				<li class="menu-title"> 
-					<span>Main</span>
+					<span>Management</span>
 				</li>
-				<li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+				{{--<li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
 					<a href="{{ route('dashboard')}}"><i class="fa-solid fa-gauge"></i> <span> {{ __('dashboard') }} </span></a>
+				</li>--}}
+				<li class="{{ request()->routeIs('users') ? 'active' : '' }}">
+					<a href="{{ route('users')}}"><i class="la la-user"></i> <span> User Accounts </span></a>
+				</li>
+				<li class="{{ request()->routeIs('challenges') ? 'active' : '' }}">
+					<a href="{{ route('challenges')}}"><i class="la la-desktop"></i> <span> Challenges </span></a>
 				</li>
 				<li class="{{ request()->routeIs('email-management','email-management-edit') ? 'active' : '' }}">
 					<a href="{{ route('email-management') }}"><i class="fa-regular fa-envelope"></i> <span> {{ __('email_management') }} </span></a>

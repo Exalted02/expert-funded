@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
 		$data = [];
 		
-        return view('dashboard', $data);
+        return view('user.user-accounts', $data);
     }
 }

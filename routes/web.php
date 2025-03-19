@@ -12,6 +12,9 @@ use App\Http\Controllers\EmailSettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChallengesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +60,12 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 
 Route::middleware('auth')->group(function () {
+	//User-Accounts
+	Route::get('/users', [UserController::class, 'index'])->name('users');
+	
+	//Challenges
+	Route::get('/challenges', [ChallengesController::class, 'index'])->name('challenges');
+	
 	//ChangePassword
 	Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');
 	Route::post('/change-password', [ChangePasswordController::class, 'save_data'])->name('change-password-save');
@@ -65,7 +74,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('/email-settings', [EmailSettingsController::class, 'index'])->name('user.email-settings');
 	Route::post('/email-settings', [EmailSettingsController::class, 'save_data'])->name('email-settings-save');
 
-// Email Management Routes
+	// Email Management Routes
 	Route::get('email-management', [EmailManagementController::class,'index'])->name('email-management');
 	Route::get('/email-management-edit/{id}', [EmailManagementController::class, 'email_management_edit'])->name('email-management-edit');
 	Route::post('/email-management-edit-save',[EmailManagementController::class,'manage_email_management_process'])->name('email-management-edit-save');
