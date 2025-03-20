@@ -55,13 +55,23 @@ Route::get('/', [ProfileController::class, 'welcome']);
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+//Client
+Route::middleware(['auth', 'client'])->name('client.')->group(function () {
+	//Dashboard
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 	
-
-
-Route::middleware('auth')->group(function () {
+	//Account
+	Route::get('/account', [DashboardController::class, 'account'])->name('account');
+		
+	//Verification
+	Route::get('/verification', [DashboardController::class, 'verification'])->name('verification');
+		
+	//Withdraw
+	Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('withdraw');
+		
+});
+//Admin	
+Route::middleware(['auth', 'admin'])->group(function () {
 	//User-Accounts
 	Route::get('/users', [UserController::class, 'index'])->name('users');
 	

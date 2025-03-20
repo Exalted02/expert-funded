@@ -21,11 +21,32 @@
 			</nav>
 			<ul class="sidebar-vertical">
 				<li class="menu-title"> 
-					<span>Management</span>
+					{{--<span>Management</span>--}}
+					<div class="media d-flex align-items-center">
+						<a href="javascript:void(0)" class="avatar"><img src="{{ asset('front-assets/img/user.jpg') }}" alt="User Image"></a>
+						<div class="media-body flex-grow-1">
+							<div class="text-sm my-0">Martin Lewis</div>
+						</div>
+					</div>
 				</li>
-				{{--<li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-					<a href="{{ route('dashboard')}}"><i class="fa-solid fa-gauge"></i> <span> {{ __('dashboard') }} </span></a>
-				</li>--}}
+				<li class="mb-3">
+					<button type="button" class="btn btn-square btn-outline-success w-100"><i class="las la-check-double"></i> Funded</button>
+				</li>
+				@if(Auth::user()->user_type == 1)
+				<li class="{{ request()->routeIs('client.dashboard') ? 'active' : '' }}">
+					<a href="{{ route('client.dashboard')}}"><i class="la la-home"></i> <span> {{ __('dashboard') }} </span></a>
+				</li>
+				<li class="{{ request()->routeIs('client.account') ? 'active' : '' }}">
+					<a href="{{ route('client.account')}}"><i class="la la-user-cog"></i> <span> Account </span></a>
+				</li>
+				<li class="{{ request()->routeIs('client.verification') ? 'active' : '' }}">
+					<a href="{{ route('client.verification')}}"><i class="la la-user-check"></i> <span> Verification </span></a>
+				</li>
+				<li class="{{ request()->routeIs('client.withdraw') ? 'active' : '' }}">
+					<a href="{{ route('client.withdraw')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
+				</li>
+				@endif
+				@if(Auth::user()->user_type == 0)
 				<li class="{{ request()->routeIs('users') ? 'active' : '' }}">
 					<a href="{{ route('users')}}"><i class="la la-user"></i> <span> User Accounts </span></a>
 				</li>
@@ -39,14 +60,14 @@
 					<a href="{{ route('kyc')}}"><i class="la la-crosshairs"></i> <span> KYC </span></a>
 				</li>
 				<li class="{{ request()->routeIs('email-management','email-management-edit') ? 'active' : '' }}">
-					<a href="{{ route('email-management') }}"><i class="fa-regular fa-envelope"></i> <span> {{ __('email_management') }} </span></a>
+					<a href="{{ route('email-management') }}"><i class="la la-envelope"></i> <span> {{ __('email_management') }} </span></a>
 				</li>
 				<li class="{{ request()->routeIs('user.email-settings') ? 'active' : '' }}">
-					<a href="{{ route('user.email-settings') }}"><i class="fa-regular fa-envelope"></i> <span> {{ __('email_settings') }} </span></a>
+					<a href="{{ route('user.email-settings') }}"><i class="la la-cog"></i> <span> {{ __('email_settings') }} </span></a>
 				</li>
-				
+				@endif
 				<li class="{{ request()->routeIs('logout') ? 'active' : '' }}">
-					<a href="{{ route('logout') }}"><i class="fa-solid fa-shop-lock"></i> <span> {{ __('logout') }} </span></a>
+					<a href="{{ route('logout') }}"><i class="la la-sign-out-alt"></i> <span> {{ __('logout') }} </span></a>
 				</li>
 			</ul>
 			

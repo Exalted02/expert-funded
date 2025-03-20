@@ -12,6 +12,21 @@ class DashboardController extends Controller
     {
 		$data = [];
 		
-        return view('dashboard', $data);
+        return view('client.dashboard', $data);
+    }
+    public function account()
+    {
+		$data = [];		
+        return view('client.account', $data);
+    }
+    public function verification()
+    {
+		$data = [];		
+        return view('client.verification', $data);
+    }
+    public function withdraw()
+    {
+		$data = [];		
+        return view('client.withdraw', $data);
     }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">-->
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-sidebar="dark" data-sidebar-size="lg" data-layout-mode="blue" data-layout-width="fluid" data-layout-position="fixed" data-layout-style="default" data-topbar="light">
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-sidebar="dark" data-sidebar-size="lg" data-layout-mode="blue" data-layout-width="fluid" data-layout-position="fixed" data-layout-style="default" data-topbar="light">--}}
+<html lang="en" data-layout="vertical" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-layout-mode="dark" data-layout-width="fluid" data-layout-position="fixed" data-layout-style="default" data-topbar="dark">
 	<head>
         <!--<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
