@@ -19,6 +19,9 @@
 [data-layout-mode=dark] hr {
     color: #FFF;
 }
+[data-layout-mode=dark] .color-white {
+    color: #FFF;
+}
 .bg-inverse-white {
 	background-color: rgba(242, 17, 54, 0.12) !important;
     color: #FFF !important;

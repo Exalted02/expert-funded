@@ -20,6 +20,7 @@
 				</ul>
 			</nav>
 			<ul class="sidebar-vertical">
+				@if(Auth::user()->user_type == 1)
 				<li class="menu-title"> 
 					{{--<span>Management</span>--}}
 					<div class="media d-flex align-items-center">
@@ -32,7 +33,6 @@
 				<li class="mb-3">
 					<button type="button" class="btn btn-square btn-outline-success w-100"><i class="las la-check-double"></i> Funded</button>
 				</li>
-				@if(Auth::user()->user_type == 1)
 				<li class="{{ request()->routeIs('client.dashboard') ? 'active' : '' }}">
 					<a href="{{ route('client.dashboard')}}"><i class="la la-home"></i> <span> {{ __('dashboard') }} </span></a>
 				</li>
@@ -47,6 +47,18 @@
 				</li>
 				@endif
 				@if(Auth::user()->user_type == 0)
+				<li class="menu-title"> 
+					{{--<span>Management</span>--}}
+					<div class="media d-flex align-items-center">
+						<a href="javascript:void(0)" class="avatar"><img src="{{ asset('front-assets/img/user.jpg') }}" alt="User Image"></a>
+						<div class="media-body flex-grow-1">
+							<div class="text-sm my-0">Martin Lewis</div>
+						</div>
+					</div>
+				</li>
+				<li class="mb-3">
+					<button type="button" class="btn btn-square btn-outline-primary w-100"><i class="las la-user-check"></i> Administrator</button>
+				</li>	
 				<li class="{{ request()->routeIs('users') ? 'active' : '' }}">
 					<a href="{{ route('users')}}"><i class="la la-user"></i> <span> User Accounts </span></a>
 				</li>

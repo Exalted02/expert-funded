@@ -53,28 +53,39 @@
 						<div class="title">Downloadable Documents:</div>
 						<div class="text"></div>
 					</li>
-					<li class="justify-content-space-between">
-						<div class="file-download">
-							<a href="#"><i class="la la-cloud-download-alt"></i> Frontal ID</a>
-						</div>
-						<div class="file-download">
-							<a href="#"><i class="la la-cloud-download-alt"></i> Back ID</a>
-						</div>
-						<div class="file-download">
-							<a href="#"><i class="la la-cloud-download-alt"></i> Residence</a>
+					<li class="dash-statistics">
+						<div class="row stats-info">
+							<div class="col-4">
+								<div class="file-download text-center">
+									<a href="javascript:void(0)" class="color-white">Frontal ID</a>
+									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="file-download text-center">
+									<a href="javascript:void(0)" class="color-white">Back ID</a>
+									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="file-download text-center">
+									<a href="javascript:void(0)" class="color-white">Residence ID</a>
+									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+								</div>
+							</div>
 						</div>
 					</li>
 				</ul>
 				<div class="modal-btn delete-action">
 					<div class="row">
 						<div class="col-6">
-							<a href="javascript:void(0);" class="btn btn-primary continue-btn">Yes, Confirm It</a>
+							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-danger"><i class="las la-times-circle"></i> Reject</a>
 						</div>
 						<div class="col-6">
-							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-danger cancel-btn">Yes, Reject It</a>
+							<a href="javascript:void(0);" class="btn btn-sm w-100 btn-success"><i class="las la-check-double"></i> Accept</a>
 						</div>
 						<div class="col-12 mt-3">
-							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-secondary continue-btn">Close</a>
+							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-secondary">Close</a>
 						</div>
 					</div>
 				</div>

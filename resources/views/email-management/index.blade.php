@@ -15,7 +15,7 @@
 				<div class="col-md-4">
 					<h3 class="page-title">{{ __('email_management') }}</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('dashboard') }}</a></li>
+						<li class="breadcrumb-item"><a href="#">{{ __('dashboard') }}</a></li>
 						<li class="breadcrumb-item active">{{ __('email_management') }}</li>
 					</ul>
 				</div>

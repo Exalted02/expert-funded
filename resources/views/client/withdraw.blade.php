@@ -63,7 +63,7 @@
 											<div><button class="btn btn-primary w-100 mt-3">Submit A Withdrawl</button></div>
 											<div class="d-flex justify-content-between mt-5">
 												<div>
-													<span class="d-block">Ypur Current Profit Split:</span>
+													<span class="d-block">Your Current Profit Split:</span>
 												</div>
 												<div>
 													<span class="text-success">70%</span>

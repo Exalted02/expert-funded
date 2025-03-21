@@ -15,7 +15,7 @@
 				<div class="col-md-4">
 					<h3 class="page-title">{{ __('email_management') }}</h3>
 					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('dashboard') }}</a></li>
+						<li class="breadcrumb-item"><a href="#">{{ __('dashboard') }}</a></li>
 						<li class="breadcrumb-item active">{{ __('email_management') }}</li>
 					</ul>
 				</div>
@@ -64,5 +64,21 @@
 @endsection 
 @section('scripts')
 <script src="{{ url('front-assets/js/page/email_management.js') }}"></script>
-<script src="{{ url('front-assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!--<script src="{{ url('front-assets/plugins/summernote/summernote-bs4.min.js') }}"></script>-->
+<link href="{{ url('front-assets/summernote/summernote-lite.min.css') }}" rel="stylesheet">
+    <script src="{{ url('front-assets/summernote/summernote-lite.min.js') }}"></script>
+	<script>
+		$('.summernote').summernote({
+			toolbar: [
+				['style', ['style']],
+				['font', ['bold', 'italic', 'underline']],
+				['fontsize', ['fontsize']],
+				['style', ['fontname', 'color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['height', ['height']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['codeview']],
+			]
+		});
+	</script>
 @endsection
