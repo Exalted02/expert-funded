@@ -186,6 +186,46 @@
 <script src="{{ url('front-assets/plugins/c3-chart/d3.v5.min.js') }}"></script>
 <script src="{{ url('front-assets/plugins/c3-chart/c3.min.js') }}"></script>
 <script src="{{ url('front-assets/plugins/c3-chart/chart-data.js') }}"></script>
+<script>
+var chart = c3.generate({
+	bindto: '#chart-sracked', // id of chart wrapper
+	data: {
+		columns: [
+			// each columns data
+			['data1', 0, 9, 16, 19, 30, 25 , 19, 12, 0],
+		],
+		type: 'area-spline', // default type of chart
+		groups: [
+			[ 'data1', 'data2']
+		],
+		colors: {
+			data1:'#F175B1'
+		},
+		names: {
+			// name of each serie
+			'data1': 'Maximum'
+		}
+	},
+	axis: {
+		x: {
+			type: 'category',
+			// name of each category
+			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul' ,'Aug', 'Sep']
+		},
+	},
+	legend: {
+		  show: false, //hide legend
+	},
+	padding: {
+		bottom: 0,
+		top: 0
+	},
+});
+setTimeout(() => {
+    d3.selectAll(".c3-axis-x text").style("fill", "#FFFFFF"); // X-axis text color
+    d3.selectAll(".c3-axis-y text").style("fill", "#FFFFFF"); // Y-axis text color
+}, 500);
+</script>
 
 @endsection
 

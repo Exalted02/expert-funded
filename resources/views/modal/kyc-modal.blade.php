@@ -58,19 +58,19 @@
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Frontal ID</a>
-									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Back ID</a>
-									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Residence ID</a>
-									<a class="btn btn-sm w-100 btn-soft-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 						</div>
