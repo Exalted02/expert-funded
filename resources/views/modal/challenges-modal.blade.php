@@ -28,21 +28,106 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="frmproductgroup" action="">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="input-block mb-3">
-								<label class="col-form-label">Trader`s Email<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="" id="" placeholder="Trader`s Email">
-								<div class="invalid-feedback">Trader`s Email.</div>
+				<div id="step-one">
+					<form id="frmTraderEmail" action="{{ route('challenges.check-email') }}">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Trader`s Email<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" name="trader_email" id="trader_email" placeholder="Trader`s Email">
+									<div class="invalid-feedback">Trader`s Email is required.</div>
+								</div>
+							</div>
+						</div>					
+						<div class="modal-btn delete-action mt-3">
+							<div class="row">
+								<div class="col-6">
+									<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-secondary">Cancel</a>
+								</div>
+								<div class="col-6">
+									<a href="javascript:void(0);" class="btn btn-sm w-100 btn-primary save-challenge-email">Next <i class="la la-arrow-circle-right"></i></a>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn save-product-group" type="button">Submit</button>
-					</div>
-				</form>
+					</form>	
+				</div>
+				<div id="step-two" style="display:none;">
+					<form id="frmChallenge" action="{{ route('challenges.challenge-submit') }}" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Trader`s Email<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" name="traders_email" id="traders_email" placeholder="Trader`s Email">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Trader`s First Name<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" name="trader_first_name" id="trader_first_name" placeholder="Trader`s First Name">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Trader`s Last Name<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" name="trader_last_name" id="trader_last_name" placeholder="Trader`s Last Name">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Trader`s Phone (Optional)</label>
+									<input class="form-control" type="text" name="trader_phone_number" id="trader_phone_number" placeholder="Trader`s Phone (Optional)">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block">
+									<label class="col-form-label">Challenge<span class="text-danger">*</span></label>
+									<select class="select" name="trader_challenge" id="trader_challenge"> 
+										<option value="">Please select</option>
+										<option value="1">50K 1 Phase</option>
+										<option value="2">100K 1 Phase</option>
+										<option value="3">200K 1 Phase</option>
+										<option value="4">300K 1 Phase</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Amount Paid<span class="text-danger">*</span></label>
+									<input class="form-control" type="text" name="trading_amount" id="trading_amount" placeholder="Amount Paid">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Proof Document (Optional)</label>
+									<input class="form-control" type="file" name="trading_document" id="trading_document" placeholder="Proof Document (Optional)">
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="input-block mb-3">
+									<label class="col-form-label">Comment</label>
+									<textarea class="form-control" name="comment" id="comment" placeholder="Comment"></textarea>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>					
+						<div class="modal-btn delete-action mt-3">
+							<div class="row">
+								<div class="col-6">
+									<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-secondary">Cancel</a>
+								</div>
+								<div class="col-6">
+									<a href="javascript:void(0);" class="btn btn-sm w-100 btn-primary save-challenge">Create <i class="la la-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>				
 			</div>
 		</div>
 	</div>

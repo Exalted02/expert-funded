@@ -62,8 +62,8 @@
 				<li class="{{ request()->routeIs('users') ? 'active' : '' }}">
 					<a href="{{ route('users')}}"><i class="la la-user"></i> <span> User Accounts </span></a>
 				</li>
-				<li class="{{ request()->routeIs('challenges') ? 'active' : '' }}">
-					<a href="{{ route('challenges')}}"><i class="la la-desktop"></i> <span> Challenges </span></a>
+				<li class="{{ request()->routeIs('challenges.index') ? 'active' : '' }}">
+					<a href="{{ route('challenges.index')}}"><i class="la la-desktop"></i> <span> Challenges </span></a>
 				</li>
 				<li class="{{ request()->routeIs('payouts') ? 'active' : '' }}">
 					<a href="{{ route('payouts')}}"><i class="la la-money"></i> <span> Payouts </span></a>
