@@ -107,7 +107,9 @@ $(document).ready(function() {
 			data: {id:id,status_typ:status_typ, _token: csrfToken},
 			dataType: 'json',
 			success: function(response) {
-				//alert(response.change_status);
+				setTimeout(() => {
+					window.location.reload();
+				}, "100");
 			},
 		});
 	});
@@ -121,7 +123,9 @@ $(document).ready(function() {
 			data: {id:id,status_typ:status_typ, _token: csrfToken},
 			dataType: 'json',
 			success: function(response) {
-				//alert(response.change_status);
+				setTimeout(() => {
+					window.location.reload();
+				}, "2000");
 			},
 		});
 	});
