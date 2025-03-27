@@ -82,29 +82,30 @@
 					<table class="table table-striped custom-table datatable">
 						<thead>
 							<tr>
-								<th>Trader Account</th>
+								{{--<th>Trader Account</th>--}}
 								<th>Trader Email</th>
-								<th>Challenge</th>
+								{{--<th>Challenge</th>
 								<th>Tag</th>
 								<th>State</th>
 								<th>Step</th>
 								<th>Equity</th>
 								<th>Broker Group</th>
-								<th>Proof Document</th>
+								<th>Proof Document</th>--}}
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
+						@foreach($list as $val)
 							<tr>
-								<td>9002207</td>
-								<td>sarango@gmail.com</td>
-								<td>50K 1 Phase</td>
+								{{--<td>9002207</td>--}}
+								<td>{{$val->email}}</td>
+								{{--<td>50K 1 Phase</td>
 								<td>None</td>
 								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
 								<td>Phase 1</td>
 								<td>$15,256,12</td>
 								<td>ST_USD(DEMO)</td>
-								<td> </td>
+								<td> </td>--}}
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -114,25 +115,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td>9002217</td>
-								<td>decyanjohnson@gmail.com</td>
-								<td>100K 1 Phase</td>
-								<td>None</td>
-								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
-								<td>Phase 1</td>
-								<td>$40,589,19</td>
-								<td>ST_USD(DEMO)</td>
-								<td> </td>
-								<td class="text-end">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
-										</div>
-									</div>
-								</td>
-							</tr>
+						@endforeach	
 						</tbody>
 					</table>
 				</div>

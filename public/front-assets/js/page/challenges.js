@@ -86,10 +86,7 @@ $(document).ready(function() {
 			contentType: false,
 			//dataType: 'json',
 			success: function(response) {
-				if (!response.success) {
-					$('#trader_email').addClass('is-invalid');
-					$('#trader_email').next('.invalid-feedback').text(response.message).show();
-				} else {
+				if (response.success) {
 					$('#success_msg').modal('show');
 					setTimeout(() => {
 						window.location.reload();
