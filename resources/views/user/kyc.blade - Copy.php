@@ -71,13 +71,15 @@
 								<td>
 									<div class="dropdown action-label">
 										@if($document->status == 1)
-											<span class="badge badge-soft-warning">{{ __('pending') }}</span>
+											<a class="btn btn-white btn-sm badge-outline-warning dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}
+											</a>
 										@endif
 										@if($document->status == 2)
-											<span class="badge badge-soft-info">{{ __('accept') }}</span>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('accept') }}</a>
 										@endif
 										@if($document->status == 0)
-											<span class="badge badge-soft-danger">{{ __('pending') }}</span>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-danger"></i> {{ __('reject') }}</a>
 										@endif
 									{{--<a class="btn btn-white btn-sm badge-outline-warning dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}
