@@ -86,6 +86,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	//Kyc
 	Route::get('/kyc', [KycController::class, 'index'])->name('kyc');
 	Route::post('/kyc-document', [KycController::class, 'kyc_document'])->name('kyc-document');
+	Route::post('/kyc-doc-status-update', [KycController::class, 'kyc_document_status_update'])->name('kyc-doc-status-update');
 	
 	//ChangePassword
 	Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');

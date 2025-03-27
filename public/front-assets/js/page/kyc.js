@@ -45,10 +45,8 @@ $(document).ready(function() {
 			data: { id: id, _token: csrfToken },
 			dataType: 'json',
 			success: function(response) {
-				if (response.documents_details.length > 0) {
-					console.log(response.documents_details);
-					
-					let doc = response.documents_details[0]; 
+					//console.log(response.documents_details);
+					let doc = response.documents_details; 
 					
 					$('#email').html(doc.get_client.email);
 					$('#trader_id').html(doc.id);
@@ -77,21 +75,54 @@ $(document).ready(function() {
 					}
 					
 					var frontalFile = doc.frontal;
-					var filePath = response.forntal_path +'/'+ frontalFile;
-					$('#view_frontal').attr("href", filePath);
+					var frontalFilePath = response.forntal_path +'/'+ frontalFile;
+					$('#view_frontal').attr("href", frontalFilePath).attr("download", frontalFile.split('/').pop());
 					
-					//$('#view_frontal').attr("href", frontalFile).attr("download", frontalFile.split('/').pop());
+					var backFile = doc.back;
+					var backFilePath = response.back_path +'/'+ backFile;
+					$('#view_back').attr("href", backFilePath).attr("download", backFile.split('/').pop());
 					
+					var residenceFile = doc.residence;
+					var residenceFilePath = response.residence_path +'/'+ residenceFile;
+					$('#view_residence').attr("href", residenceFilePath).attr("download", residenceFile.split('/').pop());
+					
+					$('#reject_client_id').attr('data-id', doc.id);
+					$('#accept_client_id').attr('data-id', doc.id);
 					$('#view_details').modal('show');
-				} else {
-					alert('No document found!');
-				}
 			},
 			error: function(xhr) {
 				console.log(xhr.responseText); // Log errors
 				alert('Something went wrong!');
 			}
 		});
-
+	});
+	
+	$(document).on('click','#reject_client_id', function(){
+		var id = $(this).data('id');
+		var URL = $(this).data('url');
+		var status_typ = $(this).data('mode');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id,status_typ:status_typ, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				//alert(response.change_status);
+			},
+		});
+	});
+	$(document).on('click','#accept_client_id', function(){
+		var id = $(this).data('id');
+		var URL = $(this).data('url');
+		var status_typ = $(this).data('mode');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id,status_typ:status_typ, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				//alert(response.change_status);
+			},
+		});
 	});
 });
