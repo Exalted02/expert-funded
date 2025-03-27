@@ -44,13 +44,16 @@ class KycController extends Controller
 			$model->status = 0;
 			$model->save();
 			// send mail to client 
-			
-			$email_content = get_email(1);
+			//$logo = asset('front-assets/img/-logo1.jpg');
+			//$logo = '<img src="'. asset('front-assets/img/-logo1.jpg') .'">';
+			$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+
+			$email_content = get_email(7);
 			if(!empty($email_content))
 			{
 				$maildata = [
 					'subject' => $email_content->message_subject,
-					'body' => str_replace(array("[NAME]", "[SCREEN_NAME]"), array($client_name, $APP_NAME), $email_content->message),
+					'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo,$APP_NAME), $email_content->message),
 					'toEmails' => array($client_dtls->get_client->email),
 				];
 				
@@ -70,13 +73,13 @@ class KycController extends Controller
 			$model->status = 2;
 			$model->save();
 			// send mail to client 
-			
-			$email_content = get_email(2);
+			$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+			$email_content = get_email(5);
 			if(!empty($email_content))
 			{
 				$maildata = [
 					'subject' => $email_content->message_subject,
-					'body' => str_replace(array("[NAME]", "[SCREEN_NAME]"), array($client_name, $APP_NAME), $email_content->message),
+					'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo, $APP_NAME), $email_content->message),
 					'toEmails' => array($client_dtls->get_client->email),
 				];
 				
