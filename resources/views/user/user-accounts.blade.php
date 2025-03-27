@@ -95,6 +95,7 @@
 								<th>Country</th>
 								<th>Address</th>
 								<th>Created At</th>
+								<th>Status</th>
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
@@ -106,7 +107,31 @@
 								<td>{{$val->phone_number ?? ''}}</td>
 								<td>-</td>
 								<td>-</td>
-								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
+								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>								
+								<td>
+								@if($val->status ==1)
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspended</a>
+										</div>
+									</div>
+								 @else
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-danger dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-danger"></i> Suspended
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspended</a>
+										</div>
+									</div> 
+								 
+								 @endif
+								</td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
