@@ -31,23 +31,25 @@
 				<ul class="personal-info">
 					<li>
 						<div class="title">Email:</div>
-						<div class="text"></div>
+						<div class="text"><span id="email"></span></div>
 					</li>
 					<li>
 						<div class="title">Trader ID:</div>
-						<div class="text"></div>
+						<div class="text"><span id="trader_id"></span></div>
 					</li>
 					<li>
 						<div class="title">Full Name:</div>
-						<div class="text"></div>
+						<div class="text"><span id="full_name"></span></div>
 					</li>
 					<li>
 						<div class="title">Status:</div>
-						<div class="text text-warning">Pending</div>
+						<div class="text text-warning" id="pending">{{ __('pending') }}</div>
+						<div class="text text-success" id="accept">{{ __('accept') }}</div>
+						<div class="text text-danger" id="reject">{{ __('reject') }}</div>
 					</li>
 					<li>
 						<div class="title">Created At:</div>
-						<div class="text"></div>
+						<div class="text"><span id="created_date"></span></div>
 					</li>
 					<li>
 						<div class="title">Downloadable Documents:</div>
@@ -58,7 +60,7 @@
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Frontal ID</a>
-									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a id="view_frontal" class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 							<div class="col-4">
