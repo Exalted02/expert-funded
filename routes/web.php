@@ -78,7 +78,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/users', [UserController::class, 'index'])->name('users');
 	
 	//Challenges
-	Route::get('/challenges', [ChallengesController::class, 'index'])->name('challenges');
+	Route::name('challenges.')->group(function () {
+		Route::get('/challenges', [ChallengesController::class, 'index'])->name('index');
+		Route::post('/challenges/check-email', [ChallengesController::class, 'check_email'])->name('check-email');
+		Route::post('/challenges/challenge-submit', [ChallengesController::class, 'challenge_submit'])->name('challenge-submit');
+	});
 	
 	//Payouts
 	Route::get('/payouts', [PayoutsController::class, 'index'])->name('payouts');

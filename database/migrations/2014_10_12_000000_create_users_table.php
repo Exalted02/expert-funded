@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('state')->nullable();
             $table->integer('city')->nullable();
             $table->longText('address')->nullable();
-			$table->string('status')->nullable();
+			$table->string('status')->nullable()->comment('0=inactive/suspend, 1=active, 2=delete');
             $table->timestamps();
         });
     }
