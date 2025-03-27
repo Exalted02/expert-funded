@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChallengesController;
 use App\Http\Controllers\PayoutsController;
 use App\Http\Controllers\KycController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,8 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	Route::get('/account', [DashboardController::class, 'account'])->name('account');
 		
 	//Verification
-	Route::get('/verification', [DashboardController::class, 'verification'])->name('verification');
+	Route::get('/verification', [VerificationController::class, 'index'])->name('verification');
+	Route::post('/verification', [VerificationController::class, 'save'])->name('client.verification');
 		
 	//Withdraw
 	Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('withdraw');
@@ -87,6 +89,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	
 	//Kyc
 	Route::get('/kyc', [KycController::class, 'index'])->name('kyc');
+	Route::post('/kyc-document', [KycController::class, 'kyc_document'])->name('kyc-document');
+	Route::post('/kyc-doc-status-update', [KycController::class, 'kyc_document_status_update'])->name('kyc-doc-status-update');
 	
 	//ChangePassword
 	Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');

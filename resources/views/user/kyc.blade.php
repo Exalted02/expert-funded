@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+@php 
+ use Carbon\Carbon;
+//echo "<pre>";print_r($documents);die;
+@endphp
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 	<!-- Page Content -->
@@ -59,54 +63,42 @@
 							</tr>
 						</thead>
 						<tbody>
+						@foreach($documents as $document)
 							<tr>
-								<td>Pawel Rys</td>
-								<td>pawelrys@gmail.com</td>
-								<td>18 Mar 25</td>
+								<td>{{ $document->get_client->first_name .''. $document->get_client->last_name }}</td>
+								<td>{{ $document->get_client->email ?? '' }}</td>
+								<td>{{ Carbon::parse($document->created_at ?? '')->format('d M y') }}</td>
 								<td>
 									<div class="dropdown action-label">
-										<a class="btn btn-white btn-sm badge-outline-warning dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+										@if($document->status == 1)
+											<span class="badge badge-soft-warning">{{ __('pending') }}</span>
+										@endif
+										@if($document->status == 2)
+											<span class="badge badge-soft-info">{{ __('accept') }}</span>
+										@endif
+										@if($document->status == 0)
+											<span class="badge badge-soft-danger">{{ __('pending') }}</span>
+										@endif
+									{{--<a class="btn btn-white btn-sm badge-outline-warning dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}
 										</a>
 										<div class="dropdown-menu dropdown-menu-right">
 											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}</a>
 											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}</a>
-										</div>
+										</div>--}}
 									</div>
 								</td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+										<a class="dropdown-item kyc-documents-data" href="javascript:void(0)" data-id="{{ $document->id}}" data-url="{{ route('kyc-document') }}"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+										{{--<a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>--}}
 										</div>
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td>Elias Rivera</td>
-								<td>eliasrivera@gmail.com</td>
-								<td>17 Mar 25</td>
-								<td>
-									<div class="dropdown action-label">
-										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-warning"></i> {{ __('pending') }}</a>
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-circle-dot text-success"></i> {{ __('confirmed') }}</a>
-										</div>
-									</div>
-								</td>
-								<td class="text-end">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view_details"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
-										</div>
-									</div>
-								</td>
-							</tr>
+						@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -115,10 +107,14 @@
 	</div>
 </div>
 	<!-- /Page Content -->
+
 @include('modal.kyc-modal')
 @include('modal.common')
 @endsection 
 @section('scripts')
 @include('_includes.footer')
+<script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
 <script src="{{ url('front-assets/js/page/kyc.js') }}"></script>
+
+
 @endsection

@@ -31,23 +31,25 @@
 				<ul class="personal-info">
 					<li>
 						<div class="title">Email:</div>
-						<div class="text"></div>
+						<div class="text"><span id="email"></span></div>
 					</li>
 					<li>
 						<div class="title">Trader ID:</div>
-						<div class="text"></div>
+						<div class="text"><span id="trader_id"></span></div>
 					</li>
 					<li>
 						<div class="title">Full Name:</div>
-						<div class="text"></div>
+						<div class="text"><span id="full_name"></span></div>
 					</li>
 					<li>
 						<div class="title">Status:</div>
-						<div class="text text-warning">Pending</div>
+						<div class="text text-warning" id="pending">{{ __('pending') }}</div>
+						<div class="text text-success" id="accept">{{ __('accept') }}</div>
+						<div class="text text-danger" id="reject">{{ __('reject') }}</div>
 					</li>
 					<li>
 						<div class="title">Created At:</div>
-						<div class="text"></div>
+						<div class="text"><span id="created_date"></span></div>
 					</li>
 					<li>
 						<div class="title">Downloadable Documents:</div>
@@ -58,19 +60,19 @@
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Frontal ID</a>
-									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a id="view_frontal" class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Back ID</a>
-									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a id="view_back" class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 							<div class="col-4">
 								<div class="file-download text-center">
 									<a href="javascript:void(0)" class="color-white">Residence ID</a>
-									<a class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
+									<a id="view_residence" class="btn btn-sm w-100 btn-info rounded-pill" href="#"><i class="la la-eye"></i> View</a>
 								</div>
 							</div>
 						</div>
@@ -79,10 +81,12 @@
 				<div class="modal-btn delete-action">
 					<div class="row">
 						<div class="col-6">
-							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-danger"><i class="las la-times-circle"></i> Reject</a>
+						<a id="reject_client_id" href="javascript:void(0);" class="btn btn-sm w-100 btn-danger" data-url="{{ route('kyc-doc-status-update')}}" data-mode="reject"><i class="las la-times-circle"></i> Reject</a>
+						
+						{{--<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-danger"><i class="las la-times-circle"></i> Reject</a>--}}
 						</div>
 						<div class="col-6">
-							<a href="javascript:void(0);" class="btn btn-sm w-100 btn-success"><i class="las la-check-double"></i> Accept</a>
+							<a id="accept_client_id" data-url="{{ route('kyc-doc-status-update')}}" href="javascript:void(0);" class="btn btn-sm w-100 btn-success" data-mode="accept"><i class="las la-check-double"></i> Accept</a>
 						</div>
 						<div class="col-12 mt-3">
 							<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-secondary">Close</a>
