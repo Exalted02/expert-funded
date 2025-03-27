@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="{{ url('front-assets/plugins/c3-chart/c3.min.css') }}">
 @endsection
 @section('content')
+@php 
+$data = App\Models\Kyc_documents::where('client_id', auth()->user()->id)->first();
+@endphp
     <!-- Page Wrapper -->
     <div class="page-wrapper">
     
@@ -30,7 +33,8 @@
 									<div class="card dash-widget mb-0">
 										<div class="card-body">
 											<small>Frontal View (jpg, png or pdf)</small>
-											<label class="dropzone">
+											@if(empty($data->frontal))
+											<label class="dropzone hid-frontal-div">
 												<div class="upload-content">
 													<i class="la la-file-upload frontal-la"></i>
 													<span id="frontal-upl">UPLOAD HERE</span>
@@ -38,6 +42,12 @@
 												</div>
 												<input type="file" hidden name="frontal_view_file" id="frontal_view_file">
 											</label>
+											@else
+											<div id="frontalShowContainer" style="margin-top: 10px;">
+												<img id="frontalShowFile" src="{{ url('uploads/kyc/' .auth()->user()->id .'/frontal/'.$data->frontal)}}">
+											<a href="#" id="removeFrontalShowFile">×</a>
+											</div>
+											@endif
 											<div id="frontalPreviewContainer" style="margin-top: 10px;">
 											<img id="frontalPreview" src="">
 											<a href="#" id="removeFrontalPreview">×</a>
@@ -53,7 +63,7 @@
 									<div class="card dash-widget mb-0">
 										<div class="card-body">
 											<small>Back View (jpg, png or pdf)</small>
-											<label class="dropzone">
+											<label class="dropzone hid-back-div">
 												<div class="upload-content">
 													<i class="la la-file-upload"></i>
 													<span>UPLOAD HERE</span>
@@ -74,7 +84,7 @@
 									<div class="card dash-widget mb-0">
 										<div class="card-body">
 											<small>Proof Of Residence (jpg, png or pdf)</small>
-											<label class="dropzone">
+											<label class="dropzone hid-residence-div">
 												<div class="upload-content">
 													<i class="la la-file-upload"></i>
 													<span>UPLOAD HERE</span>
@@ -117,6 +127,7 @@
 document.getElementById("frontal_view_file").addEventListener("change", function(event) {
     let file = event.target.files[0];
 	$('#frontalPreview').show();
+	$('.hid-frontal-div').hide();
     if (file) {
         let reader = new FileReader();
         reader.onload = function(e) {
@@ -130,11 +141,60 @@ document.getElementById("frontal_view_file").addEventListener("change", function
 
 document.getElementById("removeFrontalPreview").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent default link behavior
+	$('.hid-frontal-div').show();
     document.getElementById("frontalPreviewContainer").style.display = "none"; // Hide preview container
     document.getElementById("removeFrontalPreview").style.display = "none"; // Hide remove link
     document.getElementById("frontalPreview").src = ""; // Clear preview image
     document.getElementById("frontal_view_file").value = ""; // Reset file input
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(() => {
+        let removeButton = document.getElementById("removeFrontalShowFile");
+
+        if (removeButton !== null) {
+            removeButton.addEventListener("click", function(event) {
+                event.preventDefault();
+                alert('ok'); // Debugging - Ensure event is firing
+
+                let frontalContainer = document.getElementById("frontalShowContainer");
+                let frontalImage = document.getElementById("frontalShowFile");
+                let fileInput = document.getElementById("frontal_view_file");
+
+                if (frontalContainer) {
+                    frontalContainer.style.display = "none";
+                }
+                if (frontalImage) {
+                    frontalImage.src = "";
+                }
+                if (fileInput) {
+                    fileInput.value = "";
+                }
+            });
+        } else {
+            console.log("Element #removeFrontalShowFile not found in DOM.");
+        }
+    }, 500); // Delay execution to ensure element is available
+});
+
+/*document.addEventListener("DOMContentLoaded", function() {
+    let removeButton = document.getElementById("removeFrontalShowFile");
+
+    if (removeButton) {
+		
+        removeButton.addEventListener("click", function(event) {
+            event.preventDefault(); 
+			alert('ok');
+            document.getElementById("frontalShowContainer").style.display = "none";
+            document.getElementById("frontalShowFile").src = ""; 
+            let fileInput = document.getElementById("frontal_view_file");
+            if (fileInput) {
+                fileInput.value = ""; 
+            }
+        });
+    }
+});*/
+
 
 
 /*document.getElementById("frontal_view_file").addEventListener("change", function(event) {
@@ -152,7 +212,8 @@ document.getElementById("removeFrontalPreview").addEventListener("click", functi
 
 document.getElementById("back_view_file").addEventListener("change", function(event) {
     let file = event.target.files[0];
-    if (file) {
+	$('.hid-back-div').hide();
+	if (file) {
         let reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById("backPreview").src = e.target.result;
@@ -163,6 +224,7 @@ document.getElementById("back_view_file").addEventListener("change", function(ev
 });
 document.getElementById("removeBackPreview").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent default link behavior
+	$('.hid-back-div').show();
     document.getElementById("backPreviewContainer").style.display = "none"; // Hide preview container
     document.getElementById("removeBackPreview").style.display = "none"; // Hide remove link
     document.getElementById("backPreview").src = ""; // Clear preview image
@@ -172,6 +234,7 @@ document.getElementById("removeBackPreview").addEventListener("click", function(
 
 document.getElementById("residence_file").addEventListener("change", function(event) {
     let file = event.target.files[0];
+	$('.hid-residence-div').hide();
     if (file) {
         let reader = new FileReader();
         reader.onload = function(e) {
@@ -184,6 +247,7 @@ document.getElementById("residence_file").addEventListener("change", function(ev
 });
 document.getElementById("removeResidencePreview").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent default link behavior
+	$('.hid-residence-div').show();
     document.getElementById("residencePreviewContainer").style.display = "none"; // Hide preview container
     document.getElementById("removeResidencePreview").style.display = "none"; // Hide remove link
     document.getElementById("residencePreview").src = ""; // Clear preview image

@@ -43,9 +43,9 @@
 					</li>
 					<li>
 						<div class="title">Status:</div>
-						<div class="text text-warning" id="pending">{{ __('pending') }}</div>
-						<div class="text text-success" id="accept">{{ __('accept') }}</div>
-						<div class="text text-danger" id="reject">{{ __('reject') }}</div>
+						<div class="text text-warning" id="pending">{{ __('Pending') }}</div>
+						<div class="text text-success" id="accept">{{ __('Approved') }}</div>
+						<div class="text text-danger" id="reject">{{ __('Reject') }}</div>
 					</li>
 					<li>
 						<div class="title">Created At:</div>

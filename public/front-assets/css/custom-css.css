@@ -399,7 +399,7 @@ small, .small {
 }
 #removeFrontalPreview{
 	position: absolute;
-	top: 153px;
+	top: 45px;
 	right: 15px;
 	background: red;
 	color: white;
@@ -417,7 +417,7 @@ small, .small {
 }
 #removeBackPreview{
 	position: absolute;
-	top: 153px;
+	top: 45px;
 	right: 15px;
 	background: red;
 	color: white;
@@ -435,7 +435,7 @@ small, .small {
 }
 #removeResidencePreview{
 	position: absolute;
-	top: 153px;
+	top: 45px;
 	right: 15px;
 	background: red;
 	color: white;
@@ -450,6 +450,31 @@ small, .small {
 	font-weight: bold;
 	text-decoration: none;
 	display: none;
+}
+
+#frontalShowFile{
+	width: 100%; 
+	height:60% !important; 
+	border: 1px solid #ddd; 
+	padding: 5px; 
+	border-radius: 5px;
+}
+#removeFrontalShowFile{
+	position: absolute;
+	top: 45px;
+	right: 15px;
+	background: red;
+	color: white;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 
