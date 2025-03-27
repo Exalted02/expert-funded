@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<!-- /Page Header -->
-		<div class="filter-filelds">
+		{{--<div class="filter-filelds">
 			<div class="row filter-row">
 				<div class="col-xl-2">  
 					 <div class="input-block">
@@ -63,16 +63,13 @@
 						 <input type="search" class="form-control floating" name="search_name" placeholder="Search by email">
 					 </div>
 				</div>
-				{{--<div class="col-xl-2">  
-				<a href="javascript:void(0);" class="btn btn-success w-100 search-data"><i class="fa-solid fa-magnifying-glass"></i> {{ __('search') }} </a> 
-				</div>--}}
 				<div class="col-xl-2 p-r-0">
 					<button type="reset" class="btn custom-reset w-100 reset-button" data-id="1">
 						<i class="fa-solid fa-rotate-left"></i> Reset
 					</button>
 				</div>
 			</div>
-		</div>
+		</div>--}}
 		
 		<hr>
 		
