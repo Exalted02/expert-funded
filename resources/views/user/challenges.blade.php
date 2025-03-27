@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<!-- /Page Header -->
-		<div class="filter-filelds">
+		{{--<div class="filter-filelds">
 			<div class="row filter-row">
 				<div class="col-xl-2">  
 					 <div class="input-block">
@@ -63,16 +63,13 @@
 						 <input type="search" class="form-control floating" name="search_name" placeholder="Search by email">
 					 </div>
 				</div>
-				{{--<div class="col-xl-2">  
-				<a href="javascript:void(0);" class="btn btn-success w-100 search-data"><i class="fa-solid fa-magnifying-glass"></i> {{ __('search') }} </a> 
-				</div>--}}
 				<div class="col-xl-2 p-r-0">
 					<button type="reset" class="btn custom-reset w-100 reset-button" data-id="1">
 						<i class="fa-solid fa-rotate-left"></i> Reset
 					</button>
 				</div>
 			</div>
-		</div>
+		</div>--}}
 		
 		<hr>
 		
@@ -82,29 +79,30 @@
 					<table class="table table-striped custom-table datatable">
 						<thead>
 							<tr>
-								<th>Trader Account</th>
+								{{--<th>Trader Account</th>--}}
 								<th>Trader Email</th>
-								<th>Challenge</th>
+								{{--<th>Challenge</th>
 								<th>Tag</th>
 								<th>State</th>
 								<th>Step</th>
 								<th>Equity</th>
 								<th>Broker Group</th>
-								<th>Proof Document</th>
+								<th>Proof Document</th>--}}
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
+						@foreach($list as $val)
 							<tr>
-								<td>9002207</td>
-								<td>sarango@gmail.com</td>
-								<td>50K 1 Phase</td>
+								{{--<td>9002207</td>--}}
+								<td>{{$val->email}}</td>
+								{{--<td>50K 1 Phase</td>
 								<td>None</td>
 								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
 								<td>Phase 1</td>
 								<td>$15,256,12</td>
 								<td>ST_USD(DEMO)</td>
-								<td> </td>
+								<td> </td>--}}
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -114,25 +112,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td>9002217</td>
-								<td>decyanjohnson@gmail.com</td>
-								<td>100K 1 Phase</td>
-								<td>None</td>
-								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
-								<td>Phase 1</td>
-								<td>$40,589,19</td>
-								<td>ST_USD(DEMO)</td>
-								<td> </td>
-								<td class="text-end">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
-										</div>
-									</div>
-								</td>
-							</tr>
+						@endforeach	
 						</tbody>
 					</table>
 				</div>

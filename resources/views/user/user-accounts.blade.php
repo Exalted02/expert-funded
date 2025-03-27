@@ -56,7 +56,7 @@
 				</div>
 			</form>
 		</div>--}}
-		<div class="filter-filelds">
+		{{--<div class="filter-filelds">
 			<div class="row filter-row">
 				<div class="col-xl-2">  
 					 <div class="input-block">
@@ -81,7 +81,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div>--}}
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
@@ -92,20 +92,46 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone</th>
-								<th>Country</th>
-								<th>Address</th>
+								{{--<th>Country</th>
+								<th>Address</th>--}}
 								<th>Created At</th>
+								<th>Status</th>
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
+						@foreach($list as $val)
 							<tr>
-								<td>Sebastian Arango</td>
-								<td>sarango@gmail.com</td>
-								<td>1234567897</td>
-								<td>IN</td>
-								<td>Delhi</td>
-								<td>18 Aug 23</td>
+								<td>{{$val->name ?? ''}}</td>
+								<td>{{$val->email ?? ''}}</td>
+								<td>{{$val->phone_number ?? ''}}</td>
+								{{--<td>-</td>
+								<td>-</td>--}}
+								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
+								<td>
+								@if($val->status ==1)
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspended</a>
+										</div>
+									</div>
+								 @else
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-danger dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-danger"></i> Suspended
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspended</a>
+										</div>
+									</div> 
+								 
+								 @endif
+								</td>
 								<td class="text-end">
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -117,24 +143,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td>Devyan Johnson</td>
-								<td>decyanjohnson@gmail.com</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>18 Sept 23</td>
-								<td class="text-end">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-										<div class="dropdown-menu dropdown-menu-right">										
-											<a class="dropdown-item" href="javascript:void(0);" data-id="" data-url=""><i class="fa-solid fa-pencil m-r-5"></i> {{ __('edit') }}</a>
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> {{ __('view') }}</a>
-											<a class="dropdown-item" href="javascript:void(0);" data-id="" data-url=""><i class="fa-regular fa-trash-can m-r-5"></i> {{ __('delete') }}</a>
-										</div>
-									</div>
-								</td>
-							</tr>
+							@endforeach	
 						</tbody>
 					</table>
 				</div>

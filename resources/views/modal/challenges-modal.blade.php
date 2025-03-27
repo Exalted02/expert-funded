@@ -149,3 +149,19 @@
 		</div>
 	</div>
 </div>
+
+<!-- update Success message -->
+<div class="modal custom-modal fade" id="success_msg" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="success-message text-center">
+					<div class="success-popup-icon">
+						<i class="la la-plus-circle"></i>
+					</div>
+					<h3>Challenge created successfully!!!</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -35,4 +35,22 @@ $(document).ready(function() {
 		});
 		
 	});
+	
+	$(document).on('click','.update-status', function(){
+		var id= $(this).data('id');
+		var URL = $(this).data('url');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				//alert(update_status);
+				$('#update_status').modal('show');
+				setTimeout(() => {
+					window.location.reload();
+				}, "1000");
+			},
+		});
+	});
 });

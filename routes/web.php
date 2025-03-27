@@ -76,6 +76,7 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
 	//User-Accounts
 	Route::get('/users', [UserController::class, 'index'])->name('users');
+	Route::post('/user-update-status', [UserController::class, 'update_status'])->name('user-update-status');
 	
 	//Challenges
 	Route::name('challenges.')->group(function () {

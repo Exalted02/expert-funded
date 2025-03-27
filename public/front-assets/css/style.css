@@ -16682,7 +16682,7 @@ textarea.form-control {
   width: 100px;
   height: 100%;
   transform: skew(12deg);
-  background: linear-gradient(90.31deg, #248fdb -1.02%, #FF2D3D 132.59%);
+  /* background: linear-gradient(90.31deg, #248fdb -1.02%, #FF2D3D 132.59%); */
 }
 @media (max-width: 1399px) {
   .employee-welcome-card::before {
