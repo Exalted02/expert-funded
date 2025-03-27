@@ -92,8 +92,8 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone</th>
-								<th>Country</th>
-								<th>Address</th>
+								{{--<th>Country</th>
+								<th>Address</th>--}}
 								<th>Created At</th>
 								<th>Status</th>
 								<th class="text-end">Actions</th>
@@ -105,9 +105,9 @@
 								<td>{{$val->name ?? ''}}</td>
 								<td>{{$val->email ?? ''}}</td>
 								<td>{{$val->phone_number ?? ''}}</td>
-								<td>-</td>
-								<td>-</td>
-								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>								
+								{{--<td>-</td>
+								<td>-</td>--}}
+								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
 								<td>
 								@if($val->status ==1)
 									<div class="dropdown action-label">
