@@ -462,7 +462,7 @@ small, .small {
 #removeFrontalShowFile{
 	position: absolute;
 	top: 45px;
-	right: 15px;
+	right: 278px;
 	background: red;
 	color: white;
 	border-radius: 50%;
@@ -487,7 +487,7 @@ small, .small {
 #removeBackShowFile{
 	position: absolute;
 	top: 45px;
-	right: 15px;
+	right: 278px;
 	background: red;
 	color: white;
 	border-radius: 50%;
@@ -511,7 +511,7 @@ small, .small {
 #removeResidenceShowFile{
 	position: absolute;
 	top: 45px;
-	right: 15px;
+	right: 278px;
 	background: red;
 	color: white;
 	border-radius: 50%;
