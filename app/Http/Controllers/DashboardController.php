@@ -17,7 +17,8 @@ class DashboardController extends Controller
     }
     public function account()
     {
-		$data = [];		
+		$data = [];
+		$data['user']  = User::where('id', auth()->user()->id)->first();		
         return view('client.account', $data);
     }
     public function verification()

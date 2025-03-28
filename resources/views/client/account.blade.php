@@ -18,10 +18,8 @@
 							<hr class="mt-0">
 							<div class="employee-month-details d-flex align-items-end justify-content-between mb-0">
 								<div>
-								<p>Your Email: beemnke@fgmfa.pl</p>
-								<p>Name: Bilal</p>
-								<p>Surname: Antekorowski</p>
-								<p>Password:</p>
+								<p>Your Email: {{ $user->email ?? ''}}</p>
+								<p>Name: {{ $user->name ?? ''}}</p>
 								</div>
 								<div class="">
 									<button class="btn btn-warning account-update-password">
