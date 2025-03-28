@@ -24,7 +24,7 @@
 								<p>Password:</p>
 								</div>
 								<div class="">
-									<button class="btn btn-warning">
+									<button class="btn btn-warning account-update-password">
 										<i class="las la-key"></i> Reset Your Password
 									</button>
 								</div>
@@ -53,12 +53,72 @@
     </div>
     <!-- /Page Wrapper -->
 
+@include('modal.account-modal')
 @endsection 
 @section('scripts')
 <!-- Chart JS -->
 <script src="{{ url('front-assets/plugins/c3-chart/d3.v5.min.js') }}"></script>
 <script src="{{ url('front-assets/plugins/c3-chart/c3.min.js') }}"></script>
 <script src="{{ url('front-assets/plugins/c3-chart/chart-data.js') }}"></script>
-
+<script>
+$(document).ready(function() {
+	$(document).on('click','.account-update-password', function(){
+		$('#view_account').modal('show');
+	});
+	
+	$(document).on('click','.save-account', function(){
+		
+		let firstname = $('#first_name').val().trim();
+		let lastname = $('#last_name').val().trim();
+		let pwd = $('#password').val().trim();
+		let isValid = true;
+		$('.invalid-feedback').hide();
+		$('.form-control').removeClass('is-invalid');
+		
+		if (firstname === '') 
+		{
+			$('#first_name').addClass('is-invalid');
+			$('#first_name').next('.invalid-feedback').show();
+			isValid = false;
+		}
+		
+		if (lastname === '') 
+		{
+			$('#last_name').addClass('is-invalid');
+			$('#last_name').next('.invalid-feedback').show();
+			isValid = false;
+		}
+		
+		/*if (pwd === '') 
+		{
+			$('#password').addClass('is-invalid');
+			$('#password').next('.invalid-feedback').show();
+			isValid = false;
+		}*/
+		//if valid then ajax   _token=' + csrfToken
+		if (isValid) {
+			var URL = "{{  route('client.updateaccount') }}";
+			$.ajax({
+				url: URL,
+				type: "POST",
+				data: {first_name:firstname,last_name:lastname,password:pwd,_token:csrfToken},
+				dataType: 'json',
+				success: function(response) {
+					if(response.message)
+					{
+						$("#message-section").html('<div class="alert alert-success">' + response.message + '</div>');
+					}
+					
+					setTimeout(() => {
+						window.location.reload();
+					}, "2000");
+				},
+			})
+		}
+	
+	});
+});
+</script>
+account-update-password
 @endsection
 

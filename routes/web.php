@@ -73,6 +73,8 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 		
 	//Withdraw
 	Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('withdraw');
+	
+	Route::post('/update-client-account', [DashboardController::class, 'update_client_account'])->name('updateaccount');
 		
 });
 //Admin	
