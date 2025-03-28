@@ -40,60 +40,72 @@ class KycController extends Controller
 		
 		if($status_typ == 'reject')
 		{
-			$model = Kyc_documents::find($id);
-			$model->status = 0;
-			$model->save();
-			// send mail to client 
-			//$logo = asset('front-assets/img/-logo1.jpg');
-			//$logo = '<img src="'. asset('front-assets/img/-logo1.jpg') .'">';
-			$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
-
-			$email_content = get_email(7);
-			if(!empty($email_content))
+			$has_files = Kyc_documents::where('id',$id)->first();
+			if($has_files->frontal != null && $has_files->back != null && $has_files->residence != null)
 			{
-				$maildata = [
-					'subject' => $email_content->message_subject,
-					'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo,$APP_NAME), $email_content->message),
-					'toEmails' => array($client_dtls->get_client->email),
-				];
-				
-				try {
-					send_email($maildata);
-					$this->info("Email sent to: {$client_dtls->get_client->email}");
-				} catch (\Exception $e) {
-					\Log::error("Failed to send email to {$client_dtls->get_client->email}: {$e->getMessage()}");
+				$model = Kyc_documents::find($id);
+				$model->status = 0;
+				$model->save();
+				// send mail to client 
+				$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+
+				$email_content = get_email(7);
+				if(!empty($email_content))
+				{
+					$maildata = [
+						'subject' => $email_content->message_subject,
+						'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo,$APP_NAME), $email_content->message),
+						'toEmails' => array($client_dtls->get_client->email),
+					];
 					
+					try {
+						send_email($maildata);
+						$this->info("Email sent to: {$client_dtls->get_client->email}");
+					} catch (\Exception $e) {
+						\Log::error("Failed to send email to {$client_dtls->get_client->email}: {$e->getMessage()}");
+						
+					}
 				}
+			}
+			else{
+				return response()->json(['message'=> 'You already rejected']);
 			}
 		}
 		
 		if($status_typ == 'accept')
 		{
-			$model = Kyc_documents::find($id);
-			$model->status = 2;
-			$model->save();
-			// send mail to client 
-			$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
-			$email_content = get_email(5);
-			if(!empty($email_content))
+			$has_files = Kyc_documents::where('id',$id)->first();
+			if($has_files->frontal != null && $has_files->back != null && $has_files->residence != null)
 			{
-				$maildata = [
-					'subject' => $email_content->message_subject,
-					'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo, $APP_NAME), $email_content->message),
-					'toEmails' => array($client_dtls->get_client->email),
-				];
-				
-				try {
-					send_email($maildata);
-					$this->info("Email sent to: {$client_dtls->get_client->email}");
-				} catch (\Exception $e) {
-					\Log::error("Failed to send email to {$client_dtls->get_client->email}: {$e->getMessage()}");
+				$model = Kyc_documents::find($id);
+				$model->status = 2;
+				$model->save();
+				// send mail to client 
+				$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+				$email_content = get_email(5);
+				if(!empty($email_content))
+				{
+					$maildata = [
+						'subject' => $email_content->message_subject,
+						'body' => str_replace(array("[LOGO]", "[SCREEN_NAME]"), array($logo, $APP_NAME), $email_content->message),
+						'toEmails' => array($client_dtls->get_client->email),
+					];
 					
+					try {
+						send_email($maildata);
+						$this->info("Email sent to: {$client_dtls->get_client->email}");
+					} catch (\Exception $e) {
+						\Log::error("Failed to send email to {$client_dtls->get_client->email}: {$e->getMessage()}");
+						
+					}
 				}
+			}
+			else{
+				return response()->json(['message'=> 'This client did not upload all files']);
 			}
 		}
 		
 		$changeStatus = Kyc_documents::where('id',$id )->first()->status;
-		return response()->json(['change_status'=> $changeStatus]);
+		return response()->json(['message'=>'','change_status'=> $changeStatus]);
 	}
 }

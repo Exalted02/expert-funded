@@ -116,9 +116,13 @@ $(document).ready(function() {
 			data: {id:id,status_typ:status_typ, _token: csrfToken},
 			dataType: 'json',
 			success: function(response) {
+				if(response.message)
+				{
+					$("#message-section").html('<div class="alert alert-danger">' + response.message + '</div>');
+				}
 				setTimeout(() => {
 					window.location.reload();
-				}, "100");
+				}, "2000");
 			},
 		});
 	});
@@ -132,6 +136,10 @@ $(document).ready(function() {
 			data: {id:id,status_typ:status_typ, _token: csrfToken},
 			dataType: 'json',
 			success: function(response) {
+				if(response.message)
+				{
+					 $("#message-section").html('<div class="alert alert-success">' + response.message + '</div>');
+				}
 				setTimeout(() => {
 					window.location.reload();
 				}, "2000");

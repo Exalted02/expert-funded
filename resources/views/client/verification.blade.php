@@ -240,6 +240,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					if (fileType.includes("image")) {
                         // If the file is an image
                         previewImage.src = e.target.result;
+						previewImage.style.width = "100%";
+						previewImage.style.height = "60px";
                         previewImage.style.display = "block";
                     } else if (fileExtension === "pdf") {
                         // If the file is a PDF, show an icon instead
@@ -459,6 +461,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					if (fileType.includes("image")) {
                         // If the file is an image
                         previewImage.src = e.target.result;
+						previewImage.style.width = "100%";
+						previewImage.style.height = "60px";
                         previewImage.style.display = "block";
                     } else if (fileExtension === "pdf") {
                         // If the file is a PDF, show an icon instead
@@ -594,6 +598,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					if (fileType.includes("image")) {
                         // If the file is an image
                         previewImage.src = e.target.result;
+						previewImage.style.width = "100%";
+						previewImage.style.height = "60px";
                         previewImage.style.display = "block";
                     } else if (fileExtension === "pdf") {
                         // If the file is a PDF, show an icon instead
