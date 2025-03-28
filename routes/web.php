@@ -75,8 +75,14 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 //Admin	
 Route::middleware(['auth', 'admin'])->group(function () {
 	//User-Accounts
-	Route::get('/users', [UserController::class, 'index'])->name('users');
-	Route::post('/user-update-status', [UserController::class, 'update_status'])->name('user-update-status');
+	Route::name('users.')->group(function () {
+		Route::get('/users', [UserController::class, 'index'])->name('index');
+		Route::post('/user-update-data', [UserController::class, 'update_data'])->name('user-update-data');
+		Route::post('/user-data-submit', [UserController::class, 'submit_data'])->name('user-data-submit');
+		Route::post('/user-update-status', [UserController::class, 'update_status'])->name('user-update-status');
+		Route::post('/get_delete_data', [UserController::class, 'get_delete_data'])->name('get_delete_data');
+		Route::post('/final_delete_submit', [UserController::class, 'final_delete_submit'])->name('final_delete_submit');
+	});
 	
 	//Challenges
 	Route::name('challenges.')->group(function () {

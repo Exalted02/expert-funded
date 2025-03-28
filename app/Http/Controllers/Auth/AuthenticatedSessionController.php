@@ -33,6 +33,15 @@ class AuthenticatedSessionController extends Controller
 		if(Auth::user()->user_type == 0){
 			return redirect()->intended(RouteServiceProvider::HOME);
 		}else{
+			if(Auth::user()->status == 0){
+				Auth::guard('web')->logout();
+
+				$request->session()->invalidate();
+
+				$request->session()->regenerateToken();
+
+				return redirect('/login')->with('error', 'Your account is suspended.');
+			}
 			return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
 		}
     }
