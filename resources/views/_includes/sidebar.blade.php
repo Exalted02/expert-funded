@@ -26,7 +26,13 @@
 					<div class="media d-flex align-items-center">
 						<a href="javascript:void(0)" class="avatar"><img src="{{ asset('front-assets/img/user.jpg') }}" alt="User Image"></a>
 						<div class="media-body flex-grow-1">
-							<div class="text-sm my-0">Martin Lewis</div>
+							<div class="text-sm my-0">
+							@if(auth()->check())
+								{{ auth()->user()->name }}
+							@else
+								Client
+							@endif
+							</div>
 						</div>
 					</div>
 				</li>
@@ -42,8 +48,8 @@
 				<li class="{{ request()->routeIs('client.verification') ? 'active' : '' }}">
 					<a href="{{ route('client.verification')}}"><i class="la la-user-check"></i> <span> Verification </span></a>
 				</li>
-				<li class="{{ request()->routeIs('client.withdraw') ? 'active' : '' }}">
-					<a href="{{ route('client.withdraw')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
+				<li class="{{ request()->routeIs('client.withdraw.index') ? 'active' : '' }}">
+					<a href="{{ route('client.withdraw.index')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
 				</li>
 				@endif
 				@if(Auth::user()->user_type == 0)
@@ -52,7 +58,13 @@
 					<div class="media d-flex align-items-center">
 						<a href="javascript:void(0)" class="avatar"><img src="{{ asset('front-assets/img/user.jpg') }}" alt="User Image"></a>
 						<div class="media-body flex-grow-1">
-							<div class="text-sm my-0">Martin Lewis</div>
+							<div class="text-sm my-0">
+							@if(auth()->check())
+								{{ auth()->user()->name }}
+							@else
+								Client
+							@endif
+							</div>
 						</div>
 					</div>
 				</li>

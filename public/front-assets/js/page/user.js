@@ -78,7 +78,7 @@ $(document).ready(function() {
 				}
 			}
 		});
-	}); 
+	});
 
 	$(document).on('click','.delete-data', function(){
 		var id = $(this).data('id');
@@ -134,6 +134,86 @@ $(document).ready(function() {
 					window.location.reload();
 				}, "1000");
 			},
+		});
+	});
+	
+	$(document).on('click','.adjust-balance', function(){
+		var id = $(this).data('id');
+		var URL = $(this).data('url');
+		//alert(URL);
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				$('#current_balance').text(response.result.users_balances);
+				$('#adjust_amount_user').val(id);
+				$('#adjust_balance_model').modal('show');
+			},
+		});
+	});
+	$(document).on('click','.submit-adjust-balance', function(){
+		var type = $(this).data('mode');
+		
+		let formData = new FormData($('#frmAdjustBalance')[0]);
+		// formData.append('user_id', $('adjust_amount_user').val());
+		formData.append('type', type);
+		formData.append('_token', csrfToken);
+		var URL = $('#frmAdjustBalance').attr('action');
+		//alert(URL);
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: formData,
+			processData: false,  // Required for FormData
+			contentType: false,
+			//dataType: 'json',
+			success: function(response) {
+				if(type == 'add'){
+					$('.adjust_balance_msg').text('User balance added successfully.');
+				}else{
+					$('.adjust_balance_msg').text('User balance removed successfully.');
+				}
+				$('#adjust_balance_msg').modal('show');
+				setTimeout(() => {
+					window.location.reload();
+				}, "1000");
+			},
+			error: function (xhr) {
+				if (xhr.status === 422) {
+					// alert(xhr.status);
+					const errors = xhr.responseJSON.errors;
+					$('.invalid-feedback').hide();
+					$('.form-control').removeClass('is-invalid');
+					
+					$.each(errors, function(key, value) {
+						// Check the key received from the server
+						let fieldName = key.replace(/\./g, '\\.').replace(/\*/g, '');
+						let field = $('[name="' + fieldName + '"]');
+						
+						if (field.length > 0) {
+							field.addClass('is-invalid');
+							if (field.is('select')) {
+								//field.closest('.form-group').find('.invalid-feedback').show().text(value[0]);
+								
+								field.closest('.input-block').find('.invalid-feedback').show().text(value[0]);
+								//alert(value[0]);
+							} else {
+								field.next('.invalid-feedback').show().text(value[0]);
+							}
+						} else {
+							var fieldNames = key.split('.')[0]; // Get the base field name (e.g., product_sale_price)
+							var index = key.split('.').pop();
+							var inputField = $('input[name="' + fieldNames + '[]"]').eq(index);
+							inputField.addClass('is-invalid');
+							inputField.next('.invalid-feedback').show().text(value[0]);
+						}
+					});
+				}else{
+					
+				}
+			}
 		});
 	});
 });

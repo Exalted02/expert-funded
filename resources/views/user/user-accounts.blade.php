@@ -92,6 +92,7 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone</th>
+								<th>Current Balance</th>
 								{{--<th>Country</th>
 								<th>Address</th>--}}
 								<th>Created At</th>
@@ -105,6 +106,7 @@
 								<td>{{$val->name ?? ''}}</td>
 								<td>{{$val->email ?? ''}}</td>
 								<td>{{$val->phone_number ?? ''}}</td>
+								<td>{{$val->users_balances ?? ''}}</td>
 								{{--<td>-</td>
 								<td>-</td>--}}
 								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
@@ -139,6 +141,7 @@
 											<a class="dropdown-item edit-data" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-data') }}"><i class="fa-solid fa-pencil m-r-5"></i> {{ __('edit') }}</a>
 											{{--<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> {{ __('view') }}</a>--}}
 											<a class="dropdown-item delete-data" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.get_delete_data') }}"><i class="fa-regular fa-trash-can m-r-5"></i> {{ __('delete') }}</a>
+											<a class="dropdown-item adjust-balance" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-data') }}"><i class="la la-plus m-r-5"></i> Adjust balance</a>
 										</div>
 									</div>
 								</td>

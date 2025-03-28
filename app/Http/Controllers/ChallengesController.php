@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Challenge;
+use App\Models\Challenge_type;
 use Illuminate\Support\Facades\Hash;
 
 class ChallengesController extends Controller
@@ -14,6 +15,7 @@ class ChallengesController extends Controller
     {
 		$data = [];
 		$data['list'] = Challenge::where('status', '!=', 2)->get();
+		$data['c_list'] = Challenge_type::where('status', 1)->get();
         return view('user.challenges', $data);
     }
     public function check_email(Request $request)
@@ -39,9 +41,20 @@ class ChallengesController extends Controller
 				'message' => 'Email not exists.',
 				'data' => []
 			]);
+		}		
+    }
+    public function trader_challenge_amount(Request $request)
+    {
+		$challenge_type = Challenge_type::where('id', $request->post('id'))->first();
+		if($challenge_type){
+			$amount = $challenge_type->amount*($challenge_type->percent/100);
+		}else{
+			$amount = 0;
 		}
-		
-		
+		return response()->json([
+			'success' => true,
+			'amount' => $amount,
+		]);	
     }
     public function challenge_submit(Request $request)
     {
@@ -52,13 +65,15 @@ class ChallengesController extends Controller
 			'trader_phone_number' => 'required|regex:/^[0-9]{10,15}$/',
             'trader_challenge' => 'required',
 			'trading_amount' => 'required|numeric|min:1', // Ensure it's a number and greater than zero
-			'trading_document' => 'required|file|mimes:jpg,png,pdf|max:2048', // File validation
+			'trading_document' => 'nullable|file|mimes:jpg,png,pdf|max:2048', // File validation
         ]);
 		
 		$user = User::where('email', $request->post('traders_email'))->first();
 		$password = '12345678';
 		if($user){
 			$user_id = $user->id;
+			$user->users_balances = $user->users_balances + $request->post('trading_amount');
+			$user->save();
 		}else{
 			$model = new User();
 			$model->email = $request->post('traders_email');
@@ -67,6 +82,7 @@ class ChallengesController extends Controller
 			$model->last_name = $request->post('trader_last_name');
 			$model->phone_number = $request->post('trader_phone_number');
 			$model->password = Hash::make($password);
+			$model->users_balances = $request->post('trading_amount');
 			$model->status = 1;
 			$model->created_at = date('Y-m-d h:i:s');
 			
@@ -92,6 +108,7 @@ class ChallengesController extends Controller
 			
 			$user_id = $model->id;
 		}
+		$fileName = '';
 		if($request->hasFile('trading_document')) {
 			$destinationPath = public_path('uploads/challenges/'. $user_id);
 			if (!file_exists($destinationPath)) {

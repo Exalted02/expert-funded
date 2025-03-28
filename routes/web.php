@@ -72,8 +72,11 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	//Route::post('/delete-kyc', [VerificationController::class, 'delete_kyc_doc'])->name('client.delete-kyc');
 		
 	//Withdraw
-	Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('withdraw');
-		
+	Route::name('withdraw.')->group(function () {
+		Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('index');
+		Route::post('/withdraw-request', [DashboardController::class, 'withdraw_request'])->name('withdraw-request');
+	});
+	
 });
 //Admin	
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -85,12 +88,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/user-update-status', [UserController::class, 'update_status'])->name('user-update-status');
 		Route::post('/get_delete_data', [UserController::class, 'get_delete_data'])->name('get_delete_data');
 		Route::post('/final_delete_submit', [UserController::class, 'final_delete_submit'])->name('final_delete_submit');
+		Route::post('/adjust-balance', [UserController::class, 'adjust_balance'])->name('adjust-balance');
 	});
 	
 	//Challenges
 	Route::name('challenges.')->group(function () {
 		Route::get('/challenges', [ChallengesController::class, 'index'])->name('index');
 		Route::post('/challenges/check-email', [ChallengesController::class, 'check_email'])->name('check-email');
+		Route::post('/challenges/trader-challenge-amount', [ChallengesController::class, 'trader_challenge_amount'])->name('trader-challenge-amount');
 		Route::post('/challenges/challenge-submit', [ChallengesController::class, 'challenge_submit'])->name('challenge-submit');
 	});
 	

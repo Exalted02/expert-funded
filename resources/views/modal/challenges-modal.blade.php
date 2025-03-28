@@ -52,6 +52,7 @@
 					</form>	
 				</div>
 				<div id="step-two" style="display:none;">
+					<input type="hidden" id="trader_challenge_amount_url" value="{{route('challenges.trader-challenge-amount')}}">
 					<form id="frmChallenge" action="{{ route('challenges.challenge-submit') }}" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-sm-12">
@@ -87,10 +88,9 @@
 									<label class="col-form-label">Challenge<span class="text-danger">*</span></label>
 									<select class="select" name="trader_challenge" id="trader_challenge"> 
 										<option value="">Please select</option>
-										<option value="1">50K 1 Phase</option>
-										<option value="2">100K 1 Phase</option>
-										<option value="3">200K 1 Phase</option>
-										<option value="4">300K 1 Phase</option>
+										@foreach($c_list as $c_list_val)
+										<option value="{{$c_list_val->id}}">{{$c_list_val->title}}</option>
+										@endforeach
 									</select>
 								</div>
 							</div>

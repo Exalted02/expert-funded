@@ -60,7 +60,7 @@
 											</div>
 											<hr class="mt-0">
 											<small>After the initial conditions, if profitable, you can request a payout of your shared profit</small>
-											<div><button class="btn btn-primary w-100 mt-3">Submit A Withdrawl</button></div>
+											<div><button class="btn btn-primary w-100 mt-3 submit-withdraw-" data-url="{{route('client.withdraw.withdraw-request')}}">Submit A Withdrawl</button></div>
 											<div class="d-flex justify-content-between mt-5">
 												<div>
 													<span class="d-block">Your Current Profit Split:</span>
@@ -117,8 +117,12 @@
     </div>
     <!-- /Page Wrapper -->
 
+@include('modal.client-withdraw-modal')
+@include('modal.common')
 @endsection 
 @section('scripts')
+@include('_includes.footer')
+<script src="{{ url('front-assets/js/page/client-withdraw.js') }}"></script>
 <!-- Chart JS -->
 <script src="{{ url('front-assets/plugins/c3-chart/d3.v5.min.js') }}"></script>
 <script src="{{ url('front-assets/plugins/c3-chart/c3.min.js') }}"></script>
