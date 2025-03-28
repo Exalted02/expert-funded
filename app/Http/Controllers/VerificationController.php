@@ -77,4 +77,52 @@ class VerificationController extends Controller
 		$data = Kyc_documents::where('id',$model->id)->first();
 		return back()->with(['success'=>'KYC documents uploaded successfully!','id'=>$model->id]);
     }
+	public function delete_kyc_doc(Request $request)
+	{
+		$field = $request->field;
+		$file_name = $request->file_name;
+
+		if($field == 'frontal')
+		{
+			Kyc_documents::where('client_id', auth()->user()->id)->update(['frontal'=> null]);
+			
+			// unlink from folder
+			$file_path  = 'uploads/kyc/'. auth()->user()->id .'/frontal/' .$file_name ;
+			$unlinkFrontal = public_path($file_path);
+			if (file_exists($unlinkFrontal)) {
+				unlink($unlinkFrontal);
+			}
+			
+			$data = Kyc_documents::where('client_id', auth()->user()->id)->first();
+			if($data->frontal == null && $data->back == null && $data->residence == null)
+			{
+				Kyc_documents::where('client_id', auth()->user()->id)->delete();
+			}
+			
+		}
+		
+		if($field == 'back')
+		{
+			Kyc_documents::where('client_id', auth()->user()->id)->update(['back'=> null]);
+			
+			// unlink from folder
+			$file_path  = 'uploads/kyc/'. auth()->user()->id .'/back/' .$file_name ;
+			$unlinkFrontal = public_path($file_path);
+			if (file_exists($unlinkFrontal)) {
+				unlink($unlinkFrontal);
+			}
+		}
+		
+		if($field == 'residence')
+		{
+			Kyc_documents::where('client_id', auth()->user()->id)->update(['residence'=> null]);
+			
+			// unlink from folder
+			$file_path  = 'uploads/kyc/'. auth()->user()->id .'/residence/' .$file_name ;
+			$unlinkFile = public_path($file_path);
+			if (file_exists($unlinkFile)) {
+				unlink($unlinkFile);
+			}
+		}
+	}
 }

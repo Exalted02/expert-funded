@@ -74,17 +74,26 @@ $(document).ready(function() {
 						$('#pending').hide();
 					}
 					
-					var frontalFile = doc.frontal;
-					var frontalFilePath = response.forntal_path +'/'+ frontalFile;
-					$('#view_frontal').attr("href", frontalFilePath).attr("download", frontalFile.split('/').pop());
+					var frontalFile = doc.frontal ?? null;
+					if(frontalFile)
+					{
+						var frontalFilePath = response.forntal_path +'/'+ frontalFile;
+						$('#view_frontal').attr("href", frontalFilePath).attr("download", frontalFile.split('/').pop());
+					}
 					
-					var backFile = doc.back;
-					var backFilePath = response.back_path +'/'+ backFile;
-					$('#view_back').attr("href", backFilePath).attr("download", backFile.split('/').pop());
+					var backFile = doc.back ?? null;
+					if(backFile)
+					{
+						var backFilePath = response.back_path +'/'+ backFile;
+						$('#view_back').attr("href", backFilePath).attr("download", backFile.split('/').pop());
+					}
 					
-					var residenceFile = doc.residence;
-					var residenceFilePath = response.residence_path +'/'+ residenceFile;
-					$('#view_residence').attr("href", residenceFilePath).attr("download", residenceFile.split('/').pop());
+					var residenceFile = doc.residence ?? null;
+					if(residenceFile)
+					{
+						var residenceFilePath = response.residence_path +'/'+ residenceFile;
+						$('#view_residence').attr("href", residenceFilePath).attr("download", residenceFile.split('/').pop());
+					}
 					
 					$('#reject_client_id').attr('data-id', doc.id);
 					$('#accept_client_id').attr('data-id', doc.id);

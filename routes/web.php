@@ -56,6 +56,7 @@ Route::get('/', [ProfileController::class, 'welcome']);
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
+Route::post('/delete-kyc', [VerificationController::class, 'delete_kyc_doc'])->name('client.delete-kyc');
 //Client
 Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	//Dashboard
@@ -66,7 +67,9 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 		
 	//Verification
 	Route::get('/verification', [VerificationController::class, 'index'])->name('verification');
-	Route::post('/verification', [VerificationController::class, 'save'])->name('client.verification');
+	Route::post('/verification', [VerificationController::class, 'save'])->name('client.verification'); 
+	
+	//Route::post('/delete-kyc', [VerificationController::class, 'delete_kyc_doc'])->name('client.delete-kyc');
 		
 	//Withdraw
 	Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('withdraw');

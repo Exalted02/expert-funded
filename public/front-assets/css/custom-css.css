@@ -462,7 +462,56 @@ small, .small {
 #removeFrontalShowFile{
 	position: absolute;
 	top: 45px;
-	right: 15px;
+	right: 278px;
+	background: red;
+	color: white;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#backShowFile{
+	width: 100%; 
+	height:60% !important; 
+	border: 1px solid #ddd; 
+	padding: 5px; 
+	border-radius: 5px;
+}
+#removeBackShowFile{
+	position: absolute;
+	top: 45px;
+	right: 278px;
+	background: red;
+	color: white;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+#residenceShowFile{
+	width: 100%; 
+	height:60% !important; 
+	border: 1px solid #ddd; 
+	padding: 5px; 
+	border-radius: 5px;
+}
+#removeResidenceShowFile{
+	position: absolute;
+	top: 45px;
+	right: 278px;
 	background: red;
 	color: white;
 	border-radius: 50%;
