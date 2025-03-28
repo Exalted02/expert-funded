@@ -74,6 +74,7 @@ class VerificationController extends Controller
 		$model->created_at = date('Y-m-d h:i:s');
 		$model->save();
 		
-		return back()->with('success', 'KYC documents uploaded successfully!');
+		$data = Kyc_documents::where('id',$model->id)->first();
+		return back()->with(['success'=>'KYC documents uploaded successfully!','id'=>$model->id]);
     }
 }
