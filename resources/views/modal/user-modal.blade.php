@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<!-- update Success message -->
+<!-- update status Success message -->
 <div class="modal custom-modal fade" id="update_status" role="dialog">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -109,3 +109,66 @@
 	</div>
 </div>
 <!-- Edit user data -->
+
+
+<!-- Adjust Balance Model -->
+<div class="modal custom-modal fade" id="adjust_balance_model" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLgLabel">User Settings
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<div class="modal-body">
+				<ul class="personal-info">
+					<li>
+						<div class="title">Your Balance($) :</div>
+						<div class="text"><span id="current_balance"></span></div>
+					</li>
+					<li class="dash-statistics">
+						<div class="row stats-info w-100">
+							<div class="col-12">
+								<form id="frmAdjustBalance" action="{{ route('users.adjust-balance') }}">
+									<input type="hidden" name="adjust_amount_user" id="adjust_amount_user">
+									<div class="file-download">
+										<a href="javascript:void(0)" class="color-white">Amount($)<span class="text-danger">*</span></a>
+										<input class="form-control" type="text" name="adjust_amount" id="adjust_amount" placeholder="Enter the amount here.">
+										<div class="invalid-feedback"></div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-btn delete-action">
+					<div class="row">
+						<div class="col-6">
+							<a href="javascript:void(0);" class="btn btn-sm w-100 btn-danger submit-adjust-balance" data-mode="remove"><i class="las la-times-circle"></i> Remove</a>
+						</div>
+						<div class="col-6">
+							<a href="javascript:void(0);" class="btn btn-sm w-100 btn-success submit-adjust-balance" data-mode="add"><i class="las la-check-double"></i> Add</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Update User Balance -->
+<div class="modal custom-modal fade" id="adjust_balance_msg" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="success-message text-center">
+					<div class="success-popup-icon">
+						<i class="la la-pencil"></i>
+					</div>
+					<h3 class="adjust_balance_msg">Updated!!!</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

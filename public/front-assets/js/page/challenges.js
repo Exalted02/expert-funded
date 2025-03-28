@@ -130,6 +130,22 @@ $(document).ready(function() {
 		});
 	});
 	
+	$(document).on('change', '#trader_challenge', function() {
+		var id = $(this).val();
+		var URL = $('#trader_challenge_amount_url').val();
+		var currentInput = $(this);
+		// alert(URL);
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				$('#trading_amount').val(response.amount);
+			},
+		});
+		
+	});
 	/*$(document).on('click','.edit-customer', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');

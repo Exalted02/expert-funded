@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Adjust_users_balance;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -68,6 +69,38 @@ class UserController extends Controller
 		$del = User::find($request->id);
 		$del->status = 2;
 		if($del->save()){
+			$data['result'] ='success';
+		}else{
+			$data['result'] ='error';
+		}		
+		echo json_encode($data);
+	}
+	public function adjust_balance(Request $request)
+	{
+		$request->validate([
+            'adjust_amount' => 'required',
+        ],[
+			'adjust_amount' => 'Amount is required.',
+		]);
+		
+		$adj_balance = new Adjust_users_balance();
+		$adj_balance->user_id = $request->adjust_amount_user;
+		$adj_balance->amount_paid = $request->adjust_amount;
+		if($request->type == 'add'){
+			$adj_balance->type = 1;
+		}else{
+			$adj_balance->type = 0;
+		}
+		$adj_balance->status = 0;
+		$adj_balance->save();
+		
+		$user = User::find($request->adjust_amount_user);
+		if($request->type == 'add'){
+			$user->users_balances = $user->users_balances + $request->adjust_amount;
+		}else{
+			$user->users_balances = $user->users_balances - $request->adjust_amount;
+		}
+		if($user->save()){
 			$data['result'] ='success';
 		}else{
 			$data['result'] ='error';
