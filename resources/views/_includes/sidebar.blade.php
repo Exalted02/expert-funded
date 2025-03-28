@@ -59,7 +59,7 @@
 				<li class="mb-3">
 					<button type="button" class="btn btn-square btn-outline-primary w-100"><i class="las la-user-check"></i> Administrator</button>
 				</li>	
-				<li class="{{ request()->routeIs('users') ? 'active' : '' }}">
+				<li class="{{ request()->routeIs('users.index') ? 'active' : '' }}">
 					<a href="{{ route('users.index')}}"><i class="la la-user"></i> <span> User Accounts </span></a>
 				</li>
 				<li class="{{ request()->routeIs('challenges.index') ? 'active' : '' }}">
