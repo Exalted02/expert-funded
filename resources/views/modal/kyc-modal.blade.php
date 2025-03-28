@@ -27,6 +27,7 @@
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 			</div>
+			
 			<div class="modal-body">
 				<ul class="personal-info">
 					<li>
@@ -78,7 +79,8 @@
 						</div>
 					</li>
 				</ul>
-				<div class="modal-btn delete-action">
+				<div class="ms-4" id="message-section"></div>
+				<div class="modal-btn delete-action mt-2">
 					<div class="row">
 						<div class="col-6">
 						<a id="reject_client_id" href="javascript:void(0);" class="btn btn-sm w-100 btn-danger" data-url="{{ route('kyc-doc-status-update')}}" data-mode="reject"><i class="las la-times-circle"></i> Reject</a>

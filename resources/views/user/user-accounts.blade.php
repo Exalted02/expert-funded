@@ -96,6 +96,7 @@
 								{{--<th>Country</th>
 								<th>Address</th>--}}
 								<th>Created At</th>
+								<th>Dashboard</th>
 								<th>Status</th>
 								<th class="text-end">Actions</th>
 							</tr>
@@ -110,6 +111,13 @@
 								{{--<td>-</td>
 								<td>-</td>--}}
 								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
+								<td>
+									<div class="action-label">
+										<a class="btn btn-white btn-sm btn-rounded" href="{{ route('admin.impersonate', $val->id) }}" dada-id="{{ $val->id}}" target="_blank">
+											<i class="fa-regular fa-circle-dot text-purple"></i> User Dashboard
+										</a>
+									</div>
+								</td>
 								<td>
 								@if($val->status ==1)
 									<div class="dropdown action-label">

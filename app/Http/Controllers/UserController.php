@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Adjust_users_balance;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -105,5 +106,16 @@ class UserController extends Controller
 			$data['result'] ='error';
 		}		
 		echo json_encode($data);
+	}
+	public function impersonateUser($id)
+	{
+		$user = User::find($id);
+
+		if ($user) {
+			Auth::loginUsingId($id);
+			return redirect()->route('client.dashboard');
+		}
+
+		return redirect()->back()->with('error', 'User not found.');
 	}
 }

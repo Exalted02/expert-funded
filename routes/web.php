@@ -77,6 +77,7 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 		Route::post('/withdraw-request', [DashboardController::class, 'withdraw_request'])->name('withdraw-request');
 	});
 	
+	Route::post('/update-client-account', [DashboardController::class, 'update_client_account'])->name('updateaccount');
 });
 //Admin	
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -119,6 +120,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('email-management', [EmailManagementController::class,'index'])->name('email-management');
 	Route::get('/email-management-edit/{id}', [EmailManagementController::class, 'email_management_edit'])->name('email-management-edit');
 	Route::post('/email-management-edit-save',[EmailManagementController::class,'manage_email_management_process'])->name('email-management-edit-save');
+	
+	Route::get('/admin/impersonate/{id}', [UserController::class, 'impersonateUser'])->name('admin.impersonate');
 });
 
 
