@@ -87,7 +87,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/user-update-status', [UserController::class, 'update_status'])->name('user-update-status');
 		Route::post('/get_delete_data', [UserController::class, 'get_delete_data'])->name('get_delete_data');
 		Route::post('/final_delete_submit', [UserController::class, 'final_delete_submit'])->name('final_delete_submit');
+		
+		//Route::get('/back/{id}', [UserController::class, 'back_to_admin'])->name('back');
 	});
+	
+	
 	
 	//Challenges
 	Route::name('challenges.')->group(function () {
@@ -118,8 +122,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::post('/email-management-edit-save',[EmailManagementController::class,'manage_email_management_process'])->name('email-management-edit-save');
 	
 	Route::get('/admin/impersonate/{id}', [UserController::class, 'impersonateUser'])->name('admin.impersonate');
+	
+	//Route::get('/back', [UserController::class, 'back_to_admin'])->name('users.back');
 });
 
-
+Route::middleware(['auth'])->group(function () {
+	
+    Route::get('/back', [UserController::class, 'back_to_admin'])->name('users.back');
+});
 
 require __DIR__.'/auth.php';

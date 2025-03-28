@@ -80,9 +80,19 @@ class UserController extends Controller
 
 		if ($user) {
 			Auth::loginUsingId($id);
+			session(['impersonate_user_id' => $id]);
+			session(['admin_id' => Auth::id()]);
 			return redirect()->route('client.dashboard');
 		}
 
 		return redirect()->back()->with('error', 'User not found.');
+	}
+	public function back_to_admin()
+	{
+		$id = 1;
+		Auth::loginUsingId($id);
+		session()->forget('admin_id');
+		session()->forget('impersonate_user_id');
+		return redirect()->route('users.index')->with('success', 'You are back as Admin.');
 	}
 }

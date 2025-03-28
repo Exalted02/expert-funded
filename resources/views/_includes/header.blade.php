@@ -1,4 +1,7 @@
 <!-- Header -->
+@php 
+$impersonateUserId = session('impersonate_user_id');
+@endphp 
 <div class="header">
 
 	<!-- Logo -->
@@ -32,9 +35,13 @@
 	<a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa-solid fa-bars"></i></a>
 	
 	<!-- Header Menu -->
-	<ul class="nav user-menu">
 	
+	<ul class="nav user-menu">
+	    
 		<!-- Search -->
+		@if(session('admin_id'))
+		<li class="nav-item"><a href="{{ route('users.back')}}">Back Admin</a></li>
+		@endif
 		{{--<li class="nav-item">
 			<div class="top-nav-search">
 				<a href="javascript:void(0);" class="responsive-search">
@@ -56,6 +63,7 @@
 				'de' => ['text' => 'German', 'flag' => 'de.png'],
 			];
 		@endphp
+		
 		<!-- Flag -->
 		{{--<li class="nav-item dropdown has-arrow flag-nav">
 			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button" data-id="en">

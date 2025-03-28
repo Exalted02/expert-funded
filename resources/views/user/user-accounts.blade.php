@@ -111,7 +111,7 @@
 								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}} </td>
 								<td>
 									<div class="action-label">
-										<a class="btn btn-white btn-sm btn-rounded" href="{{ route('admin.impersonate', $val->id) }}" dada-id="{{ $val->id}}" target="_blank">
+										<a class="btn btn-white btn-sm btn-rounded" href="{{ route('admin.impersonate', $val->id) }}" dada-id="{{ $val->id}}">
 											<i class="fa-regular fa-circle-dot text-purple"></i> User Dashboard
 										</a>
 									</div>
