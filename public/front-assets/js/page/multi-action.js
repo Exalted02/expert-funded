@@ -26,7 +26,7 @@ function change_multi_status(status, model, url, additional_table = null) {
 		$('#confirmChkSelect').modal("show");	
 	}else {
 		$('#confirmMultiStatus').modal("show");	
-		WRN_PROFILE_STATUS = "Are you sure you want to "+(status==1?"active":"inactive")+" "+(employee.length>1?"these":"this")+" row?";
+		WRN_PROFILE_STATUS = "Are you sure you want to "+(status==1?"accept":"reject")+" "+(employee.length>1?"these":"this")+" request?";
 		$("#confirmMultiStatus").find("h3").text(WRN_PROFILE_STATUS);
 		$('#confirmMultiStatus').on('click', '#change', function(e) {	
 			var selected_values = employee.join(",");

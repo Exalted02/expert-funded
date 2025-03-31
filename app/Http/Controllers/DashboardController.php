@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Adjust_users_balance;
+use App\Models\Client_payout_request;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -31,27 +33,47 @@ class DashboardController extends Controller
     }
     public function withdraw()
     {
-		$data = [];		
+		$data = [];
         return view('client.withdraw', $data);
     }
 	
-    public function withdraw_request()
+    public function withdraw_request_amount(Request $request)
     {
-		/*$balances = Adjust_users_balance::where('created_at', '>=', Carbon::now()->subDays(30))
-			->where('type', 1)
+		$get_records = Adjust_users_balance::where('user_id', Auth::id())
+			->where('created_at', '<', Carbon::now()->subDays(30))
+			->where('type', '!=', 0)
 			->where('status', 0)
-			->get();
-		// dd($sumAmounts);
-		if($balances){
+			->pluck('id');
+		
+		$get_records_amount = Adjust_users_balance::where('user_id', Auth::id())
+			->where('created_at', '<', Carbon::now()->subDays(30))
+			->where('type', '!=', 0)
+			->where('status', 0)
+			->sum('amount_paid');
 			
+		$data['get_records'] = implode(', ', $get_records->toArray());
+		$data['get_records_amount'] = $get_records_amount;
+		echo json_encode($data);
+    }
+    public function withdraw_submit(Request $request)
+    {
+		$payout = new Client_payout_request();
+		$payout->user_id = Auth::id();
+		$payout->requested_amount = $request->withdrawable_balance_input;
+		$payout->withdrawable_adjust_id = $request->withdrawable_id;
+		$payout->status = 0;
+		if($payout->save()){
+			$ids = explode(', ', $request->withdrawable_id);
+			
+			$update = Adjust_users_balance::whereIn('id', $ids)
+				->update(['status' => 1]);
+				
+			$data['result'] ='success';	
 		}else{
-			return response()->json([
-				'success' => false,
-				'message' => 'Not have any balance for withdraw.'
-			]);
+			$data['result'] ='error';
 		}
-		$data = [];		
-        return view('client.withdraw', $data);*/
+		
+		echo json_encode($data);
     }
 	
 	public function update_client_account(Request $request)

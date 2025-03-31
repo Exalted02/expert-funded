@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adjust_users_balances', function (Blueprint $table) {
+        Schema::create('client_payout_requests', function (Blueprint $table) {
             $table->id();
 			$table->bigInteger('user_id')->nullable();
-			$table->double('amount_paid', 8, 2)->nullable();
-			$table->tinyInteger('type')->nullable()->comment('0=remove, 1=add, 2=challenge amount');
-			$table->tinyInteger('status')->nullable()->comment('0=No withdraw request, 1=Withdraw request sent, 2=Withdrawn request accept');
+			$table->double('requested_amount', 8, 2)->nullable();
+			$table->string('withdrawable_adjust_id')->nullable()->comment('adjust_users_balances table ids');
+			$table->tinyInteger('status')->nullable()->comment('0=pending, 1=Accept, 2=Reject');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adjust_users_balances');
+        Schema::dropIfExists('client_payout_requests');
     }
 };

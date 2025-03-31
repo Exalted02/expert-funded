@@ -5,7 +5,7 @@ Version      : 4.0
 */
 
 $(document).ready(function() {
-	$(document).on('click','.edit-customer', function(){
+	/*$(document).on('click','.edit-customer', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');
 		//alert(URL);
@@ -34,5 +34,23 @@ $(document).ready(function() {
 			},
 		});
 		
+	});*/
+	
+	$(document).on('click','.update-status', function(){
+		var id= $(this).data('id');
+		var URL = $(this).data('url');
+		var TYPE_VAL = $(this).data('type');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, type_val:TYPE_VAL, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				//alert(response);
+				setTimeout(() => {
+					window.location.reload();
+				}, "1000");
+			},
+		});
 	});
 });

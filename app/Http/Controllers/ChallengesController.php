@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Challenge;
 use App\Models\Challenge_type;
+use App\Models\Adjust_users_balance;
 use Illuminate\Support\Facades\Hash;
 
 class ChallengesController extends Controller
@@ -130,7 +131,15 @@ class ChallengesController extends Controller
 		$model->comment = $request->post('comment');
 		$model->status = 1;
 		$model->created_at = date('Y-m-d h:i:s');
-		if($model->save()){			
+		if($model->save()){
+		
+			$adj_balance = new Adjust_users_balance();
+			$adj_balance->user_id = $user_id;
+			$adj_balance->amount_paid = $request->post('trading_amount');
+			$adj_balance->type = 2;
+			$adj_balance->status = 0;
+			$adj_balance->save();
+			
 			return response()->json([
 				'success' => true,
 				'message' => 'Challenge created successfully.'

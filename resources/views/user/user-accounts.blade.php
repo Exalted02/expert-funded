@@ -92,7 +92,7 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone</th>
-								<th>Current Balance</th>
+								<th>Current Balance ({{get_currency_symbol()}})</th>
 								{{--<th>Country</th>
 								<th>Address</th>--}}
 								<th>Created At</th>

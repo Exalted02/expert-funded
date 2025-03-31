@@ -123,7 +123,7 @@
 			<div class="modal-body">
 				<ul class="personal-info">
 					<li>
-						<div class="title">Your Balance($) :</div>
+						<div class="title">Current Balance({{get_currency_symbol()}}) :</div>
 						<div class="text"><span id="current_balance"></span></div>
 					</li>
 					<li class="dash-statistics">
@@ -132,7 +132,7 @@
 								<form id="frmAdjustBalance" action="{{ route('users.adjust-balance') }}">
 									<input type="hidden" name="adjust_amount_user" id="adjust_amount_user">
 									<div class="file-download">
-										<a href="javascript:void(0)" class="color-white">Amount($)<span class="text-danger">*</span></a>
+										<a href="javascript:void(0)" class="color-white">Amount({{get_currency_symbol()}})<span class="text-danger">*</span></a>
 										<input class="form-control" type="text" name="adjust_amount" id="adjust_amount" placeholder="Enter the amount here.">
 										<div class="invalid-feedback"></div>
 									</div>

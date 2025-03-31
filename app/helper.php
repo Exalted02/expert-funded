@@ -38,6 +38,11 @@ use App\Models\Followup_remarks;
 
 // use File;
 	
+//Get currency symbol
+    function get_currency_symbol(){
+		$data = '$';
+        return $data;
+    }	
 //Get referral model Data
     function get_referral_model(){
 		$data = Referral::where('status', 1)->orderBy('created_at', 'DESC')->get();

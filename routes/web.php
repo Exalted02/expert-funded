@@ -74,7 +74,8 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	//Withdraw
 	Route::name('withdraw.')->group(function () {
 		Route::get('/withdraw', [DashboardController::class, 'withdraw'])->name('index');
-		Route::post('/withdraw-request', [DashboardController::class, 'withdraw_request'])->name('withdraw-request');
+		Route::post('/withdraw-request-amount', [DashboardController::class, 'withdraw_request_amount'])->name('withdraw-request-amount');
+		Route::post('/withdraw-submit', [DashboardController::class, 'withdraw_submit'])->name('withdraw-submit');
 	});
 	
 	Route::post('/update-client-account', [DashboardController::class, 'update_client_account'])->name('updateaccount');
@@ -104,7 +105,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	});
 	
 	//Payouts
-	Route::get('/payouts', [PayoutsController::class, 'index'])->name('payouts');
+	Route::name('payouts.')->group(function () {
+		Route::get('/payouts', [PayoutsController::class, 'index'])->name('index');
+		Route::post('/payouts-update-status', [PayoutsController::class, 'update_status'])->name('payouts-update-status');
+	});
 	
 	//Kyc
 	Route::get('/kyc', [KycController::class, 'index'])->name('kyc');
@@ -132,6 +136,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 	
     Route::get('/back', [UserController::class, 'back_to_admin'])->name('users.back');
+	
+	Route::post('/change-multi-status',[CommonController::class,'change_multi_status'])->name('change-multi-status');
 });
 
 require __DIR__.'/auth.php';

@@ -33,3 +33,60 @@
 		</div>
 	</div>
 </div>
+
+<!-- Adjust Balance Model -->
+<div class="modal custom-modal fade" id="submit_withdraw_request" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLgLabel">Submit Withdraw
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<div class="modal-body">
+				<ul class="personal-info">
+					<li>
+						<div class="title">Existing withdrawable Balance({{get_currency_symbol()}}) :</div>
+						<div class="text"><span id="withdrawable_balance_text"></span></div>
+					</li>
+					<li class="dash-statistics">
+						<div class="row w-100">
+							<div class="col-12">
+								<form id="frmWithdrawSubmit" action="{{ route('client.withdraw.withdraw-submit') }}">
+									<input type="hidden" name="withdrawable_balance_input" id="withdrawable_balance_input">
+									<input type="hidden" name="withdrawable_id" id="withdrawable_id">
+								</form>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-btn delete-action" id="withdraw-submit-section">
+					<div class="row">
+						<div class="col-6">
+							<a href="javascript:void(0);" class="btn btn-sm w-100 btn-danger" data-bs-dismiss="modal"><i class="las la-times-circle"></i> cancel</a>
+						</div>
+						<div class="col-6">
+							<button href="javascript:void(0);" class="btn btn-sm w-100 btn-success submit-withdraw-request"><i class="las la-check-double"></i> Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- update Success message -->
+<div class="modal custom-modal fade" id="request_withdraw_msg_modal" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="success-message text-center">
+					<div class="success-popup-icon">
+						<i class="la la-money-bill-alt"></i>
+					</div>
+					<h3 id="request_withdraw_msg"></h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

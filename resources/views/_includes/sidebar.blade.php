@@ -77,8 +77,8 @@
 				<li class="{{ request()->routeIs('challenges.index') ? 'active' : '' }}">
 					<a href="{{ route('challenges.index')}}"><i class="la la-desktop"></i> <span> Challenges </span></a>
 				</li>
-				<li class="{{ request()->routeIs('payouts') ? 'active' : '' }}">
-					<a href="{{ route('payouts')}}"><i class="la la-money"></i> <span> Payouts </span></a>
+				<li class="{{ request()->routeIs('payouts.index') ? 'active' : '' }}">
+					<a href="{{ route('payouts.index')}}"><i class="la la-money"></i> <span> Payouts </span></a>
 				</li>
 				<li class="{{ request()->routeIs('kyc') ? 'active' : '' }}">
 					<a href="{{ route('kyc')}}"><i class="la la-crosshairs"></i> <span> KYC </span></a>

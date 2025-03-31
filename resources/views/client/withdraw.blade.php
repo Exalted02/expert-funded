@@ -60,7 +60,7 @@
 											</div>
 											<hr class="mt-0">
 											<small>After the initial conditions, if profitable, you can request a payout of your shared profit</small>
-											<div><button class="btn btn-primary w-100 mt-3 submit-withdraw-" data-url="{{route('client.withdraw.withdraw-request')}}">Submit A Withdrawl</button></div>
+											<div><button class="btn btn-primary w-100 mt-3 submit-withdraw" data-url="{{route('client.withdraw.withdraw-request-amount')}}">Submit A Withdrawl</button></div>
 											<div class="d-flex justify-content-between mt-5">
 												<div>
 													<span class="d-block">Your Current Profit Split:</span>
