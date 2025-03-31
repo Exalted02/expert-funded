@@ -17,9 +17,9 @@
 				</div>
 				<div class="col-md-8 float-end ms-auto">
 					<div class="d-flex title-head">
-						<div class="form-sort m-r-5">
+						{{--<div class="form-sort m-r-5">
 							<a href="javascript:void(0);" class="list-view btn btn-link"><i class="fa-solid fa-file-export"></i>Download CSV</a>
-						</div>
+						</div>--}}
 						<a href="javascript:void(0)" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_challenge"><i class="la la-plus-circle"></i> Create Challenges</a>
 					</div>
 				</div>
