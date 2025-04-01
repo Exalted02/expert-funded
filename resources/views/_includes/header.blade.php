@@ -7,13 +7,13 @@ $impersonateUserId = session('impersonate_user_id');
 	<!-- Logo -->
 	<div class="header-left">
 		<a href="{{ route('login')}}" class="logo">
-			<img src="{{ asset('front-assets/img/-logo1.jpg') }}" alt="{{ __('project_title') }}">
+			<img src="{{ asset('front-assets/img/-logo1.png') }}" alt="{{ __('project_title') }}">
 		</a>
 		<a href="{{ route('login')}}" class="logo collapse-logo">
-			<img src="{{ asset('front-assets/img/-logo1.jpg') }}" alt="{{ __('project_title') }}">
+			<img src="{{ asset('front-assets/img/-logo1.png') }}" alt="{{ __('project_title') }}">
 		</a>
 		<a href="{{ route('login')}}" class="logo2">
-			<img src="{{ asset('front-assets/img/-logo1.jpg') }}"  alt="{{ __('project_title') }}">
+			<img src="{{ asset('front-assets/img/-logo1.png') }}"  alt="{{ __('project_title') }}">
 		</a>
 	</div>
 	<!-- /Logo -->

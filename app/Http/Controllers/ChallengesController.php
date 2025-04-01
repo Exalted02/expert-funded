@@ -63,7 +63,7 @@ class ChallengesController extends Controller
             'traders_email' => 'required|email',
             'trader_first_name' => 'required',
             'trader_last_name' => 'required',
-			'trader_phone_number' => 'required|regex:/^[0-9]{10,15}$/',
+			'trader_phone_number' => 'nullable|regex:/^[0-9]{10,15}$/',
             'trader_challenge' => 'required',
 			'trading_amount' => 'required|numeric|min:1', // Ensure it's a number and greater than zero
 			'trading_document' => 'nullable|file|mimes:jpg,png,pdf|max:2048', // File validation

@@ -779,7 +779,7 @@ $(document).ready(function() {
 	}
 	
 	
-	if ($(window).width() < 991) {
+	/*if ($(window).width() < 991) {
 		$("html").each(function() {
 			var attributes = $.map(this.attributes, function(item) {
 			return item.name;
@@ -790,7 +790,7 @@ $(document).ready(function() {
 			img.removeAttr(item);
 			});
 		});
-	}	
+	}*/	
 	
 	// $(document).on('click', '#customizer-layout02', function() {
 	// 	location.reload();
