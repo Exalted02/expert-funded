@@ -15,7 +15,8 @@ class ChallengesController extends Controller
     public function index()
     {
 		$data = [];
-		$data['list'] = Challenge::where('status', '!=', 2)->get();
+		$data['list'] = Challenge::with(['get_challenge_type'])->where('status', '!=', 2)->get();
+		// dd($data['list']);
 		$data['c_list'] = Challenge_type::where('status', 1)->get();
         return view('user.challenges', $data);
     }
@@ -48,7 +49,11 @@ class ChallengesController extends Controller
     {
 		$challenge_type = Challenge_type::where('id', $request->post('id'))->first();
 		if($challenge_type){
-			$amount = $challenge_type->amount*($challenge_type->percent/100);
+			if($challenge_type->percent == '' || $challenge_type->percent == null){
+				$amount = $challenge_type->amount_paid;
+			}else{
+				$amount = $challenge_type->amount*($challenge_type->percent/100);
+			}
 		}else{
 			$amount = 0;
 		}

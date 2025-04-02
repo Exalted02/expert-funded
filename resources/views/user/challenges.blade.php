@@ -81,9 +81,11 @@
 							<tr>
 								{{--<th>Trader Account</th>--}}
 								<th>Trader Email</th>
-								{{--<th>Challenge</th>
-								<th>Tag</th>
+								<th>Trader Name</th>
+								<th>Challenge</th>
+								<th>Balance</th>
 								<th>State</th>
+								{{--<th>Tag</th>
 								<th>Step</th>
 								<th>Equity</th>
 								<th>Broker Group</th>
@@ -96,9 +98,11 @@
 							<tr>
 								{{--<td>9002207</td>--}}
 								<td>{{$val->email}}</td>
-								{{--<td>50K 1 Phase</td>
-								<td>None</td>
+								<td>{{$val->first_name.' '.$val->last_name}}</td>
+								<td>{{$val->get_challenge_type->title}}</td>
+								<td>{{$val->amount_paid}}</td>
 								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
+								{{--<td>None</td>
 								<td>Phase 1</td>
 								<td>$15,256,12</td>
 								<td>ST_USD(DEMO)</td>

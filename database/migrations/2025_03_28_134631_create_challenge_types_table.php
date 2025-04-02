@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
 			$table->string('title');
 			$table->double('amount', 8, 2)->nullable();
-            $table->string('percent');
+            $table->string('percent')->nullable();
+            $table->double('amount_paid', 8, 2)->nullable();
             $table->tinyInteger('status')->default(1)->comment('0=inactive, 1=active, 2=delete');
             $table->timestamps();
         });
