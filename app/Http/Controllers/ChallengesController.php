@@ -156,4 +156,54 @@ class ChallengesController extends Controller
 			]);
 		}
     }
+    public function challenge_details(Request $request)
+    {
+		$data = [];
+		$challenge = Challenge::with(['get_challenge_type'])->where('id', $request->id)->first();
+		$html = '';
+		$html .= '<ul class="personal-info">
+					<li>
+						<div class="title">Trader`s Email:</div>
+						<div class="text">'. $challenge->email .'</div>
+					</li>
+					<li>
+						<div class="title">Trader`s First Name:</div>
+						<div class="text">'. $challenge->first_name .'</div>
+					</li>
+					<li>
+						<div class="title">Trader`s Last Name:</div>
+						<div class="text">'. $challenge->last_name .'</div>
+					</li>';
+					if($challenge->phone != null || $challenge->phone != ''){
+						$html .= '<li>
+							<div class="title">Trader`s Phone:</div>
+							<div class="text">'. $challenge->phone .'</div>
+						</li>';
+					}
+					$html .= '<li>
+						<div class="title">Challenge:</div>
+						<div class="text">'. $challenge->get_challenge_type->title .'</div>
+					</li>
+					<li>
+						<div class="title">Amount Paid:</div>
+						<div class="text">'. $challenge->amount_paid .'</div>
+					</li>';
+					if($challenge->comment != null || $challenge->comment != ''){
+						$html .= '<li>
+							<div class="title">Comment:</div>
+							<div class="text">'. $challenge->comment .'</div>
+						</li>';
+					}
+					if($challenge->proof_document != null || $challenge->proof_document != ''){
+					$proof_document = asset('uploads/challenges/'.$challenge->user_id.'/'.$challenge->proof_document);
+					$html .= '<li>
+						<div class="title">Downloadable Documents:</div>
+						<div class="text"><a id="view_back" class="btn btn-sm w-100 btn-info rounded-pill" href="'.$proof_document.'" download="'.$challenge->proof_document.'"><i class="la la-eye"></i> View</a></div>
+					</li>';
+					}
+				$html .= '</ul>';
+		return response()->json([
+			'html' => $html
+		]);
+	}
 }

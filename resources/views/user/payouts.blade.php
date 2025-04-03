@@ -53,13 +53,14 @@
 		</div>--}}
 		<div class="row">
 			<div class="col-lg-6 mb-2">
-				<div class="btn-group">
+				{{--<div class="btn-group">
 					<button type="button" class="btn action-btn add-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" onclick="change_multi_status('1','Client_payout_request','{{url('change-multi-status')}}')">Accept</a></li>
 						<li><a class="dropdown-item" onclick="change_multi_status('0','Client_payout_request','{{url('change-multi-status')}}')">Reject</a></li>
 					</ul>
-				</div>
+				</div>--}}
+				<button type="button" class="btn btn-info multi-payout-status">Change Status</button>
 			</div>
 		</div>
 		<hr>
@@ -137,7 +138,15 @@
 								{{--<td>100K 1 Phase(FUNDED</td>--}}
 								{{--<td><span class="text-danger">Cancelled</span></td>--}}
 								<td>
-									<div class="dropdown action-label">
+									@if($val->status == 0)
+									<button type="button" class="btn btn-sm btn-outline-primary rounded-pill payout-status" data-id="{{ $val->id }}">Pending</button>
+									@elseif($val->status == 1)
+									<button type="button" class="btn btn-sm btn-outline-success rounded-pill payout-status" data-id="{{ $val->id }}">Accept</button>
+									@elseif($val->status == 2)
+									<button type="button" class="btn btn-sm btn-outline-danger rounded-pill payout-status" data-id="{{ $val->id }}">Reject</button>
+									@endif
+									
+									{{--<div class="dropdown action-label">
 										@if($val->status == 0)
 										<a class="btn btn-white btn-sm badge-outline-primary dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="fa-regular fa-circle-dot text-primary"></i> Pending
@@ -157,7 +166,7 @@
 											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{route('payouts.payouts-update-status')}}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> Accept</a>
 											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{route('payouts.payouts-update-status')}}" data-type="2"><i class="fa-regular fa-circle-dot text-danger"></i> Reject</a>
 										</div>
-									</div>
+									</div>--}}
 								</td>
 								{{--<td class="text-end">
 									<div class="dropdown dropdown-action">

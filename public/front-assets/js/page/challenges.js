@@ -146,6 +146,24 @@ $(document).ready(function() {
 		});
 		
 	});
+	$(document).on('click','.challenge-details', function(){
+		var id = $(this).data('id');
+		var URL = $(this).data('url');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: { id: id, _token: csrfToken },
+			dataType: 'json',
+			success: function(response) {
+				$('.challenge-info').html(response.html);
+				$('#view_details').modal('show');
+			},
+			error: function(xhr) {
+				console.log(xhr.responseText); // Log errors
+				alert('Something went wrong!');
+			}
+		});
+	});
 	/*$(document).on('click','.edit-customer', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');

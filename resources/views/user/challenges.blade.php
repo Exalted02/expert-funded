@@ -111,7 +111,7 @@
 									<div class="dropdown dropdown-action">
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+											<a class="dropdown-item challenge-details" href="javascript:void(0)" data-id="{{ $val->id}}" data-url="{{ route('challenges.challenge-details') }}"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
 										</div>
 									</div>
 								</td>

@@ -23,7 +23,17 @@ class PayoutsController extends Controller
     {
 		$change_status = $request->type_val;
 		
-		$update = Client_payout_request::where('id', $request->id)->update(['status'=> $change_status]);
+		$update = Client_payout_request::where('id', $request->status_user)->update(['status'=> $change_status, 'reason'=> $request->reason]);
+		
+		$data['result'] = $change_status;
+		echo json_encode($data);
+    }
+    public function multi_update_status(Request $request)
+    {
+		$cat_ids = explode(',',$request->users_id);
+		$change_status = $request->type_val;
+		
+		$update = Client_payout_request::whereIn('id', $cat_ids)->update(['status'=> $change_status, 'reason'=> $request->reason]);
 		
 		$data['result'] = $change_status;
 		echo json_encode($data);

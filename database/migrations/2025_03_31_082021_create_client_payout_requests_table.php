@@ -17,6 +17,7 @@ return new class extends Migration
 			$table->double('requested_amount', 8, 2)->nullable();
 			$table->string('withdrawable_adjust_id')->nullable()->comment('adjust_users_balances table ids');
 			$table->tinyInteger('status')->nullable()->comment('0=pending, 1=Accept, 2=Reject');
+			$table->longText('reason')->nullable();
             $table->timestamps();
         });
     }
