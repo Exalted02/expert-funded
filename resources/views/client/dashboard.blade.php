@@ -39,7 +39,7 @@
 							<div class="row align-items-center mt-3">
 								<div class="col-6">
 									<h6 class="mb-0">Equity</h6>
-									<h3 class="fw-bold mt-1">$100,390</h3>
+									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$equity_amount}}</h3>
 								</div>
 								<div class="col-6 text-end">
 									<span class="badge bg-inverse-white">+1%</span>
@@ -49,7 +49,7 @@
 							<div class="row align-items-center mt-3">
 								<div class="col-6">
 									<h6 class="mb-0">Balance</h6>
-									<h3 class="fw-bold mt-1">$100,390</h3>
+									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$total_balance}}</h3>
 								</div>
 								<div class="col-6 text-end">
 									<span class="badge bg-inverse-white">+1%</span>
@@ -59,7 +59,7 @@
 							<div class="row align-items-center mt-3">
 								<div class="col-6">
 									<h6 class="mb-0">Eligible Withdrawl</h6>
-									<h3 class="fw-bold mt-1">$390</h3>
+									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$eligible_withdraw}}</h3>
 								</div>
 								<div class="col-6 text-end">
 									<span class="badge bg-inverse-white">+1%</span>
@@ -85,7 +85,7 @@
 							<h5 class="card-title">Account Profit</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>$3,945 <strong>$8,000</strong></p>
+									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$equity_amount * (10/100)}}</strong></p>
 									<div class="progress">
 										<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
 									</div>
@@ -96,7 +96,7 @@
 									<span class="d-block">Initial Balance:</span>
 								</div>
 								<div>
-									<span class="">$100,000</span>
+									<span class="">{{get_currency_symbol()}}{{$initial_amount}}</span>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between">
@@ -116,7 +116,7 @@
 							<h5 class="card-title">Maximum Drawdown</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>-$3,945 <strong>-$8,000</strong></p>
+									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$equity_amount * (8/100)}}</strong></p>
 									<div class="progress">
 										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
 									</div>
@@ -130,14 +130,14 @@
 									<span class="">$8,000</span>
 								</div>
 							</div>
-							<div class="d-flex justify-content-between">
+							{{--<div class="d-flex justify-content-between">
 								<div>
 									<span class="d-block">Left:</span>
 								</div>
 								<div>
 									<span class="text-danger">$4,055</span>
 								</div>
-							</div>
+							</div>--}}
 						</div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@
 							<h5 class="card-title">Maximum Daily Drawdown</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>-$3,945 <strong>-$5,000</strong></p>
+									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$equity_amount * (5/100)}}</strong></p>
 									<div class="progress">
 										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div>
 									</div>
@@ -161,14 +161,14 @@
 									<span class="">$5,000</span>
 								</div>
 							</div>
-							<div class="d-flex justify-content-between">
+							{{--<div class="d-flex justify-content-between">
 								<div>
 									<span class="d-block">Left:</span>
 								</div>
 								<div>
 									<span class="text-danger">$1,055</span>
 								</div>
-							</div>
+							</div>--}}
 						</div>
 					</div>
 				</div>

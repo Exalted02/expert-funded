@@ -27,7 +27,7 @@
 											<hr class="mt-0">
 											<div class="stats-list">
 												<div class="stats-info1">
-													<p class="d-flex justify-content-between mb-0"><small>1 Trading Day</small> <small>5 Trading Days</small></p>
+													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Trading Day</small> <small>{{$total_day}} Trading Days</small></p>
 													<div class="progress">
 														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
 													</div>
@@ -35,7 +35,7 @@
 											</div>
 											<div class="stats-list mt-4">
 												<div class="stats-info1">
-													<p class="d-flex justify-content-between mb-0"><small>10th Calender Day</small> <small>30 Calender Days</small></p>
+													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Calender Day</small> <small>{{$total_day}} Calender Days</small></p>
 													<div class="progress">
 														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
 													</div>
@@ -46,7 +46,7 @@
 													<span class="d-block">You Will Be Eligible At:</span>
 												</div>
 												<div>
-													<span class="">5 May, 2025</span>
+													<span class="">{{change_date_format($eligible_date, 'Y-m-d', 'd M, y')}}</span>
 												</div>
 											</div>
 										</div>
@@ -66,7 +66,7 @@
 													<span class="d-block">Your Current Profit Split:</span>
 												</div>
 												<div>
-													<span class="text-success">70%</span>
+													<span class="text-success">80%</span>
 												</div>
 											</div>
 										</div>
@@ -76,7 +76,7 @@
 						</div>
 					</div>
 				</div>
-                <div class="col-lg-12">
+                {{--<div class="col-lg-12">
 					<div class="card employee-month-card flex-fill">
 						<div class="card-body">
 							<div class="statistic-header">
@@ -109,7 +109,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>--}}
 			</div>
         </div>
         <!-- /Page Content -->
