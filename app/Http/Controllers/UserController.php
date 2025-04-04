@@ -107,6 +107,43 @@ class UserController extends Controller
 		}		
 		echo json_encode($data);
 	}
+	public function multi_adjust_balance(Request $request)
+	{
+		$request->validate([
+            'adjust_percent' => 'required',
+        ],[
+			'adjust_percent' => 'Percent is required.',
+		]);
+		
+		$cat_ids = explode(',',$request->users_id);
+		foreach($cat_ids as $k=>$id_val){
+			$user = User::find($id_val);
+			if($user->users_balances > 0){
+				$percentage_value = $user->users_balances * ($request->adjust_percent/100);
+				
+				$adj_balance = new Adjust_users_balance();
+				$adj_balance->user_id = $id_val;
+				$adj_balance->amount_paid = $percentage_value;
+				$adj_balance->percentage_value = $request->adjust_percent;
+				if($request->type_val == 'add'){
+					$adj_balance->type = 1;
+				}else{
+					$adj_balance->type = 0;
+				}
+				$adj_balance->status = 0;
+				$adj_balance->save();
+			
+				if($request->type_val == 'add'){
+					$user->users_balances = $user->users_balances + $percentage_value;
+				}else{
+					$user->users_balances = $user->users_balances - $percentage_value;
+				}
+				$user->save();
+			}
+		}
+		$data['result'] ='success';
+		echo json_encode($data);
+	}
 	public function impersonateUser($id)
 	{
 		$user = User::find($id);

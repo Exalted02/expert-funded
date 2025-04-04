@@ -82,6 +82,11 @@
 				</div>
 			</div>
 		</div>--}}
+		<div class="row">
+			<div class="col-lg-6 mb-2">
+				<button type="button" class="btn btn-info multi-adjust-balance"><i class="la la-plus m-r-5"></i> Adjust balance</button>
+			</div>
+		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
@@ -89,6 +94,13 @@
 					<table class="table table-striped custom-table datatable">
 						<thead>
 							<tr>
+								@if($list->count() > 0)
+								<th>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox" id="checkAll">
+									</label>
+								</th>
+								@endif
 								<th>Name</th>
 								<th>Email</th>
 								<th>Phone</th>
@@ -104,6 +116,13 @@
 						<tbody>
 						@foreach($list as $val)
 							<tr>
+								@if($list->count() > 0)
+									<td>
+										<label class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox" name="chk_id" data-emp-id="{{ $val->id }}">
+										</label>
+									</td>
+								@endif
 								<td>{{$val->name ?? ''}}</td>
 								<td>{{$val->email ?? ''}}</td>
 								<td>{{$val->phone_number ?? ''}}</td>

@@ -74,7 +74,35 @@
 			
 				@yield('content')
 
-			
+			@include('_includes/footer')
+		</div>
+		<!-- Trading credentials -->
+		<div class="modal custom-modal fade" id="trading_credentials_modal" role="dialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLgLabel">Trading Credentials
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+					<div class="modal-body">
+						<ul class="personal-info">
+							<li>
+								<div class="title">Account Id:</div>
+								<div id="trading-account-id">gsdgsdfgdfg</div>
+								
+							</li>
+							<li>
+								<div class="title">Account Password:</div>
+								<div id="trading-account-password"></div>
+							</li>
+							<li class="mt-5">
+								<div class="title">⚠ Please don’t log in from multiple IP addresses. This could flag your account for copy trading.</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- jQuery -->
         <script src="{{ url('front-assets/js/jquery-3.7.1.min.js') }}"></script>
@@ -114,6 +142,20 @@
 		
 		
 		<script type="text/javascript">
+		$(document).on('click','.trading-credentials', function(){
+			var randomNumber = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000;
+			$("#trading-account-id").text(randomNumber);
+			
+			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+			var password = "";
+			for (var i = 0; i < 10; i++) {
+				var randomIndex = Math.floor(Math.random() * chars.length);
+				password += chars[randomIndex];
+			}
+			$("#trading-account-password").text(password);
+		
+			$('#trading_credentials_modal').modal('show');
+		});
 		$(function(){
 			var url = "{{ route('changeLang') }}";
 			$(document).on("click", ".languageChange a", function(e) {

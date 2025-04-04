@@ -117,6 +117,5 @@ $(document).ready(function() {
 	});
 });
 </script>
-account-update-password
 @endsection
 

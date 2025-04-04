@@ -37,7 +37,11 @@ $impersonateUserId = session('impersonate_user_id');
 	<!-- Header Menu -->
 	
 	<ul class="nav user-menu">
-	    
+	    @if(Auth::user()->user_type == 1)
+			<li class="nav-item">
+				<button type="button" class="btn btn-square btn-outline-light trading-credentials"><i class="las la-key"></i> Trading Credentials</button>
+			</li>
+		@endif
 		<!-- Search -->
 		@if(session('admin_id'))
 		<li class="nav-item"><a href="{{ route('users.back')}}">Back Admin</a></li>
