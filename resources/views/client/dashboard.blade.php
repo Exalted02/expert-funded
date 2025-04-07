@@ -85,9 +85,13 @@
 							<h5 class="card-title">Account Profit</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$equity_amount * (10/100)}}</strong></p>
+									@php
+										$last_account_profit = $equity_amount * (10/100);
+										$percentage_account_profit = ($last_account_profit > 0) ? ($amount_paid_balance / $last_account_profit) * 100 : 0;
+									@endphp
+									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$last_account_profit}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
+										<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_account_profit}}%"></div>
 									</div>
 								</div>
 							</div>
@@ -116,9 +120,13 @@
 							<h5 class="card-title">Maximum Drawdown</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$equity_amount * (8/100)}}</strong></p>
+									@php
+										$last_maximum_drawdown = $equity_amount * (8/100);
+										$percentage_maximum_drawdown = ($last_maximum_drawdown > 0) ? ($amount_paid_balance / $last_maximum_drawdown) * 100 : 0;
+									@endphp
+									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_drawdown}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
+										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
 									</div>
 								</div>
 							</div>
@@ -147,9 +155,13 @@
 							<h5 class="card-title">Maximum Daily Drawdown</h5>
 							<div class="stats-list">
 								<div class="stats-info">
-									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$equity_amount * (5/100)}}</strong></p>
+									@php
+										$last_maximum_daily_drawdown = $equity_amount * (5/100);
+										$percentage_maximum_drawdown = ($last_maximum_daily_drawdown > 0) ? ($amount_paid_balance / $last_maximum_daily_drawdown) * 100 : 0;
+									@endphp
+									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_daily_drawdown}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div>
+										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
 									</div>
 								</div>
 							</div>
