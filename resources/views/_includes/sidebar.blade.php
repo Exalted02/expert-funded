@@ -43,8 +43,8 @@
 						<button type="button" class="btn btn-square btn-outline-warning w-100"><i class="las la-check-double"></i> On Challenge</button>
 					@endif
 				</li>
-				<li class="{{ request()->routeIs('client.dashboard') ? 'active' : '' }}">
-					<a href="{{ route('client.dashboard')}}"><i class="la la-home"></i> <span> {{ __('dashboard') }} </span></a>
+				<li class="{{ request()->routeIs('client.dashboard-challenge','client.dashboard') ? 'active' : '' }}">
+					<a href="{{ route('client.dashboard-challenge')}}"><i class="la la-home"></i> <span> Dashboard </span></a>
 				</li>
 				<li class="{{ request()->routeIs('client.account') ? 'active' : '' }}">
 					<a href="{{ route('client.account')}}"><i class="la la-user-cog"></i> <span> Account </span></a>

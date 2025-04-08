@@ -60,6 +60,7 @@ Route::post('/delete-kyc', [VerificationController::class, 'delete_kyc_doc'])->n
 //Client
 Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	//Dashboard
+	Route::get('/dashboard-challenge', [DashboardController::class, 'dashboard_challenge'])->name('dashboard-challenge');
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 	
 	//Account
@@ -104,6 +105,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/challenges/trader-challenge-amount', [ChallengesController::class, 'trader_challenge_amount'])->name('trader-challenge-amount');
 		Route::post('/challenges/challenge-submit', [ChallengesController::class, 'challenge_submit'])->name('challenge-submit');
 		Route::post('/challenges/challenge-details', [ChallengesController::class, 'challenge_details'])->name('challenge-details');
+		
+		Route::post('/challenge-update-status', [ChallengesController::class, 'update_status'])->name('challenge-update-status');
 	});
 	
 	//Payouts

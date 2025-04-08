@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    public function dashboard_challenge()
+    {
+		$data = [];
+		//For Equity
+		$challenge = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->get();
+		
+		$data['challenge']  = $challenge;
+        return view('client.dashboard-challenge', $data);
+    }
     public function index()
     {
 		$data = [];

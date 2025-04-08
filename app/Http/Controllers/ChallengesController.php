@@ -15,7 +15,7 @@ class ChallengesController extends Controller
     public function index()
     {
 		$data = [];
-		$data['list'] = Challenge::with(['get_challenge_type'])->where('status', '!=', 2)->get();
+		$data['list'] = Challenge::with(['get_challenge_type'])->get();
 		// dd($data['list']);
 		$data['c_list'] = Challenge_type::where('status', 1)->get();
         return view('user.challenges', $data);
@@ -89,7 +89,7 @@ class ChallengesController extends Controller
 			$model->phone_number = $request->post('trader_phone_number');
 			$model->password = Hash::make($password);
 			$model->users_balances = $request->post('trading_amount');
-			$model->status = 1;
+			$model->status = 0;
 			$model->created_at = date('Y-m-d h:i:s');
 			
 			if($model->save()){
@@ -206,4 +206,13 @@ class ChallengesController extends Controller
 			'html' => $html
 		]);
 	}
+    public function update_status(Request $request)
+    {
+		$change_status = $request->type_val;
+		
+		$update = Challenge::where('id', $request->id)->update(['status'=> $change_status]);
+		
+		$data['result'] = $change_status;
+		echo json_encode($data);
+    }
 }

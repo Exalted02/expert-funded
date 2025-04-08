@@ -22,7 +22,7 @@ return new class extends Migration
 			$table->double('amount_paid', 8, 2)->nullable();
 			$table->string('proof_document')->nullable();
 			$table->longText('comment')->nullable();
-			$table->tinyInteger('status')->nullable()->comment('0=inactive, 1=active, 2=delete');
+			$table->tinyInteger('status')->nullable()->comment('0=on-challenge, 1=funded, 2=failed');
             $table->timestamps();
         });
     }

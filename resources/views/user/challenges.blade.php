@@ -101,7 +101,30 @@
 								<td>{{$val->first_name.' '.$val->last_name}}</td>
 								<td>{{$val->get_challenge_type->title}}</td>
 								<td>{{$val->amount_paid}}</td>
-								<td><button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button></td>
+								<td>
+									{{--<button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button>--}}
+									<div class="dropdown action-label">
+										@if($val->status == 0)
+										<a class="btn btn-white btn-sm badge-outline-primary dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-primary"></i> On Challenge
+										</a>
+										@elseif($val->status == 1)
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> Funded
+										</a>
+										@elseif($val->status == 2)
+										<a class="btn btn-white btn-sm badge-outline-danger dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-danger"></i> Failed
+										</a>
+										@endif
+										
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{route('challenges.challenge-update-status')}}" data-type="0"><i class="fa-regular fa-circle-dot text-primary"></i> On Challenge</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{route('challenges.challenge-update-status')}}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> Funded</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{route('challenges.challenge-update-status')}}" data-type="2"><i class="fa-regular fa-circle-dot text-danger"></i> Failed</a>
+										</div>
+									</div>
+								</td>
 								{{--<td>None</td>
 								<td>Phase 1</td>
 								<td>$15,256,12</td>

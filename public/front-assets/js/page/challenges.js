@@ -164,6 +164,25 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$(document).on('click','.update-status', function(){
+		var TYPE_VAL = $(this).data('type');
+		var URL = $(this).data('url');
+		var id = $(this).data('id');
+		
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: { id: id, type_val: TYPE_VAL, _token: csrfToken },
+			dataType: 'json',
+			success: function(response) {
+				//alert(response);
+				setTimeout(() => {
+					window.location.reload();
+				}, "1000");
+			},
+		});
+	});
 	/*$(document).on('click','.edit-customer', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');
