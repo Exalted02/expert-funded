@@ -34,6 +34,9 @@
 									<h2>Balance</h2>
 									<h3 class="mt-1"><strong>{{get_currency_symbol()}}{{$val->amount_paid + $val->get_challenge_type->amount}}</strong></h3>
 								</div>
+								<div class="mt-3">
+									<a href="{{ route('client.dashboard', [$val->id]) }}"><button class="btn btn-primary"><i class="las la-eye"></i> View Dashboard</button></a>
+								</div>
 							</div>
 							<div class="col-md-7">
 								<div id="chart-sracked-{{$k}}"></div>
@@ -58,9 +61,33 @@
 <script src="{{ url('front-assets/plugins/c3-chart/chart-data.js') }}"></script>
 <script>
 $('.multiple-items').slick({
-  infinite: true,
+  infinite: false,
   slidesToShow: 2,
-  slidesToScroll: 2
+  slidesToScroll: 2,
+  nextArrow: '<i class="las la-chevron-circle-right"></i>',
+  prevArrow: '<i class="las la-chevron-circle-left"></i>',
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        // centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1,
+		slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        // centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1,
+		slidesToScroll: 1,
+      }
+    }
+  ]
 });
 
 // Sample dummy data array, ideally you'll pass this from the controller or use dynamic server data

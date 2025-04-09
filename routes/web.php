@@ -61,7 +61,7 @@ Route::post('/delete-kyc', [VerificationController::class, 'delete_kyc_doc'])->n
 Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	//Dashboard
 	Route::get('/dashboard-challenge', [DashboardController::class, 'dashboard_challenge'])->name('dashboard-challenge');
-	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+	Route::get('/dashboard/{id}', [DashboardController::class, 'index'])->name('dashboard');
 	
 	//Account
 	Route::get('/account', [DashboardController::class, 'account'])->name('account');

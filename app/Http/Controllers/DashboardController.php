@@ -24,30 +24,36 @@ class DashboardController extends Controller
 		$data['challenge']  = $challenge;
         return view('client.dashboard-challenge', $data);
     }
-    public function index()
+    public function index($id='')
     {
 		$data = [];
 		//For Equity
-		$equity = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->get();
-		$equity_amount = $initial_amount = $amount_paid_balance = 0;
+		// $equity = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->get();
+		$equity = Challenge::with(['get_challenge_type'])->where('id', $id)->where('user_id', Auth::id())->get();
+		$equity_amount = $initial_amount = $amount_paid_balance = $challenge_status = 0;
 		foreach($equity as $equity_val){
 			$equity_amount = $equity_amount + ($equity_val->amount_paid + $equity_val->get_challenge_type->amount);
 			$initial_amount = $initial_amount + $equity_val->get_challenge_type->amount;
 			$amount_paid_balance = $amount_paid_balance + $equity_val->amount_paid;
+			$challenge_status = $equity_val->status;
 		}
 		
 		//For eligible withdraw
 		$eligible_withdraw = Adjust_users_balance::where('user_id', Auth::id())
 					->where('created_at', '<', Carbon::now()->subDays(30))
-					->where('type', '!=', 0)
-					->where('status', '!=', 2)
+					// ->where('type', '!=', 0)
+					// ->where('status', '!=', 2)
+					->where('type', 2)
+					->where('status', 2)
 					->sum('amount_paid');
 		
 		$data['equity_amount']  = $equity_amount;
 		$data['initial_amount']  = $initial_amount;
 		$data['amount_paid_balance']  = $amount_paid_balance;
-		$data['eligible_withdraw']  = $eligible_withdraw;
-		$data['total_balance']  = $equity_amount + $eligible_withdraw;
+		$data['eligible_withdraw']  = $equity_amount - $eligible_withdraw;
+		// $data['total_balance']  = $equity_amount + $eligible_withdraw;
+		$data['total_balance']  = $equity_amount;
+		$data['challenge_status']  = $challenge_status;
         return view('client.dashboard', $data);
     }
     public function account()

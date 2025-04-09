@@ -525,5 +525,23 @@ small, .small {
 	font-weight: bold;
 	text-decoration: none;
 }
+.slick-slider .la-chevron-circle-left {
+	font-size: 35px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 45%;
+    left: -20px;
+}
+.slick-slider .la-chevron-circle-right {
+	font-size: 35px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 45%;
+    right: 0px;
+}
 
 
