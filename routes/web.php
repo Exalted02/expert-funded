@@ -92,8 +92,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/get_delete_data', [UserController::class, 'get_delete_data'])->name('get_delete_data');
 		Route::post('/final_delete_submit', [UserController::class, 'final_delete_submit'])->name('final_delete_submit');
 
-		Route::post('/adjust-balance', [UserController::class, 'adjust_balance'])->name('adjust-balance');
-		Route::post('/multi-adjust-balance', [UserController::class, 'multi_adjust_balance'])->name('multi-adjust-balance');
+		Route::post('/users/adjust-balance', [UserController::class, 'adjust_balance'])->name('adjust-balance');
+		Route::post('/users/multi-adjust-balance', [UserController::class, 'multi_adjust_balance'])->name('multi-adjust-balance');
 	});
 	
 	
