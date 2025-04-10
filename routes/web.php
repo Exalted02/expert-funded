@@ -107,6 +107,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/challenges/challenge-details', [ChallengesController::class, 'challenge_details'])->name('challenge-details');
 		
 		Route::post('/challenge-update-status', [ChallengesController::class, 'update_status'])->name('challenge-update-status');
+		
+		//For adjust balance
+		Route::post('/challenge-ajax-details', [ChallengesController::class, 'challenge_ajax_details'])->name('challenge-ajax-details');
+		Route::post('/adjust-balance', [ChallengesController::class, 'adjust_balance'])->name('adjust-balance');
+		Route::post('/multi-adjust-balance', [ChallengesController::class, 'multi_adjust_balance'])->name('multi-adjust-balance');
 	});
 	
 	//Payouts

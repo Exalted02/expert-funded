@@ -11,6 +11,9 @@
         <div class="content container-fluid pb-0">
 			<div class="multiple-items">
 				@foreach($challenge as $k=>$val)
+				@php
+				$adjust_users_balance = App\Models\Adjust_users_balance::where('user_id', Auth::id())->where('challenge_id', $val->id)->where('type', 1)->sum('amount_paid');
+				@endphp
 				<div class="card employee-month-card flex-fill" style="margin-right: 15px;">
 					<div class="card-body">
 						<div class="row">
@@ -28,11 +31,11 @@
 								</div>
 								<div class="mt-3">
 									<h3>Equity</h3>
-									<h4 class="mt-1"><strong>{{get_currency_symbol()}}{{$val->amount_paid + $val->get_challenge_type->amount}}</strong></h4>
+									<h4 class="mt-1"><strong>{{get_currency_symbol()}}{{$adjust_users_balance + $val->get_challenge_type->amount}}</strong></h4>
 								</div>
 								<div class="mt-3">
 									<h2>Balance</h2>
-									<h3 class="mt-1"><strong>{{get_currency_symbol()}}{{$val->amount_paid + $val->get_challenge_type->amount}}</strong></h3>
+									<h3 class="mt-1"><strong>{{get_currency_symbol()}}{{$adjust_users_balance + $val->get_challenge_type->amount}}</strong></h3>
 								</div>
 								<div class="mt-3">
 									<a href="{{ route('client.dashboard', [$val->id]) }}"><button class="btn btn-primary"><i class="las la-eye"></i> View Dashboard</button></a>

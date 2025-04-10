@@ -30,11 +30,16 @@ class DashboardController extends Controller
 		//For Equity
 		// $equity = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->get();
 		$equity = Challenge::with(['get_challenge_type'])->where('id', $id)->where('user_id', Auth::id())->get();
-		$equity_amount = $initial_amount = $amount_paid_balance = $challenge_status = 0;
+		$equity_amount = $equity_percent = $initial_amount = $amount_paid_balance = $challenge_status = 0;
 		foreach($equity as $equity_val){
-			$equity_amount = $equity_amount + ($equity_val->amount_paid + $equity_val->get_challenge_type->amount);
+			$adjust_users_balance = Adjust_users_balance::where('user_id', Auth::id())->where('challenge_id', $id)->where('type', 1)->sum('amount_paid');
+			$equity_percent = ($adjust_users_balance / $equity_val->get_challenge_type->amount) * 100;
+			
+			// $equity_amount = $equity_amount + ($equity_val->amount_paid + $equity_val->get_challenge_type->amount);
+			$equity_amount = $equity_amount + ($adjust_users_balance + $equity_val->get_challenge_type->amount);
 			$initial_amount = $initial_amount + $equity_val->get_challenge_type->amount;
-			$amount_paid_balance = $amount_paid_balance + $equity_val->amount_paid;
+			// $amount_paid_balance = $amount_paid_balance + $equity_val->amount_paid;
+			$amount_paid_balance = $adjust_users_balance;
 			$challenge_status = $equity_val->status;
 		}
 		
@@ -48,6 +53,7 @@ class DashboardController extends Controller
 					->sum('amount_paid');
 		
 		$data['equity_amount']  = $equity_amount;
+		$data['equity_percent']  = $equity_percent;
 		$data['initial_amount']  = $initial_amount;
 		$data['amount_paid_balance']  = $amount_paid_balance;
 		$data['eligible_withdraw']  = $equity_amount - $eligible_withdraw;
@@ -85,13 +91,15 @@ class DashboardController extends Controller
     {
 		$get_records = Adjust_users_balance::where('user_id', Auth::id())
 			->where('created_at', '<', Carbon::now()->subDays(30))
-			->where('type', '!=', 0)
+			->where('type', 1)
+			// ->where('type', '!=', 0)
 			->where('status', 0)
 			->pluck('id');
 		
 		$get_records_amount = Adjust_users_balance::where('user_id', Auth::id())
 			->where('created_at', '<', Carbon::now()->subDays(30))
-			->where('type', '!=', 0)
+			->where('type', 1)
+			// ->where('type', '!=', 0)
 			->where('status', 0)
 			->sum('amount_paid');
 			

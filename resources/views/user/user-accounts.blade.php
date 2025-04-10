@@ -82,11 +82,11 @@
 				</div>
 			</div>
 		</div>--}}
-		<div class="row">
+		{{--<div class="row">
 			<div class="col-lg-6 mb-2">
 				<button type="button" class="btn btn-info multi-adjust-balance"><i class="la la-plus m-r-5"></i> Adjust balance</button>
 			</div>
-		</div>
+		</div>--}}
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
@@ -95,11 +95,11 @@
 						<thead>
 							<tr>
 								@if($list->count() > 0)
-								<th>
+								{{--<th>
 									<label class="form-check form-check-inline">
 										<input class="form-check-input" type="checkbox" id="checkAll">
 									</label>
-								</th>
+								</th>--}}
 								@endif
 								<th>Name</th>
 								<th>Email</th>
@@ -117,11 +117,11 @@
 						@foreach($list as $val)
 							<tr>
 								@if($list->count() > 0)
-									<td>
+								{{--<td>
 										<label class="form-check form-check-inline">
 											<input class="form-check-input" type="checkbox" name="chk_id" data-emp-id="{{ $val->id }}">
 										</label>
-									</td>
+								</td>--}}
 								@endif
 								<td>{{$val->name ?? ''}}</td>
 								<td>{{$val->email ?? ''}}</td>
@@ -168,7 +168,7 @@
 											<a class="dropdown-item edit-data" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-data') }}"><i class="fa-solid fa-pencil m-r-5"></i> {{ __('edit') }}</a>
 											{{--<a class="dropdown-item" href=""><i class="fa-regular fa-eye m-r-5"></i> {{ __('view') }}</a>--}}
 											<a class="dropdown-item delete-data" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.get_delete_data') }}"><i class="fa-regular fa-trash-can m-r-5"></i> {{ __('delete') }}</a>
-											<a class="dropdown-item adjust-balance" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-data') }}"><i class="la la-plus m-r-5"></i> Adjust balance</a>
+											{{--<a class="dropdown-item adjust-balance" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-data') }}"><i class="la la-plus m-r-5"></i> Adjust balance</a>--}}
 										</div>
 									</div>
 								</td>

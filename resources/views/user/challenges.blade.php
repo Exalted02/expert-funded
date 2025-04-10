@@ -71,6 +71,11 @@
 			</div>
 		</div>--}}
 		
+		<div class="row">
+			<div class="col-lg-6 mb-2">
+				<button type="button" class="btn btn-info multi-adjust-balance"><i class="la la-plus m-r-5"></i> Adjust balance</button>
+			</div>
+		</div>
 		<hr>
 		
 		<div class="row">
@@ -79,6 +84,13 @@
 					<table class="table table-striped custom-table datatable">
 						<thead>
 							<tr>
+								@if($list->count() > 0)
+								<th>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox" id="checkAll">
+									</label>
+								</th>
+								@endif
 								{{--<th>Trader Account</th>--}}
 								<th>Trader Email</th>
 								<th>Trader Name</th>
@@ -96,6 +108,13 @@
 						<tbody>
 						@foreach($list as $val)
 							<tr>
+								@if($list->count() > 0)
+								<td>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox" name="chk_id" data-emp-id="{{ $val->id }}">
+									</label>
+								</td>
+								@endif
 								{{--<td>9002207</td>--}}
 								<td>{{$val->email}}</td>
 								<td>{{$val->first_name.' '.$val->last_name}}</td>
@@ -135,6 +154,7 @@
 										<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 										<div class="dropdown-menu dropdown-menu-right">
 											<a class="dropdown-item challenge-details" href="javascript:void(0)" data-id="{{ $val->id}}" data-url="{{ route('challenges.challenge-details') }}"><i class="fa-regular fa-eye m-r-5"></i> See Details</a>
+											<a class="dropdown-item adjust-balance" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('challenges.challenge-ajax-details') }}"><i class="la la-plus m-r-5"></i> Adjust balance</a>
 										</div>
 									</div>
 								</td>

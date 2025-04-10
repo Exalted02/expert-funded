@@ -215,4 +215,85 @@ class ChallengesController extends Controller
 		$data['result'] = $change_status;
 		echo json_encode($data);
     }
+    public function challenge_ajax_details(Request $request)
+    {
+		$challenge = Challenge::with(['get_challenge_type'])->where('id', $request->post('id'))->first();
+		$adjust_users_balance = Adjust_users_balance::where('challenge_id', $request->post('id'))->where('type', 1)->sum('amount_paid');
+		$data['result'] = $challenge;
+		$data['adjust_users_balance'] = $adjust_users_balance;
+		echo json_encode($data);		
+    }
+	public function adjust_balance(Request $request)
+	{
+		$request->validate([
+            'adjust_amount' => 'required',
+        ],[
+			'adjust_amount' => 'Amount is required.',
+		]);
+		
+		$adj_balance = new Adjust_users_balance();
+		$adj_balance->user_id = $request->adjust_amount_user;
+		$adj_balance->challenge_id = $request->adjust_amount_challenge;
+		$adj_balance->amount_paid = $request->adjust_amount;
+		if($request->type == 'add'){
+			$adj_balance->type = 1;
+		}else{
+			$adj_balance->type = 0;
+		}
+		$adj_balance->status = 0;
+		$adj_balance->save();
+		
+		$user = User::find($request->adjust_amount_user);
+		if($request->type == 'add'){
+			$user->users_balances = $user->users_balances + $request->adjust_amount;
+		}else{
+			$user->users_balances = $user->users_balances - $request->adjust_amount;
+		}
+		if($user->save()){
+			$data['result'] ='success';
+		}else{
+			$data['result'] ='error';
+		}		
+		echo json_encode($data);
+	}
+	public function multi_adjust_balance(Request $request)
+	{
+		$request->validate([
+            'adjust_percent' => 'required',
+        ],[
+			'adjust_percent' => 'Percent is required.',
+		]);
+		
+		$cat_ids = explode(',',$request->challenge_id);
+		foreach($cat_ids as $k=>$id_val){
+			$challenge = Challenge::with(['get_challenge_type'])->where('id', $id_val)->first();
+			
+			$user = User::find($challenge->user_id);
+			if($challenge->get_challenge_type->amount > 0){
+				$percentage_value = $challenge->get_challenge_type->amount * ($request->adjust_percent/100);
+				
+				$adj_balance = new Adjust_users_balance();
+				$adj_balance->user_id = $challenge->user_id;
+				$adj_balance->challenge_id = $id_val;
+				$adj_balance->amount_paid = $percentage_value;
+				$adj_balance->percentage_value = $request->adjust_percent;
+				if($request->type_val == 'add'){
+					$adj_balance->type = 1;
+				}else{
+					$adj_balance->type = 0;
+				}
+				$adj_balance->status = 0;
+				$adj_balance->save();
+			
+				if($request->type_val == 'add'){
+					$user->users_balances = $user->users_balances + $percentage_value;
+				}else{
+					$user->users_balances = $user->users_balances - $percentage_value;
+				}
+				$user->save();
+			}
+		}
+		$data['result'] ='success';
+		echo json_encode($data);
+	}
 }

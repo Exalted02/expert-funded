@@ -42,7 +42,7 @@
 									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$equity_amount}}</h3>
 								</div>
 								<div class="col-6 text-end">
-									<span class="badge bg-inverse-white">+1%</span>
+									<span class="badge bg-inverse-white">+{{$equity_percent}}%</span>
 								</div>
 							</div>
 							<hr>
@@ -52,10 +52,10 @@
 									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$total_balance}}</h3>
 								</div>
 								<div class="col-6 text-end">
-									<span class="badge bg-inverse-white">+1%</span>
+									<span class="badge bg-inverse-white">+{{$equity_percent}}%</span>
 								</div>
 							</div>
-							<hr>
+							{{--<hr>
 							<div class="row align-items-center mt-3">
 								<div class="col-6">
 									<h6 class="mb-0">Eligible Withdrawl</h6>
@@ -64,7 +64,7 @@
 								<div class="col-6 text-end">
 									<span class="badge bg-inverse-white">+1%</span>
 								</div>
-							</div>
+							</div>--}}
 						</div>
 					</div>
 				</div>
