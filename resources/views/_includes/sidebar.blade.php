@@ -56,9 +56,14 @@
 				<li class="{{ request()->routeIs('client.verification') ? 'active' : '' }}">
 					<a href="{{ route('client.verification')}}"><i class="la la-user-check"></i> <span> Verification </span></a>
 				</li>
+				@php
+					$count_challenge = App\Models\Challenge::where('user_id', Auth::user()->id)->count();
+				@endphp
+				@if($count_challenge > 0)
 				<li class="{{ request()->routeIs('client.withdraw.index') ? 'active' : '' }}">
 					<a href="{{ route('client.withdraw.index')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
 				</li>
+				@endif
 				@endif
 				@if(Auth::user()->user_type == 0)
 				<li class="menu-title"> 

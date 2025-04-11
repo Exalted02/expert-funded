@@ -9,6 +9,7 @@
     
         <!-- Page Content -->
         <div class="content container-fluid pb-0">
+			@if(count($challenge) > 0)
 			<div class="multiple-items">
 				@foreach($challenge as $k=>$val)
 				@php
@@ -49,6 +50,9 @@
 				</div>
 				@endforeach
 			</div>
+			@else
+				<div class="text-center"><h1>No challenge found!!!</h1></div>
+			@endif
         </div>
         <!-- /Page Content -->
 

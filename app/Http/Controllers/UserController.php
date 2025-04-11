@@ -152,7 +152,7 @@ class UserController extends Controller
 			Auth::loginUsingId($id);
 			session(['impersonate_user_id' => $id]);
 			session(['admin_id' => Auth::id()]);
-			return redirect()->route('client.dashboard');
+			return redirect()->route('client.dashboard-challenge');
 		}
 
 		return redirect()->back()->with('error', 'User not found.');
