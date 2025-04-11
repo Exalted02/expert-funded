@@ -25,14 +25,14 @@ class UserController extends Controller
 	public function submit_data(Request $request)
 	{
 		$request->validate([
-            'email' => 'required|email|unique:users,email,'.$request->id,
+            //'email' => 'required|email|unique:users,email,'.$request->id,
             'first_name' => 'required',
             'last_name' => 'required',
 			'phone_number' => 'required|regex:/^[0-9]{10,15}$/',
         ]);
 		
 		$user = User::find($request->id);
-		$user->email = $request->email;
+		//$user->email = $request->email;
 		$user->name = $request->first_name.' '.$request->last_name;
 		$user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;

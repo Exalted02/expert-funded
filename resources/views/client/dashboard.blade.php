@@ -86,7 +86,7 @@
 							<div class="stats-list">
 								<div class="stats-info">
 									@php
-										$last_account_profit = $equity_amount * (10/100);
+										$last_account_profit = $initial_amount * (10/100);
 										$percentage_account_profit = ($last_account_profit > 0) ? ($amount_paid_balance / $last_account_profit) * 100 : 0;
 									@endphp
 									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$last_account_profit}}</strong></p>
@@ -121,7 +121,7 @@
 							<div class="stats-list">
 								<div class="stats-info">
 									@php
-										$last_maximum_drawdown = $equity_amount * (8/100);
+										$last_maximum_drawdown = $initial_amount * (8/100);
 										$percentage_maximum_drawdown = ($last_maximum_drawdown > 0) ? ($amount_paid_balance / $last_maximum_drawdown) * 100 : 0;
 									@endphp
 									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_drawdown}}</strong></p>
@@ -156,7 +156,7 @@
 							<div class="stats-list">
 								<div class="stats-info">
 									@php
-										$last_maximum_daily_drawdown = $equity_amount * (5/100);
+										$last_maximum_daily_drawdown = $initial_amount * (5/100);
 										$percentage_maximum_drawdown = ($last_maximum_daily_drawdown > 0) ? ($amount_paid_balance / $last_maximum_daily_drawdown) * 100 : 0;
 									@endphp
 									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_daily_drawdown}}</strong></p>

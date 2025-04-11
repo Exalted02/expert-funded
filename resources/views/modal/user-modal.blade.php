@@ -67,7 +67,7 @@
 						<div class="col-sm-12">
 							<div class="input-block mb-3">
 								<label class="col-form-label">Email<span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="email" id="email" placeholder="Email">
+								<input class="form-control" type="text" name="email" id="email" placeholder="Email" disabled>
 								<div class="invalid-feedback"></div>
 							</div>
 						</div>
