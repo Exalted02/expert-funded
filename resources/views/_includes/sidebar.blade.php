@@ -60,9 +60,14 @@
 					$count_challenge = App\Models\Challenge::where('user_id', Auth::user()->id)->count();
 				@endphp
 				@if($count_challenge > 0)
-				<li class="{{ request()->routeIs('client.withdraw.index') ? 'active' : '' }}">
-					<a href="{{ route('client.withdraw.index')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
-				</li>
+					@php
+						$challenge_status = App\Models\Challenge::where('id', session()->get('last_selected_challenge'))->first();
+					@endphp
+					@if($challenge_status && $challenge_status->status == 1)
+						<li class="{{ request()->routeIs('client.withdraw.index') ? 'active' : '' }}">
+							<a href="{{ route('client.withdraw.index')}}"><i class="la la-receipt"></i> <span> Withdraw </span></a>
+						</li>
+					@endif
 				@endif
 				@endif
 				@if(Auth::user()->user_type == 0)

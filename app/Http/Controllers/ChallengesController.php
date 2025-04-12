@@ -232,11 +232,12 @@ class ChallengesController extends Controller
         ],[
 			'adjust_amount' => 'Amount is required.',
 		]);
+		$adjustAmount = floatval($request->adjust_amount);
 		
 		$adj_balance = new Adjust_users_balance();
 		$adj_balance->user_id = $request->adjust_amount_user;
 		$adj_balance->challenge_id = $request->adjust_amount_challenge;
-		$adj_balance->amount_paid = $request->adjust_amount;
+		$adj_balance->amount_paid = $adjustAmount;
 		if($request->type == 'add'){
 			$adj_balance->type = 1;
 		}else{
@@ -247,9 +248,9 @@ class ChallengesController extends Controller
 		
 		$user = User::find($request->adjust_amount_user);
 		if($request->type == 'add'){
-			$user->users_balances = $user->users_balances + $request->adjust_amount;
+			$user->users_balances += $adjustAmount;
 		}else{
-			$user->users_balances = $user->users_balances - $request->adjust_amount;
+			$user->users_balances = $adjustAmount;
 		}
 		if($user->save()){
 			$data['result'] ='success';

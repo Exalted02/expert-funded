@@ -17,6 +17,8 @@ class DashboardController extends Controller
 {
     public function dashboard_challenge()
     {
+		session()->forget('last_selected_challenge');
+		
 		$data = [];
 		//For Equity
 		$challenge = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->get();
@@ -26,6 +28,9 @@ class DashboardController extends Controller
     }
     public function index($id='')
     {
+		session()->put('last_selected_challenge', $id);		
+		// dd(session()->get('last_selected_challenge'));
+		
 		$data = [];
 		//For Equity
 		// $equity = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->get();
