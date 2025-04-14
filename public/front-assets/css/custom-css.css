@@ -46,9 +46,13 @@
 .custom-modal .modal-content .modal-header .btn-close span {
 	color: #fff !important;
 }
-.custom-modal .modal-content .modal-header .btn-close:hover {
+.custom-modal .modal-content .modal-header .btn-close {
 	background-color: #4294cf !important;
 	border-color: #4294cf !important;
+}
+.custom-modal .modal-content .modal-header .btn-close:hover {
+	background-color: #d90329 !important;
+	border-color: #d90329 !important;
 }
 .dropdown-item
 

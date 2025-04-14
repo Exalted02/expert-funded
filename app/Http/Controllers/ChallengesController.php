@@ -273,13 +273,13 @@ class ChallengesController extends Controller
 			
 			$user = User::find($challenge->user_id);
 			if($challenge->get_challenge_type->amount > 0){
-				$percentage_value = $challenge->get_challenge_type->amount * ($request->adjust_percent/100);
+				// $percentage_value = $challenge->get_challenge_type->amount * ($request->adjust_percent/100);
 				
 				$adj_balance = new Adjust_users_balance();
 				$adj_balance->user_id = $challenge->user_id;
 				$adj_balance->challenge_id = $id_val;
-				$adj_balance->amount_paid = $percentage_value;
-				$adj_balance->percentage_value = $request->adjust_percent;
+				$adj_balance->amount_paid = $request->adjust_percent;
+				// $adj_balance->percentage_value = $request->adjust_percent;
 				if($request->type_val == 'add'){
 					$adj_balance->type = 1;
 				}else{
@@ -289,9 +289,9 @@ class ChallengesController extends Controller
 				$adj_balance->save();
 			
 				if($request->type_val == 'add'){
-					$user->users_balances = $user->users_balances + $percentage_value;
+					$user->users_balances = $user->users_balances + $request->adjust_percent;
 				}else{
-					$user->users_balances = $user->users_balances - $percentage_value;
+					$user->users_balances = $user->users_balances - $request->adjust_percent;
 				}
 				$user->save();
 			}

@@ -336,7 +336,26 @@ $(document).ready(function() {
 		}
 	});
 	$('#adjust_percent').on('input', function() {
-      let val = $(this).val();
+		let val = $(this).val();
+
+		// Allow only digits, one optional negative sign at the beginning, and one optional decimal point
+		val = val.replace(/[^0-9.-]/g, '');
+
+		// Only one minus at the beginning
+		if (val.indexOf('-') > 0) {
+			val = val.replace(/-/g, ''); // Remove all minus signs if not at start
+		} else if ((val.match(/-/g) || []).length > 1) {
+			val = '-' + val.replace(/-/g, ''); // Keep only first minus
+		}
+
+		// Only one decimal point
+		let parts = val.split('.');
+		if (parts.length > 2) {
+			val = parts[0] + '.' + parts[1]; // Ignore extra decimals
+		}
+
+		$(this).val(val);
+      /*let val = $(this).val();
 
       // Remove invalid characters (allow digits and one decimal)
       val = val.replace(/[^0-9.]/g, '');
@@ -347,7 +366,7 @@ $(document).ready(function() {
         val = parts[0] + '.' + parts[1]; // Ignore extra decimals
       }
 
-      $(this).val(val);
+      $(this).val(val);*/
     });
 	$(document).on('click','.submit-multi-adjust-balance', function(){
 		var employee = [];

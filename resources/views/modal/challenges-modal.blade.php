@@ -253,8 +253,8 @@
 							<div class="col-12">
 								<form id="frmMultiAdjustBalance" action="{{ route('challenges.multi-adjust-balance') }}">
 									<div class="file-download">
-										<a href="javascript:void(0)" class="color-white">Percent (%) : </a>
-										<input type="text" class="form-control" name="adjust_percent" id="adjust_percent" placeholder="Type percent(%) here.">
+										<a href="javascript:void(0)" class="color-white">Amount({{get_currency_symbol()}}) : </a>
+										<input type="text" class="form-control" name="adjust_percent" id="adjust_percent" placeholder="Enter the amount here.">
 										<div class="invalid-feedback"></div>
 									</div>
 								</form>
