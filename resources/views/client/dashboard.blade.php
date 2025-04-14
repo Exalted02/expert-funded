@@ -91,7 +91,7 @@
 									@endphp
 									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$last_account_profit}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_account_profit}}%"></div>
+										<div class="progress-bar {{ $percentage_account_profit < 0 ? 'bg-danger' : 'bg-info' }}" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{abs($percentage_account_profit)}}%"></div>
 									</div>
 								</div>
 							</div>
@@ -121,12 +121,12 @@
 							<div class="stats-list">
 								<div class="stats-info">
 									@php
-										$last_maximum_drawdown = $initial_amount * (8/100);
+										$last_maximum_drawdown = $initial_amount * (10/100);
 										$percentage_maximum_drawdown = ($last_maximum_drawdown > 0) ? ($amount_paid_balance / $last_maximum_drawdown) * 100 : 0;
 									@endphp
-									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_drawdown}}</strong></p>
+									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$last_maximum_drawdown}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
+										<div class="progress-bar {{ $percentage_maximum_drawdown < 0 ? 'bg-danger' : 'bg-info' }}" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{abs($percentage_maximum_drawdown)}}%"></div>
 									</div>
 								</div>
 							</div>
@@ -156,12 +156,12 @@
 							<div class="stats-list">
 								<div class="stats-info">
 									@php
-										$last_maximum_daily_drawdown = $initial_amount * (5/100);
-										$percentage_maximum_drawdown = ($last_maximum_daily_drawdown > 0) ? ($amount_paid_balance / $last_maximum_daily_drawdown) * 100 : 0;
+										$last_maximum_daily_drawdown = $total_balance * (5/100);
+										$percentage_maximum_daily_drawdown = ($last_maximum_daily_drawdown > 0) ? ($amount_paid_balance / $last_maximum_daily_drawdown) * 100 : 0;
 									@endphp
-									<p>-{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>-{{get_currency_symbol()}}{{$last_maximum_daily_drawdown}}</strong></p>
+									<p>{{get_currency_symbol()}}{{$amount_paid_balance}} <strong>{{get_currency_symbol()}}{{$last_maximum_daily_drawdown}}</strong></p>
 									<div class="progress">
-										<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
+										<div class="progress-bar {{ $percentage_maximum_daily_drawdown < 0 ? 'bg-danger' : 'bg-info' }}" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{abs($percentage_maximum_daily_drawdown)}}%"></div>
 									</div>
 								</div>
 							</div>
