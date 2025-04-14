@@ -42,7 +42,7 @@
 									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$equity_amount}}</h3>
 								</div>
 								<div class="col-6 text-end">
-									<span class="badge bg-inverse-white">+{{$equity_percent}}%</span>
+									<span class="badge bg-inverse-white">{{ $equity_percent < 0 ? $equity_percent : '+' . $equity_percent }}%</span>
 								</div>
 							</div>
 							<hr>
@@ -52,7 +52,7 @@
 									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$total_balance}}</h3>
 								</div>
 								<div class="col-6 text-end">
-									<span class="badge bg-inverse-white">+{{$equity_percent}}%</span>
+									<span class="badge bg-inverse-white">{{ $equity_percent < 0 ? $equity_percent : '+' . $equity_percent }}%</span>
 								</div>
 							</div>
 							{{--<hr>
@@ -108,7 +108,7 @@
 									<span class="d-block">Performance:</span>
 								</div>
 								<div>
-									<span class="text-success">+15%</span>
+									<span class="text-success {{ $equity_percent < 0 ? 'text-danger' : '' }}">{{ $equity_percent < 0 ? $equity_percent : '+' . $equity_percent }}%</span>
 								</div>
 							</div>
 						</div>
@@ -191,7 +191,14 @@
 
     </div>
     <!-- /Page Wrapper -->
-
+@php
+    $min = min($chartData);
+    $max = max($chartData);
+    $range = $max - $min;
+    $buffer = $range * 0.3; // 30% buffer
+    $yMin = floor($min - $buffer);
+    $yMax = ceil($max + $buffer);
+@endphp
 @endsection 
 @section('scripts')
 <!-- Chart JS -->
@@ -203,8 +210,7 @@ var chart = c3.generate({
 	bindto: '#chart-sracked', // id of chart wrapper
 	data: {
 		columns: [
-			// each columns data
-			['data1', 0, 9, 16, 19, 30, 25 , 19, 12, 0],
+			['data1', ...@json($chartData)],
 		],
 		type: 'area-spline', // default type of chart
 		groups: [
@@ -222,8 +228,19 @@ var chart = c3.generate({
 		x: {
 			type: 'category',
 			// name of each category
-			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul' ,'Aug', 'Sep']
+			categories: @json($chartLabels)
 		},
+		y: {
+			min: {{ $yMin }},
+			max: {{ $yMax }},
+			padding: {
+				top: 0,
+				bottom: 0
+			},
+			tick: {
+				format: d3.format(",") // optional, formats large numbers with commas
+			}
+		}
 	},
 	legend: {
 		  show: false, //hide legend

@@ -102,26 +102,37 @@ var challenges = @json($challenge);
 
 challenges.forEach((item, index) => {
 	let chartId = `#chart-sracked-${index}`;
+
 	c3.generate({
 		bindto: chartId,
 		data: {
 			columns: [
-				['data1', 0, 9, 16, 19, 30, 25 , 19, 12, 0],
+				['data1', ...item.chart_values],
 			],
 			type: 'area-spline',
-			groups: [['data1']],
 			colors: {
 				data1:'#F175B1'
 			},
 			names: {
-				'data1': 'Maximum'
+				'data1': 'Balance'
 			}
 		},
 		axis: {
 			x: {
 				type: 'category',
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul' ,'Aug', 'Sep']
+				categories: item.chart_labels
 			},
+			y: {
+				min: item.y_min,
+				max: item.y_max,
+				padding: {
+					top: 0,
+					bottom: 0
+				},
+				tick: {
+					format: d3.format(",") // nicely formatted
+				}
+			}
 		},
 		legend: {
 			show: false
@@ -129,12 +140,13 @@ challenges.forEach((item, index) => {
 		padding: {
 			bottom: 0,
 			top: 0
-		},
+		}
 	});
 });
+
 setTimeout(() => {
-    d3.selectAll(".c3-axis-x text").style("fill", "#FFFFFF"); // X-axis text color
-    d3.selectAll(".c3-axis-y text").style("fill", "#FFFFFF"); // Y-axis text color
+	d3.selectAll(".c3-axis-x text").style("fill", "#FFFFFF");
+	d3.selectAll(".c3-axis-y text").style("fill", "#FFFFFF");
 }, 500);
 </script>
 
