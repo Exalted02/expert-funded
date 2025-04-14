@@ -2,6 +2,16 @@
 @section('styles')
 <link rel="stylesheet" href="{{ url('front-assets/plugins/c3-chart/c3.min.css') }}">
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<style>
+.tooltip-custom {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+</style>
 @endsection
 @section('content')
     <!-- Page Wrapper -->
@@ -9,6 +19,12 @@
     
         <!-- Page Content -->
         <div class="content container-fluid pb-0">
+			@if($account_message)
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				The challenge failed and the account is blocked.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="las la-times"></i></button>
+			</div>
+			@endif
 			@if(count($challenge) > 0)
 			<div class="multiple-items">
 				@foreach($challenge as $k=>$val)
@@ -140,6 +156,23 @@ challenges.forEach((item, index) => {
 		padding: {
 			bottom: 0,
 			top: 0
+		},
+		tooltip: {
+			contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
+				let i = d[0].index;
+				let data = item.tooltip_data[i];
+
+				return `
+					<div class='tooltip-custom text-white text-sm'>
+						<strong>${item.chart_labels[i]}</strong><br>
+						Balance: <strong>$${data.balance.toLocaleString()}</strong><br>
+						Target: <strong>$${data.target.toLocaleString()}</strong><br>
+						Max Drawdown:<strong>$${data.max_drawdown.toLocaleString()}</strong><br>
+						Max Daily Loss:<strong>$${data.max_daily_loss.toLocaleString()}</strong><br>
+						Equity: <strong>$${data.equity.toLocaleString()}</strong>
+					</div>
+				`;
+			}
 		}
 	});
 });

@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('styles')
 <link rel="stylesheet" href="{{ url('front-assets/plugins/c3-chart/c3.min.css') }}">
+<style>
+.tooltip-custom {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+</style>
 @endsection
 @section('content')
     <!-- Page Wrapper -->
@@ -249,6 +259,31 @@ var chart = c3.generate({
 		bottom: 0,
 		top: 0
 	},
+	tooltip: {
+		contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
+			var data = d[0];
+			var index = data.index;
+
+			// Get tooltip data from controller
+			var tooltipData = @json($tooltipData);
+
+			// Fallback in case of missing data
+			if (!tooltipData[index]) return '';
+
+			var item = tooltipData[index];
+
+			return `
+				<div class="tooltip-custom text-white text-sm">
+					<strong>${@json($chartLabels)[index]}</strong><br/>
+					Balance: <strong>$${item.balance.toLocaleString()}</strong><br/>
+					Target: <strong>$${(item.target ?? 0).toLocaleString()}</strong><br/>
+					Max Drawdown: <strong>$${item.max_drawdown.toLocaleString()}</strong><br/>
+					Max Daily Loss: <strong>$${item.max_daily_loss.toLocaleString()}</strong><br/>
+					Equity: <strong>$${item.equity.toLocaleString()}</strong>
+				</div>
+			`;
+		}
+	}
 });
 setTimeout(() => {
     d3.selectAll(".c3-axis-x text").style("fill", "#FFFFFF"); // X-axis text color

@@ -18,8 +18,18 @@ class DashboardController extends Controller
 	public function dashboard_challenge()
 	{
 		session()->forget('last_selected_challenge');
+		
+		/////////Check failed challenge
+		$account_message = false;
+		$today_challenge_count = Challenge::where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->count();
+		$today_failed_challenge_count = Challenge::where('user_id', Auth::id())->where('status', 2)->whereDate('created_at', Carbon::today())->count();
+		if($today_challenge_count > 0 && $today_challenge_count == $today_failed_challenge_count){
+			$account_message = true;
+		}
+		/////////Check failed challenge
 
 		$data = [];
+		$tooltipData = [];
 		$challenges = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->get();
 
 		foreach ($challenges as $challenge) {
@@ -35,14 +45,30 @@ class DashboardController extends Controller
 
 			$values = collect([$baseAmount]);
 			$runningTotal = $baseAmount;
+			$tooltipData[] = [
+				'balance' => $runningTotal,
+				'target' => $baseAmount + ((10 / 100) * $baseAmount),
+				'max_drawdown' => (10 / 100) * $baseAmount,
+				'max_daily_loss' => (5 / 100) * $runningTotal,
+				'equity' => $runningTotal,
+			];
 
 			foreach ($adjustments as $entry) {
 				$runningTotal += $entry->amount_paid;
 				$values->push($runningTotal);
+				
+				$tooltipData[] = [
+					'balance' => $runningTotal,
+					'target' => $baseAmount + ((10 / 100) * $baseAmount),
+					'max_drawdown' => (10 / 100) * $baseAmount,
+					'max_daily_loss' => (5 / 100) * $runningTotal,
+					'equity' => $runningTotal,
+				];
 			}
 
 			$challenge->chart_labels = collect([$baseDate])->merge($adjustments->pluck('date_label'));
 			$challenge->chart_values = $values;
+			$challenge->tooltip_data = $tooltipData;
 
 			// You can also pass min/max if you want to
 			$min = $values->min();
@@ -55,7 +81,7 @@ class DashboardController extends Controller
 		}
 
 
-		return view('client.dashboard-challenge', ['challenge' => $challenges]);
+		return view('client.dashboard-challenge', ['challenge' => $challenges, 'account_message' => $account_message]);
 	}
 
 
@@ -97,7 +123,7 @@ class DashboardController extends Controller
 		//For Equity
 		// $equity = Challenge::with(['get_challenge_type'])->where('user_id', Auth::id())->whereDate('created_at', Carbon::today())->get();
 		$equity = Challenge::with(['get_challenge_type'])->where('id', $id)->where('user_id', Auth::id())->get();
-		$equity_amount = $equity_percent = $initial_amount = $amount_paid_balance = $challenge_status = 0;
+		$equity_amount = $equity_percent = $initial_amount = $amount_paid_balance = $challenge_status = $challenge_actual_amount = 0;
 		foreach($equity as $equity_val){
 			$adjust_users_balance = Adjust_users_balance::where('user_id', Auth::id())->where('challenge_id', $id)->where('type', 1)->sum('amount_paid');
 			$equity_percent = ($adjust_users_balance / $equity_val->get_challenge_type->amount) * 100;
@@ -107,10 +133,19 @@ class DashboardController extends Controller
 			// $amount_paid_balance = $amount_paid_balance + $equity_val->amount_paid;
 			$amount_paid_balance = $adjust_users_balance;
 			$challenge_status = $equity_val->status;
+			$challenge_actual_amount = $equity_val->get_challenge_type->amount;
 			
 			$labels[] = change_date_format($equity_val->created_at, 'Y-m-d H:i:s', 'd-m-Y');
 			$previous_chart_amount = $equity_val->get_challenge_type->amount;
 			$values[] = $previous_chart_amount;
+			
+			$tooltipData[] = [
+                'balance' => $previous_chart_amount,
+                'target' => $challenge_actual_amount + ((10 / 100) * $challenge_actual_amount),
+                'max_drawdown' => (10 / 100) * $challenge_actual_amount,
+                'max_daily_loss' => (5 / 100) * $previous_chart_amount,
+                'equity' => $previous_chart_amount, // example: 2% loss
+            ];
 		}
 		
 		//For eligible withdraw
@@ -123,7 +158,7 @@ class DashboardController extends Controller
 					->sum('amount_paid');
 		
 		//For chart
-		$entries = Adjust_users_balance::selectRaw("DATE_FORMAT(created_at, '%d-%m-%Y') as date_label, amount_paid")
+		$entries = Adjust_users_balance::selectRaw("DATE_FORMAT(created_at, '%d-%m-%Y') as date_label, amount_paid, created_at")
 		->where('user_id', Auth::id())
 		->where('type', 1)
         ->where('challenge_id', $id)
@@ -137,6 +172,16 @@ class DashboardController extends Controller
 			// $values[] = abs((float) $entry->amount_paid);
 			$previous_chart_amount = $previous_chart_amount +  (float) $entry->amount_paid;
 			$values[] = $previous_chart_amount;
+			
+			// dd($entry);
+			// $adjust_users_balance_date = Adjust_users_balance::where('user_id', Auth::id())->where('challenge_id', $id)->where('type', 1)->where('created_at', '<', $entry->created_at)->sum('amount_paid');
+			$tooltipData[] = [
+                'balance' => $previous_chart_amount,
+                'target' => $challenge_actual_amount + ((10 / 100) * $challenge_actual_amount),
+                'max_drawdown' => (10 / 100) * $challenge_actual_amount,
+                'max_daily_loss' => (5 / 100) * $previous_chart_amount,
+                'equity' => $previous_chart_amount, // example: 2% loss
+            ];
 		}
 		// dd($values);
 		
@@ -151,6 +196,8 @@ class DashboardController extends Controller
 		
 		$data['chartLabels']  = $labels;
 		$data['chartData']  = $values;
+		$data['tooltipData']  = $tooltipData;
+		// dd($data['tooltipData']);
         return view('client.dashboard', $data);
     }
     public function account()
