@@ -167,13 +167,33 @@ class DashboardController extends Controller
     public function withdraw()
     {
 		$data = [];
+		// Get current year and month
+		$now = Carbon::now();
+		
 		$totalDays = Carbon::now()->daysInMonth;
 		$currentDay = Carbon::now()->day;
 		$eligibleDate = Carbon::now()->addDays(30);
 		
-		$data['total_day']  = $totalDays;
-		$data['current_day']  = $currentDay;
-		$data['current_day']  = $currentDay;
+		$trading_day = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', now()->year)
+						 ->whereMonth('created_at', now()->month)
+						 ->where('type', 1)
+						 ->count();
+		$firstEntry = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', $now->year)
+					->whereMonth('created_at', $now->month)
+					->where('type', 1)
+					->orderBy('created_at', 'asc')
+					->first();		
+		if ($firstEntry) {
+			$start = Carbon::parse($firstEntry->created_at)->startOfDay();
+			$end = Carbon::now()->startOfDay();
+
+			$dayCount = $start->diffInDays($end) + 1; // +1 to include today
+		} else {
+			$dayCount = 0; // No records this month
+		}			
+		
+		$data['total_day']  = $dayCount;
+		$data['current_day']  = $trading_day;
 		$data['eligible_date']  = $eligibleDate->toDateString();
         return view('client.withdraw', $data);
     }
