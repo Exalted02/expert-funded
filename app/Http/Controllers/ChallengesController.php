@@ -252,6 +252,26 @@ class ChallengesController extends Controller
 		}else{
 			$user->users_balances = $adjustAmount;
 		}
+		
+		//Update status to failed
+			$maximum_drawdown = Challenge::with(['get_challenge_type'])->where('id', $request->adjust_amount_challenge)->first();
+			if($maximum_drawdown->status != 2){ //If status not failed
+				$adjust_users_balance = Adjust_users_balance::where('challenge_id', $request->adjust_amount_challenge)->where('type', 1)->sum('amount_paid');
+				
+				$maximum_drawdown_amount = $maximum_drawdown->get_challenge_type->amount * (10/100);				
+				if ($adjust_users_balance <= -$maximum_drawdown_amount) {
+					$maximum_drawdown->status = 2;
+					$maximum_drawdown->save();
+				}
+				
+				$maximum_daily_drawdown_amount = ($adjust_users_balance + $maximum_drawdown->get_challenge_type->amount) * (5/100);
+				if ($adjust_users_balance <= -$maximum_daily_drawdown_amount) {
+					$maximum_drawdown->status = 2;
+					$maximum_drawdown->save();
+				}
+			}
+		//Update status to failed
+		
 		if($user->save()){
 			$data['result'] ='success';
 		}else{
@@ -294,6 +314,25 @@ class ChallengesController extends Controller
 					$user->users_balances = $user->users_balances - $request->adjust_percent;
 				}
 				$user->save();
+				
+				//Update status to failed
+					$maximum_drawdown = Challenge::with(['get_challenge_type'])->where('id', $id_val)->first();
+					if($maximum_drawdown->status != 2){ //If status not failed
+						$adjust_users_balance = Adjust_users_balance::where('challenge_id', $id_val)->where('type', 1)->sum('amount_paid');
+						
+						$maximum_drawdown_amount = $maximum_drawdown->get_challenge_type->amount * (10/100);				
+						if ($adjust_users_balance <= -$maximum_drawdown_amount) {
+							$maximum_drawdown->status = 2;
+							$maximum_drawdown->save();
+						}
+						
+						$maximum_daily_drawdown_amount = ($adjust_users_balance + $maximum_drawdown->get_challenge_type->amount) * (5/100);
+						if ($adjust_users_balance <= -$maximum_daily_drawdown_amount) {
+							$maximum_drawdown->status = 2;
+							$maximum_drawdown->save();
+						}
+					}
+				//Update status to failed
 			}
 		}
 		$data['result'] ='success';
