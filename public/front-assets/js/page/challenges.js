@@ -74,6 +74,8 @@ $(document).ready(function() {
 		}
 	});	
 	$(document).on('click','.save-challenge', function(){
+		var button = $(this);
+		button.prop('disabled', true);
 		let formData = new FormData($('#frmChallenge')[0]);
 		formData.append('_token', csrfToken);
 		var URL = $('#frmChallenge').attr('action');
@@ -126,6 +128,7 @@ $(document).ready(function() {
 				}else{
 					
 				}
+				button.prop('disabled', false);
 			}
 		});
 	});
@@ -262,6 +265,8 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click','.submit-adjust-balance', function(){
+		var button = $(this);
+		button.prop('disabled', true);
 		var type = $(this).data('mode');
 		
 		let formData = new FormData($('#frmAdjustBalance')[0]);
@@ -321,6 +326,7 @@ $(document).ready(function() {
 				}else{
 					
 				}
+				button.prop('disabled', false);
 			}
 		});
 	});
@@ -369,6 +375,8 @@ $(document).ready(function() {
       $(this).val(val);*/
     });
 	$(document).on('click','.submit-multi-adjust-balance', function(){
+		var button = $(this);
+		button.prop('disabled', true);
 		var employee = [];
 		$(".table input[name=chk_id]:checked").each(function() {  
 			employee.push($(this).data('emp-id'));
@@ -436,6 +444,7 @@ $(document).ready(function() {
 					}else{
 						
 					}
+					button.prop('disabled', false);
 				}
 			});
 		}

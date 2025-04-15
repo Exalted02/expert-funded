@@ -119,7 +119,10 @@
 								<td>{{$val->email}}</td>
 								<td>{{$val->first_name.' '.$val->last_name}}</td>
 								<td>{{$val->get_challenge_type->title}}</td>
-								<td>{{$val->amount_paid}}</td>
+								@php
+									$amount_paid = App\Models\Adjust_users_balance::where('challenge_id', $val->id)->where('type', 1)->sum('amount_paid');
+								@endphp
+								<td>{{$amount_paid + $val->get_challenge_type->amount}}</td>
 								<td>
 									{{--<button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button>--}}
 									<div class="dropdown action-label">

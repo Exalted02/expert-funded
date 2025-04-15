@@ -16,12 +16,12 @@
 								<h4>Account Settings</h4>
 							</div>
 							<hr class="mt-0">
-							<div class="employee-month-details d-flex align-items-end justify-content-between mb-0">
-								<div>
-								<p>Your Email: {{ $user->email ?? ''}}</p>
-								<p>Name: {{ $user->name ?? ''}}</p>
+							<div class="row mb-0">
+								<div class="col-md-6">
+									<p class="mb-0">Your Email: {{ $user->email ?? ''}}</p>
+									<p>Name: {{ $user->name ?? ''}}</p>
 								</div>
-								<div class="">
+								<div class="col-md-6 text-end">
 									<button class="btn btn-warning account-update-password">
 										<i class="las la-key"></i> Reset Your Password
 									</button>
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 				</div>
-                <div class="col-lg-12">
+                {{--<div class="col-lg-12">
 					<div class="card employee-month-card flex-fill">
 						<div class="card-body">
 							<div class="statistic-header">
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>--}}
 			</div>
         </div>
         <!-- /Page Content -->
