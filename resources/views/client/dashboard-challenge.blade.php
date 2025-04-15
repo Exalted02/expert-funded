@@ -20,10 +20,10 @@
         <!-- Page Content -->
         <div class="content container-fluid pb-0">
 			@if($account_message)
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{--<div class="alert alert-warning alert-dismissible fade show" role="alert">
 				The challenge failed and the account is blocked.
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="las la-times"></i></button>
-			</div>
+			</div>--}}
 			@endif
 			@if(count($challenge) > 0)
 			<div class="multiple-items">
