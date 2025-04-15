@@ -305,9 +305,10 @@ $impersonateUserId = session('impersonate_user_id');
 	<div class="dropdown mobile-user-menu">
 		<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
 		<div class="dropdown-menu dropdown-menu-right">
-			<a class="dropdown-item" href="profile.html">My Profile</a>
-			<a class="dropdown-item" href="settings.html">Settings</a>
-			<a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+			@if(Auth::user()->user_type == 1)
+			<a class="dropdown-item header-dropdown trading-credentials" href="javascript:void(0)">Trading Credentials</a>
+			@endif
+			<a class="dropdown-item header-dropdown" href="{{ route('logout') }}">Logout</a>
 		</div>
 	</div>
 	<!-- /Mobile Menu -->

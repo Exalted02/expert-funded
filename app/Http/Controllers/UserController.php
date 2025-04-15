@@ -29,7 +29,7 @@ class UserController extends Controller
             //'email' => 'required|email|unique:users,email,'.$request->id,
             'first_name' => 'required',
             'last_name' => 'required',
-			'phone_number' => 'required|regex:/^[0-9]{10,15}$/',
+			'phone_number' => 'nullable|regex:/^[0-9]{10,15}$/',
         ]);
 		
 		$user = User::find($request->id);
