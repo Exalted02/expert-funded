@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Adjust_users_balance;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -37,6 +38,10 @@ class UserController extends Controller
 		$user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
 		$user->phone_number = $request->phone_number;
+		if(!empty($request->password))
+		{
+			$user->password = Hash::make($request->password);
+		}
 		if($user->save()){			
 			return response()->json([
 				'success' => true,

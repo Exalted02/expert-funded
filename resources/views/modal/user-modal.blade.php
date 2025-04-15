@@ -92,6 +92,13 @@
 								<div class="invalid-feedback"></div>
 							</div>
 						</div>
+						<div class="col-sm-12">
+							<div class="input-block mb-3">
+								<label class="col-form-label">Password</label>
+								<input class="form-control" type="password" name="password" id="password" placeholder="Password">
+								<div class="invalid-feedback"></div>
+							</div>
+						</div>
 					</div>					
 					<div class="modal-btn delete-action mt-3">
 						<div class="row">

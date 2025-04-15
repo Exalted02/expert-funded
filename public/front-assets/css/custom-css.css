@@ -59,6 +59,9 @@
 .dropdown-menu > a:focus, .dropdown-menu > a:hover {
    background-color: transparent !important;
 }
+.dropdown-menu .header-dropdown:hover {
+   background-color: #bbb5b5 !important;
+}
 .dropdown-menu {
 	max-height: 200px;
     overflow-y: auto;

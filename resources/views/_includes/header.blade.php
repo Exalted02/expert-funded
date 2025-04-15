@@ -293,11 +293,9 @@ $impersonateUserId = session('impersonate_user_id');
 					@endif
 				</span>
 			</a>
-			<div class="dropdown-menu">
-				
-				
-				<a class="dropdown-item" href="{{url('change-password')}}">{{ __('change_password') }}</a>
-				<a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+			<div class="dropdown-menu">				
+				{{--<a class="dropdown-item" href="{{url('change-password')}}">{{ __('change_password') }}</a>--}}
+				<a class="dropdown-item header-dropdown" href="{{ route('logout') }}">Logout</a>
 			</div>
 		</li>
 	</ul>
