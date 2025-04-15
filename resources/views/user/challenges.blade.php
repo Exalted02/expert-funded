@@ -20,6 +20,7 @@
 						{{--<div class="form-sort m-r-5">
 							<a href="javascript:void(0);" class="list-view btn btn-link"><i class="fa-solid fa-file-export"></i>Download CSV</a>
 						</div>--}}
+						<a href="javascript:void(0)" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#import_challenge"><i class="la la-plus-circle"></i> Import Challenges</a>
 						<a href="javascript:void(0)" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_challenge"><i class="la la-plus-circle"></i> Create Challenges</a>
 					</div>
 				</div>

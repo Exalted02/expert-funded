@@ -132,6 +132,43 @@
 		</div>
 	</div>
 </div>
+<!-- Add product code -->
+<div id="import_challenge" class="modal custom-modal fade" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Import Challenge</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{ route('challenges.challenge-import-submit') }}" method="post" enctype="multipart/form-data">
+				@csrf
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="input-block mb-3">
+								<label class="col-form-label">Upload CSV<span class="text-success">(Upload only xlsx or csv file)</span><span class="text-danger">*</span></label>
+								<input class="form-control" type="file" name="import_excel" accept=".xlsx, .xls, .csv" required>
+								<div class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>					
+					<div class="modal-btn delete-action mt-3">
+						<div class="row">
+							<div class="col-6">
+								<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-sm w-100 btn-secondary">Cancel</a>
+							</div>
+							<div class="col-6">
+								<button class="btn btn-sm w-100 btn-primary" type="submit">Submit <i class="la la-arrow-circle-right"></i></button>
+							</div>
+						</div>
+					</div>
+				</form>							
+			</div>
+		</div>
+	</div>
+</div>
 <!-- /Add product code -->
 
 <!-- update Success message -->

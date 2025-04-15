@@ -10,6 +10,9 @@ use App\Models\Challenge_type;
 use App\Models\Adjust_users_balance;
 use Illuminate\Support\Facades\Hash;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ChallengeImport;
+
 class ChallengesController extends Controller
 {
     public function index()
@@ -337,5 +340,15 @@ class ChallengesController extends Controller
 		}
 		$data['result'] ='success';
 		echo json_encode($data);
+	}
+	public function challenge_import_submit(Request $request)
+	{
+		$request->validate([
+            'import_excel' => 'required|mimes:xlsx,xls,csv'
+        ]);
+		
+		Excel::import(new ChallengeImport, $request->file('import_excel'));
+		
+		return redirect()->back()->with('success', 'Challenge imported successfully!');
 	}
 }
