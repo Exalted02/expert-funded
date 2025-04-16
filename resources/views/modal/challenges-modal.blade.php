@@ -248,7 +248,7 @@
 									<input type="hidden" name="adjust_amount_challenge" id="adjust_amount_challenge">
 									<input type="hidden" name="adjust_amount_user" id="adjust_amount_user">
 									<div class="file-download">
-										<a href="javascript:void(0)" class="color-white">Amount({{get_currency_symbol()}})<span class="text-danger">*</span></a>
+										<a href="javascript:void(0)" class="color-white">Percent(%)<span class="text-danger">*</span></a>
 										<input class="form-control" type="text" name="adjust_amount" id="adjust_amount" placeholder="Enter the amount here.">
 										<div class="invalid-feedback"></div>
 										<div class="text-start mt-2">The new balance will be approx : {{get_currency_symbol()}}<span id="new_amount">1525.36</span></div>
@@ -290,8 +290,8 @@
 							<div class="col-12">
 								<form id="frmMultiAdjustBalance" action="{{ route('challenges.multi-adjust-balance') }}">
 									<div class="file-download">
-										<a href="javascript:void(0)" class="color-white">Amount({{get_currency_symbol()}}) : </a>
-										<input type="text" class="form-control" name="adjust_percent" id="adjust_percent" placeholder="Enter the amount here.">
+										<a href="javascript:void(0)" class="color-white">Percent(%) : </a>
+										<input type="text" class="form-control" name="adjust_percent" id="adjust_percent" placeholder="Enter the percent(%) here.">
 										<div class="invalid-feedback"></div>
 									</div>
 								</form>

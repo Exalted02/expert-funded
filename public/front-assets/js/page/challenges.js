@@ -207,6 +207,7 @@ $(document).ready(function() {
 				$('#adjust_balance').text(response.adjust_users_balance);
 				$('#adjust_balance_model').modal('show');
 				currentBalance = response.result.get_challenge_type.amount + response.adjust_users_balance;
+				challengeBalance = response.result.get_challenge_type.amount;
 			},
 		});
 	});
@@ -257,7 +258,7 @@ $(document).ready(function() {
 	  // Update new amount
 	  let adjustAmount = parseFloat(val);
 	  if (!isNaN(adjustAmount)) {
-		let newAmount = currentBalance + adjustAmount;
+		let newAmount = currentBalance + (challengeBalance * (adjustAmount / 100));
 		$('#new_amount').text(newAmount.toFixed(2));
 	  } else {
 		$('#new_amount').text(currentBalance.toFixed(2));
