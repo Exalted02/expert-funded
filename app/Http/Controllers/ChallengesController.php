@@ -99,7 +99,7 @@ class ChallengesController extends Controller
 			if($model->save()){
 				$client_name = $model->first_name." ".$model->last_name;
 				$APP_NAME  = env('APP_NAME');
-				$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 				$email_content = get_email(1);
 				if(!empty($email_content))
 				{
@@ -416,7 +416,7 @@ class ChallengesController extends Controller
 						if($model->save()){
 							/*$client_name = $model->first_name." ".$model->last_name;
 							$APP_NAME  = env('APP_NAME');
-							$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+							$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 							$email_content = get_email(1);
 							if(!empty($email_content))
 							{
@@ -464,13 +464,15 @@ class ChallengesController extends Controller
 					$adj_balance->status = 0;
 					$adj_balance->save();
 					
-					$adj_balance1 = new Adjust_users_balance();
-					$adj_balance1->user_id = $user_id;
-					$adj_balance1->challenge_id = $challenge->id;
-					$adj_balance1->amount_paid = $clean_amount - $number;
-					$adj_balance1->type = 1;
-					$adj_balance1->status = 0;
-					$adj_balance1->save();
+					if($clean_amount != $number){
+						$adj_balance1 = new Adjust_users_balance();
+						$adj_balance1->user_id = $user_id;
+						$adj_balance1->challenge_id = $challenge->id;
+						$adj_balance1->amount_paid = $clean_amount - $number;
+						$adj_balance1->type = 1;
+						$adj_balance1->status = 0;
+						$adj_balance1->save();
+					}
 				}
 			}
 		}

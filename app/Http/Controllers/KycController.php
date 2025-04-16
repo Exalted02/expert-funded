@@ -47,7 +47,7 @@ class KycController extends Controller
 				$model->status = 0;
 				$model->save();
 				// send mail to client 
-				$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 
 				$email_content = get_email(7);
 				if(!empty($email_content))
@@ -81,7 +81,7 @@ class KycController extends Controller
 				$model->status = 2;
 				$model->save();
 				// send mail to client 
-				$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
+				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 				$email_content = get_email(5);
 				if(!empty($email_content))
 				{
