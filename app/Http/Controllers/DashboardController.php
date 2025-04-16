@@ -225,7 +225,7 @@ class DashboardController extends Controller
 						 ->whereMonth('created_at', now()->month)
 						 ->where('type', 1)
 						 ->count();*/
-		$trading_day = Adjust_users_balance::where('user_id', Auth::id())
+		$trading_day = Adjust_users_balance::where('user_id', Auth::id())->where('type', 1)
 						->select(DB::raw('DATE(created_at) as adjust_date'))
 						->groupBy(DB::raw('DATE(created_at)'))
 						->get()

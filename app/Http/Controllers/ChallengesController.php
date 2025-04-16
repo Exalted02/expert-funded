@@ -414,7 +414,7 @@ class ChallengesController extends Controller
 						$model->created_at = date('Y-m-d h:i:s');
 						
 						if($model->save()){
-							$client_name = $model->first_name." ".$model->last_name;
+							/*$client_name = $model->first_name." ".$model->last_name;
 							$APP_NAME  = env('APP_NAME');
 							$logo = '<img src="' . url('front-assets/img/-logo1.jpg') . '" alt="Expert funded" width="150">';
 							$email_content = get_email(1);
@@ -430,7 +430,7 @@ class ChallengesController extends Controller
 								} catch (\Exception $e) {
 									//
 								}
-							}
+							}*/
 						}
 						
 						$user_id = $model->id;
