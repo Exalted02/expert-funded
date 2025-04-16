@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\User;
 use App\Models\Challenge;
 use App\Models\Challenge_type;
+use App\Models\Adjust_users_balance;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Hash;
@@ -129,8 +130,8 @@ class ChallengeImport implements ToModel, WithHeadingRow
 			$adj_balance1 = new Adjust_users_balance();
 			$adj_balance1->user_id = $user_id;
 			$adj_balance1->challenge_id = $challenge->id;
-			$adj_balance1->amount_paid = 0;
-			$adj_balance1->type = 2;
+			$adj_balance1->amount_paid = $clean_amount - $number;
+			$adj_balance1->type = 1;
 			$adj_balance1->status = 0;
 			$adj_balance1->save();
 			
