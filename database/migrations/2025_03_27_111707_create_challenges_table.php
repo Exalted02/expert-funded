@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
-			$table->string('client_id')->nullable()->comment('not required now');
-			$table->string('user_id');
+			$table->bigInteger('client_id')->nullable()->comment('not required now');
+			$table->bigInteger('user_id');
 			$table->string('email')->nullable();
 			$table->string('first_name')->nullable();
 			$table->string('last_name')->nullable();

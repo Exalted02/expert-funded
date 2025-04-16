@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class ChallengeImport implements ToModel, WithHeadingRow
 {
-	public $lastRow = [];
     /**
     * @param array $row
     *
@@ -20,9 +19,8 @@ class ChallengeImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-		$this->lastRow[] = $row;
 		// dd($row);
-		/*if($row['email'] != ''){
+		if($row['email'] != ''){
 			$user = User::where('email', $row['email'])->first();
 			$password = '12345678';
 			
@@ -138,6 +136,6 @@ class ChallengeImport implements ToModel, WithHeadingRow
 			$adj_balance1->save();
 			
 			return $challenge;
-		}*/
+		}
     }
 }

@@ -219,13 +219,18 @@ class DashboardController extends Controller
 		
 		$totalDays = Carbon::now()->daysInMonth;
 		$currentDay = Carbon::now()->day;
-		$eligibleDate = Carbon::now()->addDays(30);
+		$eligibleDate = Carbon::now()->addDays(35);
 		
-		$trading_day = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', now()->year)
+		/*$trading_day = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', now()->year)
 						 ->whereMonth('created_at', now()->month)
 						 ->where('type', 1)
-						 ->count();
-		$firstEntry = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', $now->year)
+						 ->count();*/
+		$trading_day = Adjust_users_balance::where('user_id', Auth::id())
+						->select(DB::raw('DATE(created_at) as adjust_date'))
+						->groupBy(DB::raw('DATE(created_at)'))
+						->get()
+						->count();
+		/*$firstEntry = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', $now->year)
 					->whereMonth('created_at', $now->month)
 					->where('type', 1)
 					->orderBy('created_at', 'asc')
@@ -237,10 +242,11 @@ class DashboardController extends Controller
 			$dayCount = $start->diffInDays($end) + 1; // +1 to include today
 		} else {
 			$dayCount = 0; // No records this month
-		}			
+		}*/
 		
-		$data['total_day']  = $dayCount;
-		$data['current_day']  = $trading_day;
+		$data['total_day']  = $totalDays;
+		$data['current_day']  = $currentDay;
+		$data['trading_day']  = $trading_day;
 		$data['eligible_date']  = $eligibleDate->toDateString();
         return view('client.withdraw', $data);
     }

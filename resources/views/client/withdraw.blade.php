@@ -26,11 +26,12 @@
 											</div>
 											<hr class="mt-0">
 											@php
-												$percentage_maximum_drawdown = ($total_day > 0) ? ($current_day / $total_day) * 100 : 0;
+												$percentage_maximum_drawdown = ($total_day > 0) ? ($trading_day / $total_day) * 100 : 0;
+												$percentage_calender_drawdown = ($total_day > 0) ? ($current_day / $total_day) * 100 : 0;
 											@endphp
 											<div class="stats-list">
 												<div class="stats-info1">
-													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Trading Day</small> <small>{{$total_day}} Trading Days</small></p>
+													<p class="d-flex justify-content-between mb-0"><small>{{$trading_day}} Trading Day</small> <small>{{$total_day}} Trading Days</small></p>
 													<div class="progress">
 														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
 													</div>
@@ -38,9 +39,9 @@
 											</div>
 											<div class="stats-list mt-4">
 												<div class="stats-info1">
-													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Calender Day</small> <small>{{$total_day}} Calender Days</small></p>
+													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Calendar Day</small> <small>{{$total_day}} Calendar Days</small></p>
 													<div class="progress">
-														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
+														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_calender_drawdown}}%"></div>
 													</div>
 												</div>
 											</div>
