@@ -4,6 +4,7 @@
 .sidebar .sidebar-menu ul li.active a, .two-col-bar .sidebar-menu ul li.active a {
     background-color: #00A1FF;
     border-radius: 50px;
+	padding: 8px 10px;
 }
 [data-layout-mode=dark] body .card .card-body.client-dashboard-card-gradient {
     /* background-color: #0d6efd; */
@@ -25,6 +26,12 @@
 [data-layout-mode=dark] body .header .dropdown-menu {
     background-color: #141414;
     border: 1px solid #2A2A2A;
+}
+.mini-sidebar .sidebar .sidebar-menu ul li button span {
+    display: none;
+}
+.sidebar .sidebar-menu ul li button span {
+    color: #00A1FF;
 }
 .bg-inverse-white {
 	background: linear-gradient(to bottom, #00A1FF, #006199);
