@@ -14,7 +14,8 @@ class ProfileController extends Controller
 	public function welcome()
     {
 		if(Auth::user()){
-			return view('dashboard');
+			return Redirect::route('login');
+			// return view('dashboard');
 		}else{
 			return view('auth.login');
 		}
