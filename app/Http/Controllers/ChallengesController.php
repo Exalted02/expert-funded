@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ChallengeImport;
 
+use Illuminate\Support\Str;
+
 class ChallengesController extends Controller
 {
     public function index()
@@ -78,7 +80,7 @@ class ChallengesController extends Controller
         ]);
 		
 		$user = User::where('email', $request->post('traders_email'))->first();
-		$password = '12345678';
+		$password = Str::random(8);;
 		if($user){
 			$user_id = $user->id;
 			$user->users_balances = $user->users_balances + $request->post('trading_amount');
@@ -359,7 +361,7 @@ class ChallengesController extends Controller
 			foreach($csv_data[0] as $row){
 				if($row['email'] != ''){
 					$user = User::where('email', $row['email'])->first();
-					$password = '12345678';
+					$password = Str::random(8);;
 					
 					//Name start
 					$full_name = $row['full_name'];
