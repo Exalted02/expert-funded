@@ -17,10 +17,19 @@ use Illuminate\Support\Str;
 
 class ChallengesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 		$data = [];
-		$data['list'] = Challenge::with(['get_challenge_type'])->get();
+		
+		$data['search_status'] = '';
+		$dataArr = Challenge::with(['get_challenge_type']);
+		if($request->has('search_status') && $request->search_status !== '' && isset($request->search_status))
+		{
+			$dataArr->where('status', $request->search_status);
+			$data['search_status'] = $request->search_status;
+		}
+		
+		$data['list'] = $dataArr->get();
 		// dd($data['list']);
 		$data['c_list'] = Challenge_type::where('status', 1)->get();
         return view('user.challenges', $data);
@@ -80,9 +89,11 @@ class ChallengesController extends Controller
         ]);
 		
 		$user = User::where('email', $request->post('traders_email'))->first();
-		$password = Str::random(8);;
+		$password = Str::random(8);
+		$APP_NAME  = env('APP_NAME');
 		if($user){
 			$user_id = $user->id;
+			$user_email = $user->email;
 			$user->users_balances = $user->users_balances + $request->post('trading_amount');
 			$user->save();
 		}else{
@@ -100,7 +111,6 @@ class ChallengesController extends Controller
 			
 			if($model->save()){
 				$client_name = $model->first_name." ".$model->last_name;
-				$APP_NAME  = env('APP_NAME');
 				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 				$email_content = get_email(1);
 				if(!empty($email_content))
@@ -118,6 +128,7 @@ class ChallengesController extends Controller
 				}
 			}
 			
+			$user_email = $model->email;
 			$user_id = $model->id;
 		}
 		$fileName = '';
@@ -151,6 +162,23 @@ class ChallengesController extends Controller
 			$adj_balance->type = 2;
 			$adj_balance->status = 0;
 			$adj_balance->save();
+			
+			//For trading account
+			$email_content1 = get_email(2);
+			if(!empty($email_content1))
+			{
+				$challenge_type = Challenge_type::where('id', $request->post('trader_challenge'))->first();
+				$maildata1 = [
+					'subject' => $email_content1->message_subject,
+					'body' => str_replace(array("[LOGO]", "[PRICE_SIZE]", "[PRICE]", "[DATE]", "[SCREEN_NAME]", "[YEAR]", "[LINK_LOGIN]"), array($logo, get_currency_symbol().$challenge_type->amount, get_currency_symbol().$request->post('trading_amount'), date('d M y'), $APP_NAME, date('Y'), route('login')), $email_content1->message),
+					'toEmails' => array($user_email),
+				];
+				try {
+					send_email($maildata1);
+				} catch (\Exception $e) {
+					//
+				}
+			}
 			
 			return response()->json([
 				'success' => true,
@@ -361,7 +389,7 @@ class ChallengesController extends Controller
 			foreach($csv_data[0] as $row){
 				if($row['email'] != ''){
 					$user = User::where('email', $row['email'])->first();
-					$password = Str::random(8);;
+					$password = Str::random(8);
 					
 					//Name start
 					$full_name = $row['full_name'];

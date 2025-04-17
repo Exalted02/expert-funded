@@ -101,6 +101,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	//Challenges
 	Route::name('challenges.')->group(function () {
 		Route::get('/challenges', [ChallengesController::class, 'index'])->name('index');
+		Route::post('/challenges', [ChallengesController::class, 'index'])->name('index');
 		Route::post('/challenges/check-email', [ChallengesController::class, 'check_email'])->name('check-email');
 		Route::post('/challenges/trader-challenge-amount', [ChallengesController::class, 'trader_challenge_amount'])->name('trader-challenge-amount');
 		Route::post('/challenges/challenge-submit', [ChallengesController::class, 'challenge_submit'])->name('challenge-submit');

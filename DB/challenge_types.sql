@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 17, 2025 at 01:58 PM
+-- Generation Time: Apr 17, 2025 at 04:20 PM
 -- Server version: 10.11.11-MariaDB-cll-lve
 -- PHP Version: 8.3.14
 
@@ -43,12 +43,14 @@ CREATE TABLE `challenge_types` (
 --
 
 INSERT INTO `challenge_types` (`id`, `title`, `amount`, `percent`, `amount_paid`, `status`, `created_at`, `updated_at`) VALUES
-(1, '25K 1 Phase', 25000.00, NULL, 329.00, 1, '2025-03-28 13:16:18', NULL),
-(2, '50K 1 Phase', 50000.00, NULL, 350.00, 1, '2025-03-27 18:30:00', NULL),
-(3, '100K 1 Phase', 100000.00, NULL, 550.00, 1, '0000-00-00 00:00:00', NULL),
-(4, '200K 1 Phase', 200000.00, NULL, 1050.00, 1, '2025-03-27 18:30:00', NULL),
-(5, '300K 1 Phase', 300000.00, NULL, 1600.00, 1, '2025-03-27 18:30:00', NULL),
-(6, '400K 1 Phase', 400000.00, NULL, 2100.00, 1, '2025-03-27 18:30:00', NULL);
+(1, '5K 1 Phase', 5000.00, NULL, 49.00, 1, '2025-03-28 13:16:18', NULL),
+(2, '10K 1 Phase', 10000.00, NULL, 14.90, 1, '2025-03-27 18:30:00', NULL),
+(3, '25K 1 Phase', 25000.00, NULL, 329.00, 1, '0000-00-00 00:00:00', NULL),
+(4, '50K 1 Phase', 50000.00, NULL, 349.00, 1, '2025-03-27 18:30:00', NULL),
+(5, '100K 1 Phase', 100000.00, NULL, 549.00, 1, '2025-03-27 18:30:00', NULL),
+(6, '200K 1 Phase', 200000.00, NULL, 1049.00, 1, '2025-03-27 18:30:00', NULL),
+(7, '300K 1 Phase', 300000.00, NULL, 1449.00, 1, '2025-04-17 10:01:16', '2025-04-17 10:01:16'),
+(8, '400K Team Account', 400000.00, NULL, 1999.00, 1, '2025-04-17 10:01:16', '2025-04-17 10:01:16');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +70,7 @@ ALTER TABLE `challenge_types`
 -- AUTO_INCREMENT for table `challenge_types`
 --
 ALTER TABLE `challenge_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

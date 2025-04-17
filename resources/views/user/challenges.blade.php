@@ -27,53 +27,29 @@
 			</div>
 		</div>
 		<!-- /Page Header -->
-		{{--<div class="filter-filelds">
-			<div class="row filter-row">
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="">{{ __('please_select') }}</option>
-							<option value="1">Last 30 Days</option>
-							<option value="0">Last 2 Months</option>
-						</select>
-					 </div>
+		<div class="filter-filelds">
+			<form name="search-frm" method="post" action="{{ route('challenges.index') }}" id="search-challenge">
+			@csrf
+				<div class="row filter-row">
+					<div class="col-md-3">  
+						 <div class="input-block">
+							<select class="select" name="search_status">
+								<option value="">{{ __('please_select') }}</option>
+								<option value="0" {{ $search_status == 0 ? 'selected' : '' }}>On Challenge</option>
+								<option value="1" {{ $search_status == 1 ? 'selected' : '' }}>Funded</option>
+								<option value="2" {{ $search_status == 2 ? 'selected' : '' }}>Failed</option>
+							</select>
+						 </div>
+					</div>
+					<div class="col-xl-2 p-r-0">  
+						<a href="javascript:void(0);" class="btn btn-success w-100 search-data"><i class="fa-solid fa-magnifying-glass"></i> {{ __('search') }} </a> 
+					</div>
 				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All Steps</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All Challenges</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <select class="select" name="search_status">
-							<option value="1">All States</option>
-						</select>
-					 </div>
-				</div>
-				<div class="col-xl-2">  
-					 <div class="input-block">
-						 <input type="search" class="form-control floating" name="search_name" placeholder="Search by email">
-					 </div>
-				</div>
-				<div class="col-xl-2 p-r-0">
-					<button type="reset" class="btn custom-reset w-100 reset-button" data-id="1">
-						<i class="fa-solid fa-rotate-left"></i> Reset
-					</button>
-				</div>
-			</div>
-		</div>--}}
+			</form>
+		</div>
 		
 		<div class="row">
-			<div class="col-lg-6 mb-2">
+			<div class="col-md-3 mb-2">
 				<button type="button" class="btn btn-info multi-adjust-balance"><i class="la la-plus m-r-5"></i> Adjust balance</button>
 			</div>
 		</div>
@@ -178,4 +154,9 @@
 @section('scripts')
 @include('_includes.footer')
 <script src="{{ url('front-assets/js/page/challenges.js') }}"></script>
+<script>
+$(document).on('click','.search-data', function(){
+	$('#search-challenge').submit();
+});
+</script>
 @endsection
