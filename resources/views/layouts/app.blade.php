@@ -88,16 +88,23 @@
 					<div class="modal-body">
 						<ul class="personal-info">
 							<li>
+								<div class="title">Platform:</div>
+								<div id="">MT5</div>								
+							</li>
+							<li>
+								<div class="title">Server:</div>
+								<div id="">MetaQuotes-Live</div>								
+							</li>
+							<li>
 								<div class="title">Account Id:</div>
-								<div id="trading-account-id">gsdgsdfgdfg</div>
-								
+								<div id="trading-account-id"></div>								
 							</li>
 							<li>
 								<div class="title">Account Password:</div>
 								<div id="trading-account-password"></div>
 							</li>
 							<li class="mt-5">
-								<div class="title">⚠ Please don’t log in from multiple IP addresses. This could flag your account for copy trading.</div>
+								<div class="title1">⚠ Please don’t log in from multiple IP addresses. This could flag your account for copy trading.</div>
 							</li>
 						</ul>
 					</div>

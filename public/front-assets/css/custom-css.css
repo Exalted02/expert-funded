@@ -334,6 +334,9 @@
     text-overflow: ellipsis;
     display: inline-block;
 }
+.personal-info li .title {
+    width: 70%;
+}
 .image-preview {
     text-align: center;
 }
