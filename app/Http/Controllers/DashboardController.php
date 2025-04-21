@@ -311,4 +311,23 @@ class DashboardController extends Controller
 		
 		return response()->json(['message'=> 'Account updated successfully']);
 	}
+    public function account_data()
+    {
+		// $data = [];
+		$user  = User::where('id', auth()->user()->id)->first();
+		if($user->trading_account_id == null || $user->trading_account_pw == null){
+			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+			$trading_password = '';
+			$length = 10;
+
+			for ($i = 0; $i < $length; $i++) {
+				$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+			}
+						
+			$user->trading_account_id = mt_rand(10000000, 99999999);
+			$user->trading_account_pw = $trading_password;
+			$user->save();
+		}
+		echo $user;
+    }
 }

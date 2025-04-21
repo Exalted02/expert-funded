@@ -97,6 +97,14 @@ class ChallengesController extends Controller
 			$user->users_balances = $user->users_balances + $request->post('trading_amount');
 			$user->save();
 		}else{
+			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+			$trading_password = '';
+			$length = 10;
+
+			for ($i = 0; $i < $length; $i++) {
+				$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+			}
+
 			$model = new User();
 			$model->email = $request->post('traders_email');
 			$model->name = $request->post('trader_first_name').' '.$request->post('trader_last_name');
@@ -106,6 +114,8 @@ class ChallengesController extends Controller
 			$model->password = Hash::make($password);
 			$model->users_balances = $request->post('trading_amount');
 			$model->status = 1;
+			$model->trading_account_id = mt_rand(10000000, 99999999);
+			$model->trading_account_pw = $trading_password;
 			$model->email_verified_at = date('Y-m-d h:i:s');
 			$model->created_at = date('Y-m-d h:i:s');
 			
@@ -432,6 +442,14 @@ class ChallengesController extends Controller
 						$user->users_balances = $user->users_balances + $user_balance;
 						$user->save();
 					}else{
+						$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+						$trading_password = '';
+						$length = 10;
+
+						for ($i = 0; $i < $length; $i++) {
+							$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+						}
+			
 						$model = new User();
 						$model->email = $row['email'];
 						$model->name = $row['full_name'];
@@ -440,6 +458,8 @@ class ChallengesController extends Controller
 						$model->password = Hash::make($password);
 						$model->users_balances = $user_balance;
 						$model->status = 1;
+						$model->trading_account_id = mt_rand(10000000, 99999999);
+						$model->trading_account_pw = $trading_password;
 						$model->email_verified_at = date('Y-m-d h:i:s');
 						$model->created_at = date('Y-m-d h:i:s');
 						

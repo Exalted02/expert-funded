@@ -65,6 +65,7 @@ Route::middleware(['auth', 'client'])->name('client.')->group(function () {
 	
 	//Account
 	Route::get('/account', [DashboardController::class, 'account'])->name('account');
+	Route::post('/account-data', [DashboardController::class, 'account_data'])->name('account-data');
 		
 	//Verification
 	Route::get('/verification', [VerificationController::class, 'index'])->name('verification');

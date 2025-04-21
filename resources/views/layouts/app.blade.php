@@ -143,7 +143,21 @@
 		
 		<script type="text/javascript">
 		$(document).on('click','.trading-credentials', function(){
-			var randomNumber = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000;
+			var URL = "{{ route('client.account-data') }}";
+			$.ajax({
+				url: URL,
+				type: "POST",
+				data: {_token: csrfToken},
+				dataType: 'json',
+				success: function(response) {
+					// console.log(response);
+					$("#trading-account-id").text(response.trading_account_id);
+					$("#trading-account-password").text(response.trading_account_pw);
+					$('#trading_credentials_modal').modal('show');
+				},
+			});
+		
+			/*var randomNumber = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000;
 			$("#trading-account-id").text(randomNumber);
 			
 			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
@@ -154,7 +168,7 @@
 			}
 			$("#trading-account-password").text(password);
 		
-			$('#trading_credentials_modal').modal('show');
+			$('#trading_credentials_modal').modal('show');*/
 		});
 		$(function(){
 			var url = "{{ route('changeLang') }}";

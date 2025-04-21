@@ -29,6 +29,8 @@ return new class extends Migration
             $table->integer('city')->nullable();
             $table->longText('address')->nullable();
 			$table->string('status')->nullable()->comment('0=inactive/suspend, 1=active, 2=delete');
+			$table->string('trading_account_id')->nullable()->index();
+			$table->string('trading_account_pw')->nullable()->index();
             $table->timestamps();
         });
     }
