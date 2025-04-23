@@ -299,6 +299,7 @@ class ChallengesController extends Controller
 			$user->users_balances = $percentage_value;
 		}
 		
+		$APP_NAME  = env('APP_NAME');
 		//Update status to failed
 			$maximum_drawdown = Challenge::with(['get_challenge_type'])->where('id', $request->adjust_amount_challenge)->first();
 			if($maximum_drawdown->status != 2){ //If status not failed
@@ -317,6 +318,35 @@ class ChallengesController extends Controller
 				}
 			}
 		//Update status to failed
+		//Update status to funded
+			$get_challenge = Challenge::with(['get_challenge_type'])->where('id', $request->adjust_amount_challenge)->first();
+			if($get_challenge->status != 1){
+				$adjust_users_balance = Adjust_users_balance::where('challenge_id', $request->adjust_amount_challenge)->where('type', 1)->sum('amount_paid');
+				
+				$achieved_balance = $get_challenge->get_challenge_type->amount * (10/100);
+				if($achieved_balance <= $adjust_users_balance){
+					$get_challenge->status = 1;
+					$get_challenge->save();
+					
+					$phase = $get_challenge->get_challenge_type->title;
+					$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
+					$email_content = get_email(4);
+					if(!empty($email_content))
+					{
+						$maildata = [
+							'subject' => $email_content->message_subject,
+							'body' => str_replace(array("[LOGO]", "[PHASE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $phase, $APP_NAME, date('Y')), $email_content->message),
+							'toEmails' => array($get_challenge->email),
+						];
+						try {
+							send_email($maildata);
+						} catch (\Exception $e) {
+							//
+						}
+					}
+				}
+			}
+		//Update status to funded
 		
 		if($user->save()){
 			$data['result'] ='success';
@@ -360,7 +390,7 @@ class ChallengesController extends Controller
 					$user->users_balances = $user->users_balances - $percentage_value;
 				}
 				$user->save();
-				
+				$APP_NAME  = env('APP_NAME');
 				//Update status to failed
 					$maximum_drawdown = Challenge::with(['get_challenge_type'])->where('id', $id_val)->first();
 					if($maximum_drawdown->status != 2){ //If status not failed
@@ -379,6 +409,35 @@ class ChallengesController extends Controller
 						}
 					}
 				//Update status to failed
+				//Update status to funded
+					$get_challenge = Challenge::with(['get_challenge_type'])->where('id', $id_val)->first();
+					if($get_challenge->status != 1){
+						$adjust_users_balance = Adjust_users_balance::where('challenge_id', $id_val)->where('type', 1)->sum('amount_paid');
+						
+						$achieved_balance = $get_challenge->get_challenge_type->amount * (10/100);
+						if($achieved_balance <= $adjust_users_balance){
+							$get_challenge->status = 1;
+							$get_challenge->save();
+							
+							$phase = $get_challenge->get_challenge_type->title;
+							$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
+							$email_content = get_email(4);
+							if(!empty($email_content))
+							{
+								$maildata = [
+									'subject' => $email_content->message_subject,
+									'body' => str_replace(array("[LOGO]", "[PHASE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $phase, $APP_NAME, date('Y')), $email_content->message),
+									'toEmails' => array($get_challenge->email),
+								];
+								try {
+									send_email($maildata);
+								} catch (\Exception $e) {
+									//
+								}
+							}
+						}
+					}
+				//Update status to funded
 			}
 		}
 		$data['result'] ='success';
