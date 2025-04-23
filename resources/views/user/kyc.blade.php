@@ -48,13 +48,35 @@
 				</div>
 			</div>
 		</div>
+		<div class="row custom-dropdown">
+			<div class="col-lg-6 mb-2">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="btn-group">
+							<button type="button" class="btn action-btn add-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item text-danger change_multi_approve" data-mode="reject">Reject</a></li>
+								<li><a class="dropdown-item text-success change_multi_approve" data-mode="accept">Accept</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table class="table table-striped custom-table datatable">
+					<table class="table table-striped custom-table datatable1" id="kycTable">
 						<thead>
 							<tr>
+								@if($documents->count() > 0)
+								<th>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input" type="checkbox" id="checkKycAll">
+									</label>
+								</th>
+								@endif
 								<th>Full Name</th>
 								<th>Email</th>
 								<th>KYC Requested At</th>
@@ -65,6 +87,13 @@
 						<tbody>
 						@foreach($documents as $document)
 							<tr>
+								@if($documents->count() > 0)
+								<td>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input row-checkbox" type="checkbox" value="{{ $document->id }}">
+									</label>
+								</td>
+								@endif
 								<td>{{ $document->get_client->first_name .''. $document->get_client->last_name }}</td>
 								<td>{{ $document->get_client->email ?? '' }}</td>
 								<td>{{ Carbon::parse($document->created_at ?? '')->format('d M y') }}</td>
@@ -114,8 +143,7 @@
 @endsection 
 @section('scripts')
 @include('_includes.footer')
-<script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
 <script src="{{ url('front-assets/js/page/kyc.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
 
 @endsection

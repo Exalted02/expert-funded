@@ -5,6 +5,79 @@ Version      : 4.0
 */
 
 $(document).ready(function() {
+	let table = $('#kycTable').DataTable({
+        pageLength: 50, // Set default records per page to 50
+		ordering: false, 
+		language: {
+			"lengthMenu": "Show _MENU_ entries",
+			"zeroRecords": "No records found",
+			"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"infoEmpty": "No entries available",
+			"infoFiltered": "Filtered from _MAX_ total entries",
+			"search": "Search",
+			"paginate": {
+				"first": "First",
+				"last": "Last",
+				"next": "Next",
+				"previous": "Previous"
+			},
+		},
+		columnDefs: [
+			{ orderable: false, targets: 0 }, 
+			{ orderable: false, targets: '_all' } 
+		],
+    });
+	
+	let selectedIds = [];
+	// Handle "select all"
+    $('#checkKycAll').on('change', function () {
+        let isChecked = $(this).is(':checked');
+
+        table.rows({ search: 'applied' }).every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input[type="checkbox"]');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', isChecked);
+
+            if (isChecked) {
+                if (!selectedIds.includes(id)) selectedIds.push(id);
+            } else {
+                selectedIds = selectedIds.filter(val => val !== id);
+            }
+        });
+    });
+	
+	// Handle individual checkbox click
+    $('#kycTable tbody').on('change', 'input.row-checkbox', function () {
+        let id = $(this).val();
+
+        if ($(this).is(':checked')) {
+            if (!selectedIds.includes(id)) selectedIds.push(id);
+        } else {
+            selectedIds = selectedIds.filter(val => val !== id);
+        }
+    });
+	
+	// On each page draw, restore checkbox states
+    $('#kycTable').on('draw.dt', function () {
+        table.rows().every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input.row-checkbox');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', selectedIds.includes(id));
+        });
+
+        // Also update checkAll if all are selected on current page
+        let allChecked = table.rows({ search: 'applied' }).every(function () {
+            let id = $(this.node()).find('input.row-checkbox').val();
+            return selectedIds.includes(id);
+        });
+		console.log(allChecked);
+        $('#checkKycAll').prop('checked', allChecked);
+    });
+	
 	$(document).on('click','.edit-customer', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');
@@ -18,6 +91,43 @@ $(document).ready(function() {
 				
 			},
 		});
+	});
+	$(document).on('click','.change_multi_approve', function(){
+		var status_typ = $(this).data('mode');
+		if(selectedIds.length <=0)  {
+			$('#confirmChkSelect').modal("show");	
+		}else {
+			if(status_typ == 'accept'){
+				$('#status_type').text('accept');
+			}else{
+				$('#status_type').text('reject');
+			}
+			$('#kyc_status_btn').attr('data-mode', status_typ);
+			$('#confirm_kyc_status_change').modal('show');
+		}
+	});
+	$(document).on('click','#kyc_status_btn', function(){
+		var button = $(this);
+		button.prop('disabled', true);
+		if(selectedIds.length <=0)  {
+			$('#confirmChkSelect').modal("show");	
+		}else {	
+			var selected_values = selectedIds.join(",");
+			var URL = $(this).data('url');
+			var status_typ = $(this).data('mode');
+			$.ajax({
+				url: URL,
+				type: "POST",
+				data: {id:selected_values,status_typ:status_typ, _token: csrfToken},
+				dataType: 'json',
+				success: function(response) {
+					$('#success_status_msg').modal('show');
+					setTimeout(() => {
+						window.location.reload();
+					}, "2000");
+				},
+			});
+		}
 	}); 
 
 	$(document).on('click','.delete-customer', function(){

@@ -27,6 +27,14 @@
     background-color: #141414;
     border: 1px solid #2A2A2A;
 }
+.custom-dropdown .dropdown-menu {
+    background-color: #141414;
+    border: 1px solid #2A2A2A;
+}
+.custom-dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: rgba(255, 155, 68, 0.2) !important;
+}
+
 .mini-sidebar .sidebar .sidebar-menu ul li button span {
     display: none;
 }

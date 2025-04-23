@@ -18,6 +18,28 @@
 	</div>
 </div>
 
+<div class="modal custom-modal fade" id="confirm_kyc_status_change" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="success-message text-center">
+					<h3>Are you sure, you want to <span id="status_type"></span> KYC?</h3>
+					<div class="modal-btn delete-action mt-5">
+						<div class="row">
+							<div class="col-6">
+								<a href="javascript:void(0);" class="btn btn-sm w-100 btn-danger" data-bs-dismiss="modal"><i class="las la-times-circle"></i> Cancel</a>
+							</div>
+							<div class="col-6">
+								<a id="kyc_status_btn" data-url="{{ route('multi-kyc-doc-status-update')}}" href="javascript:void(0);" class="btn btn-sm w-100 btn-success"><i class="las la-check-double"></i> Okay</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- View Details -->
 <div class="modal custom-modal fade" id="view_details" role="dialog">
 	<div class="modal-dialog modal-dialog-centered">
