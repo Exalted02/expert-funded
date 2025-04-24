@@ -340,6 +340,9 @@ class ChallengesController extends Controller
 						];
 						try {
 							send_email($maildata);
+							
+							//Update all adjust balance to zero
+							$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $request->adjust_amount_challenge)->where('type', 1)->update(['amount_paid' => 0]);
 						} catch (\Exception $e) {
 							//
 						}
@@ -431,6 +434,9 @@ class ChallengesController extends Controller
 								];
 								try {
 									send_email($maildata);
+									
+									//Update all adjust balance to zero
+									$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $id_val)->where('type', 1)->update(['amount_paid' => 0]);
 								} catch (\Exception $e) {
 									//
 								}

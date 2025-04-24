@@ -5,6 +5,79 @@ Version      : 4.0
 */
 
 $(document).ready(function() {
+	let table = $('#challengeTable').DataTable({
+        pageLength: 50, // Set default records per page to 50
+		ordering: false, 
+		language: {
+			"lengthMenu": "Show _MENU_ entries",
+			"zeroRecords": "No records found",
+			"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"infoEmpty": "No entries available",
+			"infoFiltered": "Filtered from _MAX_ total entries",
+			"search": "Search",
+			"paginate": {
+				"first": "First",
+				"last": "Last",
+				"next": "Next",
+				"previous": "Previous"
+			},
+		},
+		columnDefs: [
+			{ orderable: false, targets: 0 }, 
+			{ orderable: false, targets: '_all' } 
+		],
+    });
+	
+	let selectedIds = [];
+	// Handle "select all"
+    $('#checkChallengeAll').on('change', function () {
+        let isChecked = $(this).is(':checked');
+
+        table.rows({ search: 'applied' }).every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input[type="checkbox"]');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', isChecked);
+
+            if (isChecked) {
+                if (!selectedIds.includes(id)) selectedIds.push(id);
+            } else {
+                selectedIds = selectedIds.filter(val => val !== id);
+            }
+        });
+    });
+	
+	// Handle individual checkbox click
+    $('#challengeTable tbody').on('change', 'input.row-checkbox', function () {
+        let id = $(this).val();
+
+        if ($(this).is(':checked')) {
+            if (!selectedIds.includes(id)) selectedIds.push(id);
+        } else {
+            selectedIds = selectedIds.filter(val => val !== id);
+        }
+    });
+	
+	// On each page draw, restore checkbox states
+    $('#challengeTable').on('draw.dt', function () {
+        table.rows().every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input.row-checkbox');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', selectedIds.includes(id));
+        });
+
+        // Also update checkAll if all are selected on current page
+        let allChecked = table.rows({ search: 'applied' }).every(function () {
+            let id = $(this.node()).find('input.row-checkbox').val();
+            return selectedIds.includes(id);
+        });
+
+        $('#checkChallengeAll').prop('checked', allChecked);
+    });
+	
 	$(document).on('click','.save-challenge-email', function(){
 		let traderEmail = $('#trader_email').val().trim();
 		//let createdDate = $('#created_date').val().trim();
@@ -332,11 +405,13 @@ $(document).ready(function() {
 		});
 	});
 	$(document).on('click','.multi-adjust-balance', function(){
-		var employee = [];
+		/*var employee = [];
 		$(".table input[name=chk_id]:checked").each(function() {  
 			employee.push($(this).data('emp-id'));
 		});
-		if(employee.length <=0)  {
+		console.log('Selected IDs:', selectedIds);
+		console.log('Selected IDs employee:', employee);*/
+		if(selectedIds.length <=0)  {
 			$('#confirmChkSelect').modal("show");	
 		}else {
 			$('#adjust_multi_user_balance_model').modal('show');
@@ -378,14 +453,15 @@ $(document).ready(function() {
 	$(document).on('click','.submit-multi-adjust-balance', function(){
 		var button = $(this);
 		button.prop('disabled', true);
-		var employee = [];
+		/*var employee = [];
 		$(".table input[name=chk_id]:checked").each(function() {  
 			employee.push($(this).data('emp-id'));
-		});
-		if(employee.length <=0) {
+		});*/
+		if(selectedIds.length <=0) {
 			$('#confirmChkSelect').modal("show");	
 		}else{
-			var selected_values = employee.join(",");
+			// var selected_values = employee.join(",");
+			var selected_values = selectedIds.join(",");
 			
 			var TYPE_VAL = $(this).data('mode');
 			let formData = new FormData($('#frmMultiAdjustBalance')[0]);

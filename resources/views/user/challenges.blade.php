@@ -58,13 +58,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table class="table table-striped custom-table datatable">
+					<table class="table table-striped custom-table datatable1" id="challengeTable">
 						<thead>
 							<tr>
 								@if($list->count() > 0)
 								<th>
 									<label class="form-check form-check-inline">
-										<input class="form-check-input" type="checkbox" id="checkAll">
+										<input class="form-check-input" type="checkbox" id="checkChallengeAll">
 									</label>
 								</th>
 								@endif
@@ -88,7 +88,7 @@
 								@if($list->count() > 0)
 								<td>
 									<label class="form-check form-check-inline">
-										<input class="form-check-input" type="checkbox" name="chk_id" data-emp-id="{{ $val->id }}">
+										<input class="form-check-input row-checkbox" type="checkbox" value="{{ $val->id }}">
 									</label>
 								</td>
 								@endif
