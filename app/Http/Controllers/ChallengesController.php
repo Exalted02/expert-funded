@@ -565,7 +565,7 @@ class ChallengesController extends Controller
 					}
 					
 					$challenge=new Challenge();
-					$challenge->client_id = $trading_id;
+					$challenge->client_id = $row['id_klienta'];
 					$challenge->client_pw = $trading_password;
 					$challenge->user_id = $user_id;
 					$challenge->email = $row['email'];
