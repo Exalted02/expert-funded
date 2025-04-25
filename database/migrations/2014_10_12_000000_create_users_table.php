@@ -31,6 +31,7 @@ return new class extends Migration
 			$table->string('status')->nullable()->comment('0=inactive/suspend, 1=active, 2=delete');
 			$table->string('trading_account_id')->nullable()->index();
 			$table->string('trading_account_pw')->nullable()->index();
+			$table->tinyInteger('eligible_withdraw')->default(0)->comment('0=not withdrawable, 1=withdrawable');
             $table->timestamps();
         });
     }

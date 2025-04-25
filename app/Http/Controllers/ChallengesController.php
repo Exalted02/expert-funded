@@ -91,19 +91,23 @@ class ChallengesController extends Controller
 		$user = User::where('email', $request->post('traders_email'))->first();
 		$password = Str::random(8);
 		$APP_NAME  = env('APP_NAME');
+		$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
+		
+		$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+		$trading_password = '';
+		$length = 10;
+
+		for ($i = 0; $i < $length; $i++) {
+			$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+		}
+		$trading_id = mt_rand(10000000, 99999999);
+		
 		if($user){
 			$user_id = $user->id;
 			$user_email = $user->email;
 			$user->users_balances = $user->users_balances + $request->post('trading_amount');
 			$user->save();
 		}else{
-			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-			$trading_password = '';
-			$length = 10;
-
-			for ($i = 0; $i < $length; $i++) {
-				$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
-			}
 
 			$model = new User();
 			$model->email = $request->post('traders_email');
@@ -114,14 +118,13 @@ class ChallengesController extends Controller
 			$model->password = Hash::make($password);
 			$model->users_balances = $request->post('trading_amount');
 			$model->status = 1;
-			$model->trading_account_id = mt_rand(10000000, 99999999);
+			$model->trading_account_id = $trading_id;
 			$model->trading_account_pw = $trading_password;
 			$model->email_verified_at = date('Y-m-d h:i:s');
 			$model->created_at = date('Y-m-d h:i:s');
 			
 			if($model->save()){
 				$client_name = $model->first_name." ".$model->last_name;
-				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 				$email_content = get_email(1);
 				if(!empty($email_content))
 				{
@@ -152,6 +155,8 @@ class ChallengesController extends Controller
 			$file->move($destinationPath, $fileName);
 		}
 		$challenge = new Challenge();
+		$challenge->client_id = $trading_id;
+		$challenge->client_pw = $trading_password;
 		$challenge->user_id = $user_id;
 		$challenge->email = $request->post('traders_email');
 		$challenge->first_name = $request->post('trader_first_name');
@@ -501,20 +506,20 @@ class ChallengesController extends Controller
 						$challenge_type_id = $c_type->id;
 					}
 					
+					$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+					$trading_password = '';
+					$length = 10;
+
+					for ($i = 0; $i < $length; $i++) {
+						$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+					}
+					$trading_id = mt_rand(10000000, 99999999);
 
 					if($user){
 						$user_id = $user->id;
 						$user->users_balances = $user->users_balances + $user_balance;
 						$user->save();
 					}else{
-						$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-						$trading_password = '';
-						$length = 10;
-
-						for ($i = 0; $i < $length; $i++) {
-							$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
-						}
-			
 						$model = new User();
 						$model->email = $row['email'];
 						$model->name = $row['full_name'];
@@ -523,7 +528,7 @@ class ChallengesController extends Controller
 						$model->password = Hash::make($password);
 						$model->users_balances = $user_balance;
 						$model->status = 1;
-						$model->trading_account_id = mt_rand(10000000, 99999999);
+						$model->trading_account_id = $trading_id;
 						$model->trading_account_pw = $trading_password;
 						$model->email_verified_at = date('Y-m-d h:i:s');
 						$model->created_at = date('Y-m-d h:i:s');
@@ -560,7 +565,8 @@ class ChallengesController extends Controller
 					}
 					
 					$challenge=new Challenge();
-					$challenge->client_id = $row['id_klienta'];
+					$challenge->client_id = $trading_id;
+					$challenge->client_pw = $trading_password;
 					$challenge->user_id = $user_id;
 					$challenge->email = $row['email'];
 					$challenge->first_name = $first_name;

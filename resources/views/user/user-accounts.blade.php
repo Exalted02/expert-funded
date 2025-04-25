@@ -83,21 +83,21 @@
 			</div>
 		</div>--}}
 		{{--<div class="row">
-			<div class="col-lg-6 mb-2">
-				<button type="button" class="btn btn-info multi-adjust-balance"><i class="la la-plus m-r-5"></i> Adjust balance</button>
+			<div class="col-md-3 mb-2">
+				<button type="button" class="btn btn-info multi-allow-withdraw"><i class="la la-plus m-r-5"></i> Allow withdraw</button>
 			</div>
 		</div>--}}
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table class="table table-striped custom-table datatable">
+					<table class="table table-striped custom-table datatable1" id="userTable">
 						<thead>
 							<tr>
 								@if($list->count() > 0)
 								{{--<th>
 									<label class="form-check form-check-inline">
-										<input class="form-check-input" type="checkbox" id="checkAll">
+										<input class="form-check-input" type="checkbox" id="checkUserAll">
 									</label>
 								</th>--}}
 								@endif
@@ -110,6 +110,7 @@
 								<th>Created At</th>
 								<th>Dashboard</th>
 								<th>Status</th>
+								<th>Withdraw Status</th>
 								<th class="text-end">Actions</th>
 							</tr>
 						</thead>
@@ -118,9 +119,9 @@
 							<tr>
 								@if($list->count() > 0)
 								{{--<td>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox" name="chk_id" data-emp-id="{{ $val->id }}">
-										</label>
+									<label class="form-check form-check-inline">
+										<input class="form-check-input row-checkbox" type="checkbox" value="{{ $val->id }}">
+									</label>
 								</td>--}}
 								@endif
 								<td>{{$val->name ?? ''}}</td>
@@ -144,8 +145,8 @@
 											<i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}
 										</a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspend</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}" data-type="0"><i class="fa-regular fa-circle-dot text-danger"></i> Suspend</a>
 										</div>
 									</div>
 								 @else
@@ -154,8 +155,32 @@
 											<i class="fa-regular fa-circle-dot text-danger"></i> Suspended
 										</a>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
-											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}"><i class="fa-regular fa-circle-dot text-danger"></i> Suspend</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> {{ __('active') }}</a>
+											<a class="dropdown-item update-status" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-update-status') }}" data-type="0"><i class="fa-regular fa-circle-dot text-danger"></i> Suspend</a>
+										</div>
+									</div> 
+								 
+								 @endif
+								</td>
+								<td>
+								@if($val->eligible_withdraw ==1)
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-success dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-success"></i> Allowed
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-eligible-withdraw" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-allow-withdraw') }}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> Allow</a>
+											<a class="dropdown-item update-eligible-withdraw" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-allow-withdraw') }}" data-type="0"><i class="fa-regular fa-circle-dot text-danger"></i> Not Allow</a>
+										</div>
+									</div>
+								 @else
+									<div class="dropdown action-label">
+										<a class="btn btn-white btn-sm badge-outline-danger dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fa-regular fa-circle-dot text-danger"></i> Not Allowed
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item update-eligible-withdraw" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-allow-withdraw') }}" data-type="1"><i class="fa-regular fa-circle-dot text-success"></i> Allowed</a>
+											<a class="dropdown-item update-eligible-withdraw" href="javascript:void(0);" data-id="{{ $val->id }}" data-url="{{ route('users.user-allow-withdraw') }}" data-type="0"><i class="fa-regular fa-circle-dot text-danger"></i> Not Allowed</a>
 										</div>
 									</div> 
 								 

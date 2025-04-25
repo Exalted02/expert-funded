@@ -7,6 +7,109 @@ Version      : 4.0
 $(document).ready(function() {
 	let currentBalance = 0;
 	
+	let table = $('#userTable').DataTable({
+        pageLength: 50, // Set default records per page to 50
+		ordering: false, 
+		language: {
+			"lengthMenu": "Show _MENU_ entries",
+			"zeroRecords": "No records found",
+			"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"infoEmpty": "No entries available",
+			"infoFiltered": "Filtered from _MAX_ total entries",
+			"search": "Search",
+			"paginate": {
+				"first": "First",
+				"last": "Last",
+				"next": "Next",
+				"previous": "Previous"
+			},
+		},
+		columnDefs: [
+			{ orderable: false, targets: 0 }, 
+			{ orderable: false, targets: '_all' } 
+		],
+    });
+	
+	let selectedIds = [];
+	// Handle "select all"
+    $('#checkUserAll').on('change', function () {
+        let isChecked = $(this).is(':checked');
+
+        table.rows({ search: 'applied' }).every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input[type="checkbox"]');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', isChecked);
+
+            if (isChecked) {
+                if (!selectedIds.includes(id)) selectedIds.push(id);
+            } else {
+                selectedIds = selectedIds.filter(val => val !== id);
+            }
+        });
+    });
+	
+	// Handle individual checkbox click
+    $('#userTable tbody').on('change', 'input.row-checkbox', function () {
+        let id = $(this).val();
+
+        if ($(this).is(':checked')) {
+            if (!selectedIds.includes(id)) selectedIds.push(id);
+        } else {
+            selectedIds = selectedIds.filter(val => val !== id);
+        }
+    });
+	
+	// On each page draw, restore checkbox states
+    $('#userTable').on('draw.dt', function () {
+        table.rows().every(function () {
+            let row = $(this.node());
+            let checkbox = row.find('input.row-checkbox');
+            let id = checkbox.val();
+
+            checkbox.prop('checked', selectedIds.includes(id));
+        });
+
+        // Also update checkAll if all are selected on current page
+        let allChecked = table.rows({ search: 'applied' }).every(function () {
+            let id = $(this.node()).find('input.row-checkbox').val();
+            return selectedIds.includes(id);
+        });
+
+        $('#checkUserAll').prop('checked', allChecked);
+    });
+	
+	$(document).on('click','.multi-allow-withdraw', function(){
+		if(selectedIds.length <=0)  {
+			$('#confirmChkSelect').modal("show");	
+		}else {
+			$('#multi_allow_withdraw_modal').modal('show');
+		}
+	});
+	$(document).on('click','#submit_allow_withdraw', function(){
+		var button = $(this);
+		button.prop('disabled', true);
+		if(selectedIds.length <=0)  {
+			$('#confirmChkSelect').modal("show");	
+		}else {	
+			var selected_values = selectedIds.join(",");
+			var URL = $(this).data('url');
+			$.ajax({
+				url: URL,
+				type: "POST",
+				data: {id:selected_values, _token: csrfToken},
+				dataType: 'json',
+				success: function(response) {
+					$('#success_status_msg').modal('show');
+					setTimeout(() => {
+						window.location.reload();
+					}, "2000");
+				},
+			});
+		}
+	}); 
+	
 	$(document).on('click','.edit-data', function(){
 		var id = $(this).data('id');
 		var URL = $(this).data('url');
@@ -127,10 +230,29 @@ $(document).ready(function() {
 	$(document).on('click','.update-status', function(){
 		var id= $(this).data('id');
 		var URL = $(this).data('url');
+		var TYPE_VAL = $(this).data('type');
 		$.ajax({
 			url: URL,
 			type: "POST",
-			data: {id:id, _token: csrfToken},
+			data: {id:id, type_val: TYPE_VAL, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				//alert(update_status);
+				$('#update_status').modal('show');
+				setTimeout(() => {
+					window.location.reload();
+				}, "1000");
+			},
+		});
+	});
+	$(document).on('click','.update-eligible-withdraw', function(){
+		var id= $(this).data('id');
+		var URL = $(this).data('url');
+		var TYPE_VAL = $(this).data('type');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, type_val: TYPE_VAL, _token: csrfToken},
 			dataType: 'json',
 			success: function(response) {
 				//alert(update_status);

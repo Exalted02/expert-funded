@@ -93,8 +93,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::post('/get_delete_data', [UserController::class, 'get_delete_data'])->name('get_delete_data');
 		Route::post('/final_delete_submit', [UserController::class, 'final_delete_submit'])->name('final_delete_submit');
 
-		Route::post('/users/adjust-balance', [UserController::class, 'adjust_balance'])->name('adjust-balance');
-		Route::post('/users/multi-adjust-balance', [UserController::class, 'multi_adjust_balance'])->name('multi-adjust-balance');
+		Route::post('/users/adjust-balance', [UserController::class, 'adjust_balance'])->name('adjust-balance'); //now no work
+		Route::post('/users/multi-adjust-balance', [UserController::class, 'multi_adjust_balance'])->name('multi-adjust-balance'); //now no work
+		
+		Route::post('/user-allow-withdraw', [UserController::class, 'allow_withdraw'])->name('user-allow-withdraw');
+		Route::post('/multi-allow-withdraw-submit', [UserController::class, 'multi_allow_withdraw_submit'])->name('multi-allow-withdraw-submit');
 	});
 	
 	

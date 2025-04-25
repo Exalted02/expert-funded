@@ -56,8 +56,11 @@ class UserController extends Controller
 	}
 	public function update_status(Request $request)
 	{
-		$status = User::where('id', $request->id)->first()->status;
-		$change_status = $status == 1 ? 0 : 1;
+		// $status = User::where('id', $request->id)->first()->status;
+		// $change_status = $status == 1 ? 0 : 1;
+		
+		$change_status = $request->type_val;
+		
 		$update = User::where('id', $request->id)->update(['status'=> $change_status]);
 		
 		$data['result'] = $change_status;
@@ -146,6 +149,24 @@ class UserController extends Controller
 				$user->save();
 			}
 		}
+		$data['result'] ='success';
+		echo json_encode($data);
+	}
+	public function allow_withdraw(Request $request)
+	{
+		$change_status = $request->type_val;
+		
+		$update = User::where('id', $request->id)->update(['eligible_withdraw'=> $change_status]);
+		
+		$data['result'] = $change_status;
+		echo json_encode($data);
+	}
+	public function multi_allow_withdraw_submit(Request $request)
+	{
+		$cat_ids = explode(',', $request->id);
+		
+		$update = User::whereIn('id', $cat_ids)->update(['eligible_withdraw'=> 1]);
+		
 		$data['result'] ='success';
 		echo json_encode($data);
 	}

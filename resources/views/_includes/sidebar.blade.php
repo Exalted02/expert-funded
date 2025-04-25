@@ -36,17 +36,17 @@
 						</div>
 					</div>
 				</li>
+				@if(request()->routeIs('client.dashboard'))
 				<li class="mb-3 text-center">
-					@if(request()->routeIs('client.dashboard'))
-						@if($challenge_status == 0)
-						<button class="btn btn-square btn-outline-warning"><i class="las la-clock"></i> On Challenge</button>
-						@elseif($challenge_status == 1)
-						<button class="btn btn-square btn-outline-success"><i class="las la-check-double"></i> Funded</button>
-						@elseif($challenge_status == 2)
-						<button class="btn btn-square btn-outline-danger"><i class="las la-times-circle"></i> Failed</button>
-						@endif
+					@if($challenge_status == 0)
+					<button class="btn btn-square btn-outline-warning"><i class="las la-clock"></i> On Challenge</button>
+					@elseif($challenge_status == 1)
+					<button class="btn btn-square btn-outline-success"><i class="las la-check-double"></i> Funded</button>
+					@elseif($challenge_status == 2)
+					<button class="btn btn-square btn-outline-danger"><i class="las la-times-circle"></i> Failed</button>
 					@endif
 				</li>
+				@endif
 				<li class="{{ request()->routeIs('client.dashboard-challenge','client.dashboard') ? 'active' : '' }}">
 					<a href="{{ route('client.dashboard-challenge')}}"><i class="la la-home"></i> <span> Dashboard </span></a>
 				</li>

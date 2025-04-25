@@ -39,7 +39,12 @@ $impersonateUserId = session('impersonate_user_id');
 	<ul class="nav user-menu">
 	    @if(Auth::user()->user_type == 1)
 			<li class="nav-item">
+				@php
+					$challenge_status = App\Models\Challenge::where('id', session()->get('last_selected_challenge'))->first();
+				@endphp
+				@if($challenge_status)
 				<button type="button" class="btn btn-square btn-outline-light trading-credentials"><i class="las la-key"></i> Trading Credentials</button>
+				@endif
 			</li>
 		@endif
 		<!-- Search -->
@@ -306,7 +311,12 @@ $impersonateUserId = session('impersonate_user_id');
 		<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
 		<div class="dropdown-menu dropdown-menu-right">
 			@if(Auth::user()->user_type == 1)
-			<a class="dropdown-item header-dropdown trading-credentials" href="javascript:void(0)">Trading Credentials</a>
+				@php
+					$challenge_status = App\Models\Challenge::where('id', session()->get('last_selected_challenge'))->first();
+				@endphp
+				@if($challenge_status)
+					<a class="dropdown-item header-dropdown trading-credentials" href="javascript:void(0)">Trading Credentials</a>
+				@endif
 			@endif
 			<a class="dropdown-item header-dropdown" href="{{ route('logout') }}">Logout</a>
 		</div>

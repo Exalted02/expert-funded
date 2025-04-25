@@ -253,15 +253,22 @@ class DashboardController extends Controller
 	
     public function withdraw_request_amount(Request $request)
     {
+		
 		$get_records = Adjust_users_balance::where('user_id', Auth::id())
-			->where('created_at', '<', Carbon::now()->subDays(30))
+			//->where('created_at', '<', Carbon::now()->subDays(35))
+			->when(Auth::user()->eligible_withdraw == 0, function ($query) {
+				$query->where('created_at', '<', Carbon::now()->subDays(35));
+			})
 			->where('type', 1)
 			// ->where('type', '!=', 0)
 			->where('status', 0)
 			->pluck('id');
 		
 		$get_records_amount = Adjust_users_balance::where('user_id', Auth::id())
-			->where('created_at', '<', Carbon::now()->subDays(30))
+			//->where('created_at', '<', Carbon::now()->subDays(35))
+			->when(Auth::user()->eligible_withdraw == 0, function ($query) {
+				$query->where('created_at', '<', Carbon::now()->subDays(35));
+			})
 			->where('type', 1)
 			// ->where('type', '!=', 0)
 			->where('status', 0)
@@ -314,7 +321,7 @@ class DashboardController extends Controller
     public function account_data()
     {
 		// $data = [];
-		$user  = User::where('id', auth()->user()->id)->first();
+		/*$user  = User::where('id', auth()->user()->id)->first();
 		if($user->trading_account_id == null || $user->trading_account_pw == null){
 			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
 			$trading_password = '';
@@ -327,7 +334,11 @@ class DashboardController extends Controller
 			$user->trading_account_id = mt_rand(10000000, 99999999);
 			$user->trading_account_pw = $trading_password;
 			$user->save();
-		}
-		echo $user;
+		}*/
+		$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		$data['trading_account_id'] = $challenge->client_id;
+		$data['trading_account_pw'] = $challenge->client_pw;
+		
+		return $data;
     }
 }
