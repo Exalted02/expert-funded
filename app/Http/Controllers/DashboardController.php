@@ -336,6 +336,22 @@ class DashboardController extends Controller
 			$user->save();
 		}*/
 		$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		if($challenge->client_id == null){
+			$challenge->client_id = mt_rand(10000000, 99999999);
+			$challenge->save();
+		}
+		if($challenge->client_pw == null){
+			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+			$trading_password = '';
+			$length = 10;
+
+			for ($i = 0; $i < $length; $i++) {
+				$trading_password .= $characters[random_int(0, strlen($characters) - 1)];
+			}
+			
+			$challenge->client_pw = $trading_password;
+			$challenge->save();
+		}
 		$data['trading_account_id'] = $challenge->client_id;
 		$data['trading_account_pw'] = $challenge->client_pw;
 		
