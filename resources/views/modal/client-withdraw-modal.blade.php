@@ -55,6 +55,15 @@
 								<form id="frmWithdrawSubmit" action="{{ route('client.withdraw.withdraw-submit') }}">
 									<input type="hidden" name="withdrawable_balance_input" id="withdrawable_balance_input">
 									<input type="hidden" name="withdrawable_id" id="withdrawable_id">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="input-block mb-3">
+												<label class="col-form-label">USDC address</label>
+												<input class="form-control" type="text" name="usdc_address" id="usdc_address" placeholder="USDC address">
+												<div class="invalid-feedback"></div>
+											</div>
+										</div>
+									</div>
 								</form>
 							</div>
 						</div>

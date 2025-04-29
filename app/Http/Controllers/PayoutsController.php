@@ -38,4 +38,11 @@ class PayoutsController extends Controller
 		$data['result'] = $change_status;
 		echo json_encode($data);
     }
+    public function payout_details(Request $request)
+    {
+		$payout = Client_payout_request::where('id', $request->id)->first();
+		
+		$data['result'] = $payout;
+		echo json_encode($data);
+    }
 }

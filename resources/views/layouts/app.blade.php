@@ -93,7 +93,7 @@
 							</li>
 							<li>
 								<div class="title">Server:</div>
-								<div id="">MetaQuotes-Live</div>								
+								<div id="">Virtual Markets LTD</div>								
 							</li>
 							<li>
 								<div class="title">Account Id:</div>

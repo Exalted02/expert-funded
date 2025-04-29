@@ -139,11 +139,11 @@
 								{{--<td><span class="text-danger">Cancelled</span></td>--}}
 								<td>
 									@if($val->status == 0)
-									<button type="button" class="btn btn-sm btn-outline-primary rounded-pill payout-status" data-id="{{ $val->id }}">Pending</button>
+									<button type="button" class="btn btn-sm btn-outline-primary rounded-pill payout-status" data-id="{{ $val->id }}" data-url="{{route('payouts.payout-details')}}">Pending</button>
 									@elseif($val->status == 1)
-									<button type="button" class="btn btn-sm btn-outline-success rounded-pill payout-status" data-id="{{ $val->id }}">Accept</button>
+									<button type="button" class="btn btn-sm btn-outline-success rounded-pill payout-status" data-id="{{ $val->id }}" data-url="{{route('payouts.payout-details')}}">Accept</button>
 									@elseif($val->status == 2)
-									<button type="button" class="btn btn-sm btn-outline-danger rounded-pill payout-status" data-id="{{ $val->id }}">Reject</button>
+									<button type="button" class="btn btn-sm btn-outline-danger rounded-pill payout-status" data-id="{{ $val->id }}" data-url="{{route('payouts.payout-details')}}">Reject</button>
 									@endif
 									
 									{{--<div class="dropdown action-label">

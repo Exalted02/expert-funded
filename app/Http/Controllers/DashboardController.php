@@ -285,6 +285,7 @@ class DashboardController extends Controller
 		$payout->requested_amount = $request->withdrawable_balance_input;
 		$payout->withdrawable_adjust_id = $request->withdrawable_id;
 		$payout->status = 0;
+		$payout->usdc_address = $request->usdc_address;
 		if($payout->save()){
 			$ids = explode(', ', $request->withdrawable_id);
 			

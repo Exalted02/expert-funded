@@ -45,6 +45,10 @@
 			</div>			
 			<div class="modal-body">
 				<ul class="personal-info">
+					<li>
+						<div class="title">USDC address :</div>
+						<div class="text"><span id="usdc_address_val"></span></div>
+					</li>
 					<li class="dash-statistics">
 						<div class="row stats-info w-100">
 							<div class="col-12">

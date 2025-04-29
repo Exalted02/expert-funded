@@ -38,8 +38,18 @@ $(document).ready(function() {
 	
 	$(document).on('click','.payout-status', function(){
 		var id= $(this).data('id');
-		$('#status_user').val(id);
-		$('#payout_single_status_model').modal('show');
+		var URL = $(this).data('url');
+		$.ajax({
+			url: URL,
+			type: "POST",
+			data: {id:id, _token: csrfToken},
+			dataType: 'json',
+			success: function(response) {
+				$('#status_user').val(id);
+				$('#usdc_address_val').text(response.result.usdc_address);
+				$('#payout_single_status_model').modal('show');
+			},
+		});		
 	});
 	$(document).on('click','.multi-payout-status', function(){
 		var employee = [];

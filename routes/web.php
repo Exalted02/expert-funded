@@ -125,6 +125,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('/payouts', [PayoutsController::class, 'index'])->name('index');
 		Route::post('/payouts-update-status', [PayoutsController::class, 'update_status'])->name('payouts-update-status');
 		Route::post('/payouts-multi-update-status', [PayoutsController::class, 'multi_update_status'])->name('payouts-multi-update-status');
+		Route::post('/payouts-details', [PayoutsController::class, 'payout_details'])->name('payout-details');
 	});
 	
 	//Kyc
