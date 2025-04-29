@@ -89,6 +89,44 @@
 				<!-- /Chart -->
 		   </div>
 			<div class="row">
+				<div class="col-md-12 col-lg-12 col-xl-12 d-flex">
+					<div class="card flex-fill dash-statistics">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="d-flex">
+										<div>
+											<span class="d-block">Date: {{change_date_format($challenge_val->trade_date, 'Y-m-d', 'd-m-Y')}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="d-flex">
+										<div>
+											<span class="d-block">Trades: {{$challenge_val->trade_count}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="d-flex">
+										<div>
+											<span class="d-block">Most Traded Pair: {{$challenge_val->trade_pair}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="d-flex">
+										<div>
+											<span class="d-block">Result: {{ $challenge_val->trade_result < 0 ? $challenge_val->trade_result : '+' . $challenge_val->trade_result }} %</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-12 col-lg-12 col-xl-4 d-flex">
 					<div class="card flex-fill dash-statistics">
 						<div class="card-body">

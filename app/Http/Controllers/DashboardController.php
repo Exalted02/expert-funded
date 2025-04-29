@@ -198,6 +198,21 @@ class DashboardController extends Controller
 		$data['chartData']  = $values;
 		$data['tooltipData']  = $tooltipData;
 		// dd($data['tooltipData']);
+		
+					
+		//Check trade static data
+		$challenge_val = Challenge::where('id', $id)->where('user_id', Auth::id())->first();
+		if($challenge_val->trade_date != date('Y-m-d')){
+			$trade_count = rand(1, 10);
+			$trade_pair = getRandomSymbol();
+			$trade_result = $equity_percent < 0 ? $equity_percent : '+' . $equity_percent;
+			
+			$update = Challenge::where('id', $id)
+					->update(['trade_date' => date('Y-m-d'), 'trade_count' => $trade_count, 'trade_pair' => $trade_pair, 'trade_result' => $trade_result]);
+		}
+		$challenge_val = Challenge::where('id', $id)->where('user_id', Auth::id())->first();
+		$data['challenge_val']  = $challenge_val;
+		//Check trade static data
         return view('client.dashboard', $data);
     }
     public function account()

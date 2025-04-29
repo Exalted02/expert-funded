@@ -547,5 +547,12 @@ use App\Models\Followup_remarks;
 
 	   return preg_replace('/[^A-Za-z0-9\-.]/', '', $string); // Removes special chars.
 	}
+	function getRandomSymbol()
+	{
+		$symbols = ['EURUSD', 'GBPUSD', 'XAUUSD'];
+		$randomSymbol = $symbols[array_rand($symbols)];
+		
+		return $randomSymbol;
+	}
 
 ?>
