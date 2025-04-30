@@ -16,10 +16,10 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="flex items-center mt-4">
+			<button type="submit" class="items-center px-4 py-2 bg-color-800 border border-transparent1 rounded-md font-semibold tracking-widest hover:bg-color-700 focus:bg-color-700 active:bg-color-900 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 common-button">
+				Email Password Reset Link
+			</button>
         </div>
     </form>
 </x-guest-layout>
