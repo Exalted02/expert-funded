@@ -418,6 +418,7 @@ class ChallengesController extends Controller
 				}
 				$user->save();
 				$APP_NAME  = env('APP_NAME');
+				$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 				//Update status to failed
 					$maximum_drawdown = Challenge::with(['get_challenge_type'])->where('id', $id_val)->first();
 					if($maximum_drawdown->status != 2){ //If status not failed
@@ -447,7 +448,6 @@ class ChallengesController extends Controller
 							$get_challenge->save();
 							
 							$phase = $get_challenge->get_challenge_type->title;
-							$logo = '<img src="' . url('front-assets/img/-logo1.png') . '" alt="Expert funded" width="150">';
 							$email_content = get_email(4);
 							if(!empty($email_content))
 							{
@@ -468,6 +468,25 @@ class ChallengesController extends Controller
 						}
 					}
 				//Update status to funded
+				
+				//Email for positive amount
+					if($request->adjust_percent > 0){
+						$email_content = get_email(8);
+						if(!empty($email_content))
+						{
+							$maildata = [
+								'subject' => $email_content->message_subject,
+								'body' => str_replace(array("[LOGO]", "[PERCENT_VALUE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $request->adjust_percent, $APP_NAME, date('Y')), $email_content->message),
+								'toEmails' => array($get_challenge->email),
+							];
+							try {
+								send_email($maildata);
+							} catch (\Exception $e) {
+								//
+							}
+						}
+					}
+				//Email for positive amount
 			}
 		}
 		$data['result'] ='success';
