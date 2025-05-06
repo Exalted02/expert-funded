@@ -52,6 +52,7 @@ Route::get('db-seed', function () {
     dd("Database seeded");
 });
 Route::get('/', [ProfileController::class, 'welcome']);
+Route::get('/run-script', [ProfileController::class, 'run_script']);
 
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');

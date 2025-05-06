@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Challenge;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,5 +70,14 @@ class ProfileController extends Controller
 	public function contact()
     {
 		return view('contact');
+    }
+	public function run_script()
+    {
+		$get_challenges = Challenge::where('status', 1)->get();
+		foreach($get_challenges as $val){
+			$val->funded_date = change_date_format($val->updated_at, 'Y-m-d H:i:s', 'Y-m-d');
+			$val->save();
+			//dd($val);
+		}
     }
 }

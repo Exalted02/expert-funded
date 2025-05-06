@@ -229,6 +229,7 @@ class DashboardController extends Controller
     public function withdraw()
     {
 		$data = [];
+		/*
 		// Get current year and month
 		$now = Carbon::now();
 		
@@ -236,33 +237,19 @@ class DashboardController extends Controller
 		$currentDay = Carbon::now()->day;
 		$eligibleDate = Carbon::now()->addDays(35);
 		
-		/*$trading_day = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', now()->year)
-						 ->whereMonth('created_at', now()->month)
-						 ->where('type', 1)
-						 ->count();*/
 		$trading_day = Adjust_users_balance::where('user_id', Auth::id())->where('type', 1)
 						->select(DB::raw('DATE(created_at) as adjust_date'))
 						->groupBy(DB::raw('DATE(created_at)'))
 						->get()
 						->count();
-		/*$firstEntry = Adjust_users_balance::where('user_id', Auth::id())->whereYear('created_at', $now->year)
-					->whereMonth('created_at', $now->month)
-					->where('type', 1)
-					->orderBy('created_at', 'asc')
-					->first();		
-		if ($firstEntry) {
-			$start = Carbon::parse($firstEntry->created_at)->startOfDay();
-			$end = Carbon::now()->startOfDay();
-
-			$dayCount = $start->diffInDays($end) + 1; // +1 to include today
-		} else {
-			$dayCount = 0; // No records this month
-		}*/
-		
 		$data['total_day']  = $totalDays;
 		$data['current_day']  = $currentDay;
 		$data['trading_day']  = $trading_day;
 		$data['eligible_date']  = $eligibleDate->toDateString();
+		*/
+		$challenge_status = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		
+		dd($challenge_status);
         return view('client.withdraw', $data);
     }
 	

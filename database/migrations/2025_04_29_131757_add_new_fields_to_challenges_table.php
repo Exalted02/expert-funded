@@ -16,6 +16,7 @@ return new class extends Migration
 			$table->integer('trade_count')->nullable()->after('trade_date');
 			$table->string('trade_pair')->nullable()->after('trade_count');
 			$table->double('trade_result', 8, 2)->nullable()->after('trade_pair');
+			$table->date('funded_date')->nullable()->after('trade_result');
         });
     }
 

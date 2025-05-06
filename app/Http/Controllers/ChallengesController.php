@@ -260,7 +260,12 @@ class ChallengesController extends Controller
     {
 		$change_status = $request->type_val;
 		
-		$update = Challenge::where('id', $request->id)->update(['status'=> $change_status]);
+		if($change_status == 1){
+			$up = ['funded_date'=> date('Y-m-d'), 'status'=> $change_status];
+		}else{
+			$up = ['status'=> $change_status];
+		}
+		$update = Challenge::where('id', $request->id)->update($up);
 		
 		$data['result'] = $change_status;
 		echo json_encode($data);
@@ -332,6 +337,7 @@ class ChallengesController extends Controller
 				$achieved_balance = $get_challenge->get_challenge_type->amount * (10/100);
 				if($achieved_balance <= $adjust_users_balance){
 					$get_challenge->status = 1;
+					$get_challenge->funded_date = date('Y-m-d');
 					$get_challenge->save();
 					
 					$phase = $get_challenge->get_challenge_type->title;
@@ -445,6 +451,7 @@ class ChallengesController extends Controller
 						$achieved_balance = $get_challenge->get_challenge_type->amount * (10/100);
 						if($achieved_balance <= $adjust_users_balance){
 							$get_challenge->status = 1;
+							$get_challenge->funded_date = date('Y-m-d');
 							$get_challenge->save();
 							
 							$phase = $get_challenge->get_challenge_type->title;
@@ -612,6 +619,9 @@ class ChallengesController extends Controller
 					$challenge->challenge_id = $challenge_type_id;
 					$challenge->amount_paid = 0;
 					$challenge->status = $challenge_status;
+					if($challenge_status == 1){
+						$challenge->funded_date = date('Y-m-d');
+					}
 					$challenge->created_at = date('Y-m-d h:i:s');
 					$challenge->save();
 					

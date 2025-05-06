@@ -31,20 +31,21 @@
 											@endphp
 											<div class="stats-list">
 												<div class="stats-info1">
-													<p class="d-flex justify-content-between mb-0"><small>{{$trading_day}} Trading Day</small> <small>{{$total_day}} Trading Days</small></p>
+												{{--<p class="d-flex justify-content-between mb-1"><small>{{$trading_day}} Trading Day</small> <small>{{$total_day}} Trading Days</small></p>--}}
+													<p class="text-end mb-1"><small>{{$total_day}} Trading Days</small></p>
 													<div class="progress">
 														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_maximum_drawdown}}%"></div>
 													</div>
 												</div>
 											</div>
-											<div class="stats-list mt-4">
+											{{--<div class="stats-list mt-4">
 												<div class="stats-info1">
 													<p class="d-flex justify-content-between mb-0"><small>{{$current_day}} Calendar Day</small> <small>{{$total_day}} Calendar Days</small></p>
 													<div class="progress">
 														<div class="progress-bar bg-info" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" style="width: {{$percentage_calender_drawdown}}%"></div>
 													</div>
 												</div>
-											</div>
+											</div>--}}
 											<div class="d-flex justify-content-between mt-5">
 												<div>
 													<span class="d-block">You Will Be Eligible At:</span>
