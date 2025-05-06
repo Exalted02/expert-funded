@@ -554,5 +554,42 @@ use App\Models\Followup_remarks;
 		
 		return $randomSymbol;
 	}
+	function get_adddays_without_weekend($funded_date)
+	{
+		$startDate = Carbon::parse($funded_date);
+		$daysToAdd = 35;
+		$futureDate = $startDate->copy();
+		$addedDays = 0;
+
+		while ($addedDays < $daysToAdd) {
+			$futureDate->addDay();
+
+			// Skip weekends
+			if (!in_array($futureDate->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY])) {
+				$addedDays++;
+			}
+		}
+
+		return $futureDate->format('Y-m-d');
+	}
+	function get_dayremain_without_weekend($eligible_date)
+	{
+		$futureDate = Carbon::parse($eligible_date); // Example future date from previous step
+		$today = Carbon::today();
+		$businessDaysRemaining = 0;
+
+		if ($futureDate->greaterThan($today)) {
+			$dateCursor = $today->copy();
+
+			while ($dateCursor->lessThan($futureDate)) {
+				$dateCursor->addDay();
+				if (!in_array($dateCursor->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY])) {
+					$businessDaysRemaining++;
+				}
+			}
+		}
+
+		return $businessDaysRemaining;
+	}
 
 ?>

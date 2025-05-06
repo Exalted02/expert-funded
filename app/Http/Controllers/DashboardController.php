@@ -12,6 +12,7 @@ use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class DashboardController extends Controller
 {
@@ -247,37 +248,61 @@ class DashboardController extends Controller
 		$data['trading_day']  = $trading_day;
 		$data['eligible_date']  = $eligibleDate->toDateString();
 		*/
-		$challenge_status = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		if(session()->get('last_selected_challenge') == ''){
+			return redirect(RouteServiceProvider::CLIENT_HOME);
+		}
+		if(Auth::user()->eligible_withdraw == 0){
+			$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+			$eligible_date = get_adddays_without_weekend($challenge->funded_date);
+			
+			$days_remain = get_dayremain_without_weekend($eligible_date);
+			$data['days_remaining']  = $days_remain.' Days remaining';
+			$data['percent_bar']  = ((35-$days_remain) / 35) * 100;
+			$data['eligible_date']  = $eligible_date;
+		}else{
+			$data['days_remaining']  = 'Ready for withdraw';
+			$data['percent_bar']  = 100;
+			$data['eligible_date']  = Carbon::now()->format('Y-m-d');
+		}
 		
-		dd($challenge_status);
+		// dd($challenge->funded_date);
         return view('client.withdraw', $data);
     }
 	
     public function withdraw_request_amount(Request $request)
     {
+		$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		$eligible_date = get_adddays_without_weekend($challenge->funded_date);
 		
-		$get_records = Adjust_users_balance::where('user_id', Auth::id())
-			//->where('created_at', '<', Carbon::now()->subDays(35))
-			->when(Auth::user()->eligible_withdraw == 0, function ($query) {
-				$query->where('created_at', '<', Carbon::now()->subDays(35));
-			})
-			->where('type', 1)
-			// ->where('type', '!=', 0)
-			->where('status', 0)
-			->pluck('id');
-		
-		$get_records_amount = Adjust_users_balance::where('user_id', Auth::id())
-			//->where('created_at', '<', Carbon::now()->subDays(35))
-			->when(Auth::user()->eligible_withdraw == 0, function ($query) {
-				$query->where('created_at', '<', Carbon::now()->subDays(35));
-			})
-			->where('type', 1)
-			// ->where('type', '!=', 0)
-			->where('status', 0)
-			->sum('amount_paid');
+		if($eligible_date <= Carbon::now()->format('Y-m-d') || Auth::user()->eligible_withdraw == 1){
+			$get_records = Adjust_users_balance::where('user_id', Auth::id())
+				//->where('created_at', '<', Carbon::now()->subDays(35))
+				/*->when(Auth::user()->eligible_withdraw == 0, function ($query) {
+					$query->where('created_at', '<', Carbon::now()->subDays(35));
+				})*/
+				->where('type', 1)
+				->where('challenge_id', session()->get('last_selected_challenge'))
+				// ->where('type', '!=', 0)
+				->where('status', 0)
+				->pluck('id');
 			
-		$data['get_records'] = implode(', ', $get_records->toArray());
-		$data['get_records_amount'] = $get_records_amount;
+			$get_records_amount = Adjust_users_balance::where('user_id', Auth::id())
+				//->where('created_at', '<', Carbon::now()->subDays(35))
+				/*->when(Auth::user()->eligible_withdraw == 0, function ($query) {
+					$query->where('created_at', '<', Carbon::now()->subDays(35));
+				})*/
+				->where('type', 1)
+				->where('challenge_id', session()->get('last_selected_challenge'))
+				// ->where('type', '!=', 0)
+				->where('status', 0)
+				->sum('amount_paid');
+				
+			$data['get_records'] = implode(', ', $get_records->toArray());
+			$data['get_records_amount'] = $get_records_amount;
+		}else{
+			$data['get_records'] = '';
+			$data['get_records_amount'] = 0;
+		}
 		echo json_encode($data);
     }
     public function withdraw_submit(Request $request)
