@@ -16,16 +16,23 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased login-body">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 login-screen">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+        <div class="row">
+			<div class="col-md-6 login-bg">
+				<img src="{{ asset('front-assets/img/login-bg.png') }}">
+			</div>
+			<div class="col-md-6 login-form">
+				<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 login-screen">
+					<div>
+						<a href="/" class="logo-image">
+							<x-application-logo class="w-20 h-20 fill-current text-gray-500"/>
+						</a>
+					</div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white1 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+					<div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white1 shadow-md overflow-hidden sm:rounded-lg">
+						{{ $slot }}
+					</div>
+				</div>
+			</div>
         </div>
     </body>
 </html>
