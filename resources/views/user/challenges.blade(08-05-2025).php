@@ -73,7 +73,6 @@
 								<th>Trader Name</th>
 								<th>Challenge</th>
 								<th>Balance</th>
-								<th>Start Date</th>
 								<th>State</th>
 								{{--<th>Tag</th>
 								<th>Step</th>
@@ -101,7 +100,6 @@
 									$amount_paid = App\Models\Adjust_users_balance::where('challenge_id', $val->id)->where('type', 1)->sum('amount_paid');
 								@endphp
 								<td>{{$amount_paid + $val->get_challenge_type->amount}}</td>
-								<td>{{change_date_format($val->created_at, 'Y-m-d H:i:s', 'd M y')}}</td>
 								<td>
 									{{--<button type="button" class="btn btn-sm btn-outline-danger rounded-pill">Failed</button>--}}
 									<div class="dropdown action-label">
