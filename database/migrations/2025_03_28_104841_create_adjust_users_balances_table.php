@@ -19,6 +19,8 @@ return new class extends Migration
 			$table->string('percentage_value')->nullable();
 			$table->tinyInteger('type')->nullable()->comment('0=remove, 1=add, 2=challenge amount');
 			$table->tinyInteger('status')->nullable()->comment('0=No withdraw request, 1=Withdraw request sent, 2=Withdrawn request accept');
+			$table->integer('trade_count')->nullable()->after('status');
+			$table->string('trade_pair')->nullable()->after('trade_count');
             $table->timestamps();
         });
     }

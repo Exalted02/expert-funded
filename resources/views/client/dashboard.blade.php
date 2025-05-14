@@ -87,8 +87,8 @@
 					</div>
 				</div>
 				<!-- /Chart -->
-		   </div>
-			<div class="row">
+			</div>
+			{{--<div class="row">
 				<div class="col-md-12 col-lg-12 col-xl-12 d-flex">
 					<div class="card flex-fill dash-statistics">
 						<div class="card-body">
@@ -123,6 +123,32 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>--}}
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table table-striped custom-table datatable3">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Trades</th>
+									<th>Most Traded Pair</th>
+									<th>Result (%)</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($adj_rec as $adj_rec_val)
+								<tr>
+									<td>{{ change_date_format($adj_rec_val['date'], 'Y-m-d', 'd M y') }}</td>
+									<td>{{ $adj_rec_val['trades'] ?? 0 }}</td>
+									<td>{{ $adj_rec_val['trade_pair'] ?? '' }}</td>
+									<td>{{ $adj_rec_val['trade_result'] ?? '0' }}</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

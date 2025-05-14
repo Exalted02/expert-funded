@@ -213,6 +213,39 @@ class DashboardController extends Controller
 		}
 		$challenge_val = Challenge::where('id', $id)->where('user_id', Auth::id())->first();
 		$data['challenge_val']  = $challenge_val;
+		
+		$adj_rec = [];
+		$adjust_records = Adjust_users_balance::where('challenge_id', $id)
+			->where('type', 1)
+			->get()
+			->groupBy(function ($item) {
+				return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
+			});
+		// dd($adjust_records);	
+		foreach($adjust_records as $k=>$adjust_records_val){
+			$adjust_daywise_users_balance = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
+			$equity_daywise_percent = ($adjust_daywise_users_balance / $challenge_actual_amount) * 100;
+			
+			$adj_rec[$k]['trades'] = $adjust_records_val[0]->trade_count;
+			$adj_rec[$k]['trade_pair'] = $adjust_records_val[0]->trade_pair;
+			if($adjust_records_val[0]->trade_count == null){
+				$adjust_record = Adjust_users_balance::find($adjust_records_val[0]->id);
+				$adjust_record->trade_count = rand(1, 10);
+				$adjust_record->save();
+				$adj_rec[$k]['trades'] = $adjust_record->trade_count;
+			}
+			if($adjust_records_val[0]->trade_pair == null){
+				$adjust_record = Adjust_users_balance::find($adjust_records_val[0]->id);
+				$adjust_record->trade_pair = getRandomSymbol();
+				$adjust_record->save();
+				$adj_rec[$k]['trade_pair'] = $adjust_record->trade_pair;
+			}
+			
+			$adj_rec[$k]['date'] = $k;
+			$adj_rec[$k]['trade_result'] = $equity_daywise_percent < 0 ? $equity_daywise_percent : '+' . $equity_daywise_percent;
+		}
+		$data['adj_rec'] = $adj_rec;
+		// dd($data['adj_rec']);
 		//Check trade static data
         return view('client.dashboard', $data);
     }
