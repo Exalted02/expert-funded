@@ -298,8 +298,10 @@ $impersonateUserId = session('impersonate_user_id');
 					@endif
 				</span>
 			</a>
-			<div class="dropdown-menu">				
-				{{--<a class="dropdown-item" href="{{url('change-password')}}">{{ __('change_password') }}</a>--}}
+			<div class="dropdown-menu">
+				@if(Auth::user()->user_type == 0)
+					<a class="dropdown-item header-dropdown" href="{{url('change-password')}}">Change Password</a>
+				@endif
 				<a class="dropdown-item header-dropdown" href="{{ route('logout') }}">Logout</a>
 			</div>
 		</li>
@@ -317,6 +319,12 @@ $impersonateUserId = session('impersonate_user_id');
 				@if($challenge_status)
 					<a class="dropdown-item header-dropdown trading-credentials" href="javascript:void(0)">Trading Credentials</a>
 				@endif
+			@endif
+			@if(Auth::user()->user_type == 0)
+				<a class="dropdown-item header-dropdown" href="{{ route('change-password') }}">Change Password</a>
+			@endif
+			@if(session('admin_id'))
+			<a class="dropdown-item header-dropdown" href="{{ route('users.back')}}">Back Admin</a>
 			@endif
 			<a class="dropdown-item header-dropdown" href="{{ route('logout') }}">Logout</a>
 		</div>
