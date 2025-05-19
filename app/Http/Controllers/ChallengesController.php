@@ -15,6 +15,9 @@ use App\Imports\ChallengeImport;
 
 use Illuminate\Support\Str;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 class ChallengesController extends Controller
 {
     public function index(Request $request)
@@ -278,6 +281,54 @@ class ChallengesController extends Controller
 		$data['adjust_users_balance'] = $adjust_users_balance;
 		echo json_encode($data);		
     }
+	public function generateCertificate($challenge_id, $name, $amount, $date)
+	{
+		$amount = number_format($amount, 2, '.', ',').get_currency_symbol();
+		$date = change_date_format($date, 'Y-m-d', 'd M y');
+
+		// Load image
+		$manager = new ImageManager(new Driver());
+		$image = $manager->read(public_path('certificate/certificate.png')); // your certificate background
+		$imageWidth = $image->width();
+		// Font path
+		$fontPath = public_path('fonts/arialbd.ttf');
+
+		// Add Name
+		$image->text($name, $imageWidth / 2, 500, function ($font) use ($fontPath) {
+			$font->filename($fontPath);
+			$font->size(80);
+			$font->color('#ffffff');
+			$font->align('center');
+			$font->valign('middle');
+			$font->angle(0);
+		});
+
+		// Add Profit
+		$image->text($amount, $imageWidth / 2, 680, function ($font) use ($fontPath) {
+			$font->filename($fontPath);
+			$font->size(100);
+			$font->color('#ffffff');
+			$font->align('center');
+			$font->valign('middle');
+			$font->angle(0);
+		});
+
+		// Add Date
+		$image->text($date, $imageWidth - 120, 930, function ($font) use ($fontPath) {
+			$font->filename($fontPath);
+			$font->size(25);
+			$font->color('#ffffff');
+			$font->align('right');
+			$font->valign('bottom');
+			$font->angle(0);
+		});
+
+		// Save or return response
+		$imagePath = public_path('certificate/'.$challenge_id.'.png');
+		//$image->save($imagePath);
+		return $imagePath;
+		return response()->download($imagePath);
+	}
 	public function adjust_balance(Request $request)
 	{
 		$request->validate([
@@ -340,6 +391,11 @@ class ChallengesController extends Controller
 					$get_challenge->funded_date = date('Y-m-d');
 					$get_challenge->save();
 					
+					$name = $get_challenge->first_name.' '.$get_challenge->last_name;
+					$attatchment = $this->generateCertificate($request->adjust_amount_challenge, $name, $adjust_users_balance, $get_challenge->funded_date);
+					// dd($attatchment);
+		
+		
 					$phase = $get_challenge->get_challenge_type->title;
 					$email_content = get_email(4);
 					if(!empty($email_content))
@@ -348,6 +404,8 @@ class ChallengesController extends Controller
 							'subject' => $email_content->message_subject,
 							'body' => str_replace(array("[LOGO]", "[PHASE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $phase, $APP_NAME, date('Y')), $email_content->message),
 							'toEmails' => array($get_challenge->email),
+							'files' => array($attatchment),
+							//'files' => [public_path('images/logo.jpg'), public_path('css/app.css'),],
 						];
 						try {
 							send_email($maildata);
