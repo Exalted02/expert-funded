@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Challenge;
+use App\Models\Adjust_users_balance;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,11 +74,26 @@ class ProfileController extends Controller
     }
 	public function run_script()
     {
+		/*
 		$get_challenges = Challenge::where('status', 1)->get();
 		foreach($get_challenges as $val){
 			$val->funded_date = change_date_format($val->updated_at, 'Y-m-d H:i:s', 'Y-m-d');
 			$val->save();
 			//dd($val);
+		}*/
+		$adjust_records = Adjust_users_balance::where('type', 1)->whereNotNull('trade_pair')
+			->get()
+			->groupBy(function ($item) {
+				return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
+			});
+		// dd($adjust_records);
+		foreach($adjust_records as $k=>$adjust_records_val){
+			$adjust_daywise_users_balance = Adjust_users_balance::whereDate('created_at', $k)->whereNotNull('trade_pair')->first();
+			foreach($adjust_records_val as $val){
+				$val->trade_pair = $adjust_daywise_users_balance->trade_pair;
+				$val->trade_count = $adjust_daywise_users_balance->trade_count;
+				$val->save();
+			}
 		}
     }
 }

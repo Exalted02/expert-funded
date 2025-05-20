@@ -215,37 +215,49 @@ class DashboardController extends Controller
 		$data['challenge_val']  = $challenge_val;
 		
 		$adj_rec = [];
-		$adjust_records = Adjust_users_balance::/*where('challenge_id', $id)->*/where('type', 1)
+		$adjust_records = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)
 			->get()
 			->groupBy(function ($item) {
 				return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
 			});
-		// dd($adjust_records);	
+		// dd($adjust_records);
+		$adjust_total_amount_with_challenge_amount = $challenge_actual_amount;
 		foreach($adjust_records as $k=>$adjust_records_val){
-			$adjust_daywise_users_balance = Adjust_users_balance::/*where('challenge_id', $id)->*/where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
+			$adjust_daywise_users_balance = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
 			
-			$challenge_each_day = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->pluck('challenge_id');
-			// dd($challenge_each_day);
+			/*$challenge_each_day = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->pluck('challenge_id');
 			$challenge_adjust_list = Challenge::with(['get_challenge_type'])->whereIn('id', $challenge_each_day)->get();
-			// dd($challenge_adjust_list);
 			$c_actual_amount = 0;
 			foreach($challenge_adjust_list as $val){
 				$c_actual_amount += $val->get_challenge_type->amount;
 			}
-			// $equity_daywise_percent = ($adjust_daywise_users_balance / $challenge_actual_amount) * 100;
-			$equity_daywise_percent = ($adjust_daywise_users_balance / $c_actual_amount) * 100;
+			// $equity_daywise_percent = ($adjust_daywise_users_balance / $c_actual_amount) * 100;
+			*/
+			$equity_daywise_percent = ($adjust_daywise_users_balance / $adjust_total_amount_with_challenge_amount) * 100;
+			$adjust_total_amount_with_challenge_amount += $adjust_daywise_users_balance;
+			
 			
 			$adj_rec[$k]['trades'] = $adjust_records_val[0]->trade_count;
 			$adj_rec[$k]['trade_pair'] = $adjust_records_val[0]->trade_pair;
 			if($adjust_records_val[0]->trade_count == null){
+				$exists_same_date_trade_count = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->whereNotNull('trade_count')->first();
 				$adjust_record = Adjust_users_balance::find($adjust_records_val[0]->id);
-				$adjust_record->trade_count = rand(1, 10);
+				if($exists_same_date_trade_count){
+					$adjust_record->trade_count = $exists_same_date_trade_count->trade_count;
+				}else{
+					$adjust_record->trade_count = rand(1, 10);
+				}
 				$adjust_record->save();
 				$adj_rec[$k]['trades'] = $adjust_record->trade_count;
 			}
 			if($adjust_records_val[0]->trade_pair == null){
+				$exists_same_date_trade_pair = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->whereNotNull('trade_pair')->first();
 				$adjust_record = Adjust_users_balance::find($adjust_records_val[0]->id);
-				$adjust_record->trade_pair = getRandomSymbol();
+				if($exists_same_date_trade_pair){
+					$adjust_record->trade_pair = $exists_same_date_trade_pair->trade_pair;
+				}else{
+					$adjust_record->trade_pair = getRandomSymbol();
+				}
 				$adjust_record->save();
 				$adj_rec[$k]['trade_pair'] = $adjust_record->trade_pair;
 			}
