@@ -62,7 +62,7 @@
 									<h3 class="fw-bold mt-1">{{get_currency_symbol()}}{{$total_balance}}</h3>
 								</div>
 								<div class="col-6 text-end">
-									<span class="badge bg-inverse-white">{{ $equity_percent < 0 ? $equity_percent : '+' . $equity_percent }}%</span>
+									<span class="badge bg-inverse-white">{{ $equity_percent < 0 ? number_format($equity_percent, 2, '.', ',') : '+' . number_format($equity_percent, 2, '.', ',') }}%</span>
 								</div>
 							</div>
 							{{--<hr>

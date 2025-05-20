@@ -215,16 +215,25 @@ class DashboardController extends Controller
 		$data['challenge_val']  = $challenge_val;
 		
 		$adj_rec = [];
-		$adjust_records = Adjust_users_balance::where('challenge_id', $id)
-			->where('type', 1)
+		$adjust_records = Adjust_users_balance::/*where('challenge_id', $id)->*/where('type', 1)
 			->get()
 			->groupBy(function ($item) {
 				return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
 			});
 		// dd($adjust_records);	
 		foreach($adjust_records as $k=>$adjust_records_val){
-			$adjust_daywise_users_balance = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
-			$equity_daywise_percent = ($adjust_daywise_users_balance / $challenge_actual_amount) * 100;
+			$adjust_daywise_users_balance = Adjust_users_balance::/*where('challenge_id', $id)->*/where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
+			
+			$challenge_each_day = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->pluck('challenge_id');
+			// dd($challenge_each_day);
+			$challenge_adjust_list = Challenge::with(['get_challenge_type'])->whereIn('id', $challenge_each_day)->get();
+			// dd($challenge_adjust_list);
+			$c_actual_amount = 0;
+			foreach($challenge_adjust_list as $val){
+				$c_actual_amount += $val->get_challenge_type->amount;
+			}
+			// $equity_daywise_percent = ($adjust_daywise_users_balance / $challenge_actual_amount) * 100;
+			$equity_daywise_percent = ($adjust_daywise_users_balance / $c_actual_amount) * 100;
 			
 			$adj_rec[$k]['trades'] = $adjust_records_val[0]->trade_count;
 			$adj_rec[$k]['trade_pair'] = $adjust_records_val[0]->trade_pair;
@@ -242,7 +251,7 @@ class DashboardController extends Controller
 			}
 			
 			$adj_rec[$k]['date'] = $k;
-			$adj_rec[$k]['trade_result'] = $equity_daywise_percent < 0 ? $equity_daywise_percent : '+' . $equity_daywise_percent;
+			$adj_rec[$k]['trade_result'] = $equity_daywise_percent < 0 ? number_format($equity_daywise_percent, 2, '.', ',') : '+' . number_format($equity_daywise_percent, 2, '.', ',');
 		}
 		$data['adj_rec'] = $adj_rec;
 		// dd($data['adj_rec']);

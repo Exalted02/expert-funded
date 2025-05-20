@@ -325,7 +325,7 @@ class ChallengesController extends Controller
 
 		// Save or return response
 		$imagePath = public_path('certificate/'.$challenge_id.'.png');
-		//$image->save($imagePath);
+		$image->save($imagePath);
 		return $imagePath;
 		return response()->download($imagePath);
 	}
@@ -405,7 +405,6 @@ class ChallengesController extends Controller
 							'body' => str_replace(array("[LOGO]", "[PHASE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $phase, $APP_NAME, date('Y')), $email_content->message),
 							'toEmails' => array($get_challenge->email),
 							'files' => array($attatchment),
-							//'files' => [public_path('images/logo.jpg'), public_path('css/app.css'),],
 						];
 						try {
 							send_email($maildata);
@@ -512,6 +511,10 @@ class ChallengesController extends Controller
 							$get_challenge->funded_date = date('Y-m-d');
 							$get_challenge->save();
 							
+							$name = $get_challenge->first_name.' '.$get_challenge->last_name;
+							$attatchment = $this->generateCertificate($request->adjust_amount_challenge, $name, $adjust_users_balance, $get_challenge->funded_date);
+					
+					
 							$phase = $get_challenge->get_challenge_type->title;
 							$email_content = get_email(4);
 							if(!empty($email_content))
@@ -520,6 +523,7 @@ class ChallengesController extends Controller
 									'subject' => $email_content->message_subject,
 									'body' => str_replace(array("[LOGO]", "[PHASE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $phase, $APP_NAME, date('Y')), $email_content->message),
 									'toEmails' => array($get_challenge->email),
+									'files' => array($attatchment),
 								];
 								try {
 									send_email($maildata);
