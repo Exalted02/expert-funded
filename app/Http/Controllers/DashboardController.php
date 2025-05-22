@@ -306,8 +306,13 @@ class DashboardController extends Controller
 			return redirect(RouteServiceProvider::CLIENT_HOME);
 		}
 		if(Auth::user()->eligible_withdraw == 0){
-			$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
-			$eligible_date = get_adddays_without_weekend($challenge->funded_date);
+			/*$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+			$eligible_date = get_adddays_without_weekend($challenge->funded_date);*/
+			
+			$firstFundedDate = Challenge::where('user_id', Auth::id())->orderBy('funded_date', 'asc')
+				->whereNotNull('funded_date')
+				->value('funded_date');				
+			$eligible_date = get_adddays_without_weekend($firstFundedDate);
 			
 			$days_remain = get_dayremain_without_weekend($eligible_date);
 			$data['days_remaining']  = $days_remain.' Days remaining';
@@ -325,8 +330,13 @@ class DashboardController extends Controller
 	
     public function withdraw_request_amount(Request $request)
     {
-		$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
-		$eligible_date = get_adddays_without_weekend($challenge->funded_date);
+		/*$challenge = Challenge::where('id', session()->get('last_selected_challenge'))->first();
+		$eligible_date = get_adddays_without_weekend($challenge->funded_date);*/
+		
+		$firstFundedDate = Challenge::where('user_id', Auth::id())->orderBy('funded_date', 'asc')
+				->whereNotNull('funded_date')
+				->value('funded_date');
+		$eligible_date = get_adddays_without_weekend($firstFundedDate);
 		
 		if($eligible_date <= Carbon::now()->format('Y-m-d') || Auth::user()->eligible_withdraw == 1){
 			$get_records = Adjust_users_balance::where('user_id', Auth::id())

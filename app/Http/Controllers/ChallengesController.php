@@ -370,12 +370,14 @@ class ChallengesController extends Controller
 				$maximum_drawdown_amount = $maximum_drawdown->get_challenge_type->amount * (10/100);				
 				if ($adjust_users_balance <= -$maximum_drawdown_amount) {
 					$maximum_drawdown->status = 2;
+					$maximum_drawdown->funded_date = null;
 					$maximum_drawdown->save();
 				}
 				
 				$maximum_daily_drawdown_amount = ($adjust_users_balance + $maximum_drawdown->get_challenge_type->amount) * (5/100);
 				if ($adjust_users_balance <= -$maximum_daily_drawdown_amount) {
 					$maximum_drawdown->status = 2;
+					$maximum_drawdown->funded_date = null;
 					$maximum_drawdown->save();
 				}
 			}
@@ -495,12 +497,14 @@ class ChallengesController extends Controller
 						$maximum_drawdown_amount = $maximum_drawdown->get_challenge_type->amount * (10/100);				
 						if ($adjust_users_balance <= -$maximum_drawdown_amount) {
 							$maximum_drawdown->status = 2;
+							$maximum_drawdown->funded_date = null;
 							$maximum_drawdown->save();
 						}
 						
 						$maximum_daily_drawdown_amount = ($adjust_users_balance + $maximum_drawdown->get_challenge_type->amount) * (5/100);
 						if ($adjust_users_balance <= -$maximum_daily_drawdown_amount) {
 							$maximum_drawdown->status = 2;
+							$maximum_drawdown->funded_date = null;
 							$maximum_drawdown->save();
 						}
 					}
