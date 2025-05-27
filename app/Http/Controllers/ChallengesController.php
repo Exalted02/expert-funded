@@ -392,6 +392,9 @@ class ChallengesController extends Controller
 					$get_challenge->status = 1;
 					$get_challenge->funded_date = date('Y-m-d');
 					$get_challenge->save();
+					
+					//Update all adjust balance to zero
+					$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $request->adjust_amount_challenge)->where('type', 1)->update(['amount_paid' => 0]);
 							
 					$phase = $get_challenge->get_challenge_type->title;
 					$email_content = get_email(4);
@@ -416,8 +419,6 @@ class ChallengesController extends Controller
 						try {
 							send_email($maildata);
 							
-							//Update all adjust balance to zero
-							$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $request->adjust_amount_challenge)->where('type', 1)->update(['amount_paid' => 0]);
 						} catch (\Exception $e) {
 							//
 						}
@@ -520,6 +521,9 @@ class ChallengesController extends Controller
 							$get_challenge->funded_date = date('Y-m-d');
 							$get_challenge->save();
 							
+							//Update all adjust balance to zero
+							$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $id_val)->where('type', 1)->update(['amount_paid' => 0]);
+							
 							$phase = $get_challenge->get_challenge_type->title;
 							$email_content = get_email(4);
 							if(!empty($email_content))
@@ -541,8 +545,6 @@ class ChallengesController extends Controller
 								try {
 									send_email($maildata);
 									
-									//Update all adjust balance to zero
-									$adjust_users_balance_zero = Adjust_users_balance::where('challenge_id', $id_val)->where('type', 1)->update(['amount_paid' => 0]);
 								} catch (\Exception $e) {
 									//
 								}
