@@ -81,12 +81,11 @@ class ProfileController extends Controller
 			$val->save();
 			//dd($val);
 		}*/
-		$adjust_records = Adjust_users_balance::where('type', 1)->whereNotNull('trade_pair')
+		/*$adjust_records = Adjust_users_balance::where('type', 1)->whereNotNull('trade_pair')
 			->get()
 			->groupBy(function ($item) {
 				return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
 			});
-		// dd($adjust_records);
 		foreach($adjust_records as $k=>$adjust_records_val){
 			$adjust_daywise_users_balance = Adjust_users_balance::whereDate('created_at', $k)->whereNotNull('trade_pair')->first();
 			foreach($adjust_records_val as $val){
@@ -94,6 +93,14 @@ class ProfileController extends Controller
 				$val->trade_count = $adjust_daywise_users_balance->trade_count;
 				$val->save();
 			}
-		}
+		}*/
+		$adjust_records = Adjust_users_balance::where('type', 1)->whereNotNull('percentage_value')
+			->get();
+		foreach($adjust_records as $k=>$adjust_records_val){
+			$get_challenge = Challenge::with(['get_challenge_type'])->where('id', $adjust_records_val->challenge_id)->first();
+			
+			$adjust_records_val->exact_amount_paid = $get_challenge->get_challenge_type->amount * ($adjust_records_val->percentage_value/100);
+			$adjust_records_val->save();
+		}			
     }
 }

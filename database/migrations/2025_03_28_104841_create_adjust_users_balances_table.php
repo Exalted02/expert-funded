@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->bigInteger('user_id')->nullable();
 			$table->bigInteger('challenge_id')->nullable();
+			$table->double('exact_amount_paid', 8, 2)->nullable();
 			$table->double('amount_paid', 8, 2)->nullable();
 			$table->string('percentage_value')->nullable();
 			$table->tinyInteger('type')->nullable()->comment('0=remove, 1=add, 2=challenge amount');

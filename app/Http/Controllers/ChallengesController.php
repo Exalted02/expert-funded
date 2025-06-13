@@ -176,6 +176,7 @@ class ChallengesController extends Controller
 			$adj_balance = new Adjust_users_balance();
 			$adj_balance->user_id = $user_id;
 			$adj_balance->challenge_id = $challenge->id;
+			$adj_balance->exact_amount_paid = $request->post('trading_amount');
 			$adj_balance->amount_paid = $request->post('trading_amount');
 			$adj_balance->type = 2;
 			$adj_balance->status = 0;
@@ -343,6 +344,7 @@ class ChallengesController extends Controller
 		$adj_balance = new Adjust_users_balance();
 		$adj_balance->user_id = $request->adjust_amount_user;
 		$adj_balance->challenge_id = $request->adjust_amount_challenge;
+		$adj_balance->exact_amount_paid = $percentage_value;
 		$adj_balance->amount_paid = $percentage_value;
 		$adj_balance->percentage_value = $request->adjust_amount;
 		if($request->type == 'add'){
@@ -472,6 +474,7 @@ class ChallengesController extends Controller
 				$adj_balance = new Adjust_users_balance();
 				$adj_balance->user_id = $challenge->user_id;
 				$adj_balance->challenge_id = $id_val;
+				$adj_balance->exact_amount_paid = $percentage_value;
 				$adj_balance->amount_paid = $percentage_value;
 				$adj_balance->percentage_value = $request->adjust_percent;
 				if($request->type_val == 'add'){
@@ -705,6 +708,7 @@ class ChallengesController extends Controller
 					$adj_balance = new Adjust_users_balance();
 					$adj_balance->user_id = $user_id;
 					$adj_balance->challenge_id = $challenge->id;
+					$adj_balance->exact_amount_paid = 0;
 					$adj_balance->amount_paid = 0;
 					$adj_balance->type = 2;
 					$adj_balance->status = 0;
@@ -714,6 +718,7 @@ class ChallengesController extends Controller
 						$adj_balance1 = new Adjust_users_balance();
 						$adj_balance1->user_id = $user_id;
 						$adj_balance1->challenge_id = $challenge->id;
+						$adj_balance1->exact_amount_paid = $clean_amount - $number;
 						$adj_balance1->amount_paid = $clean_amount - $number;
 						$adj_balance1->type = 1;
 						$adj_balance1->status = 0;
