@@ -224,7 +224,7 @@ class DashboardController extends Controller
 		// dd($adjust_records);
 		$adjust_total_amount_with_challenge_amount = $challenge_actual_amount;
 		foreach($adjust_records as $k=>$adjust_records_val){
-			$adjust_daywise_users_balance = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)->whereDate('created_at', $k)->sum('amount_paid');
+			$adjust_daywise_users_balance = Adjust_users_balance::where('challenge_id', $id)->where('type', 1)->whereDate('created_at', $k)->sum('exact_amount_paid');
 			
 			/*$challenge_each_day = Adjust_users_balance::where('type', 1)->whereDate('created_at', $k)->pluck('challenge_id');
 			$challenge_adjust_list = Challenge::with(['get_challenge_type'])->whereIn('id', $challenge_each_day)->get();
