@@ -46,6 +46,7 @@ class DashboardController extends Controller
 
 			$values = collect([$baseAmount]);
 			$runningTotal = $baseAmount;
+			$tooltipData = [];
 			$tooltipData[] = [
 				'balance' => $runningTotal,
 				'target' => $baseAmount + ((10 / 100) * $baseAmount),
