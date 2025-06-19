@@ -430,13 +430,18 @@ class ChallengesController extends Controller
 		//Update status to funded
 		
 		//Email for positive amount
-		if($request->adjust_amount > 0){
+		//if($request->adjust_amount > 0){
 			$email_content = get_email(8);
 			if(!empty($email_content))
 			{
+				if($request->adjust_amount > 0){
+					$get_type = 'up -';
+				}else{
+					$get_type = 'down';
+				}
 				$maildata = [
 					'subject' => $email_content->message_subject,
-					'body' => str_replace(array("[LOGO]", "[PERCENT_VALUE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $request->adjust_amount, $APP_NAME, date('Y')), $email_content->message),
+					'body' => str_replace(array("[LOGO]", "[PERCENT_VALUE]", "[TYPE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $request->adjust_amount, $get_type, $APP_NAME, date('Y')), $email_content->message),
 					'toEmails' => array($get_challenge->email),
 				];
 				try {
@@ -445,7 +450,7 @@ class ChallengesController extends Controller
 					//
 				}
 			}
-		}
+		//}
 		//Email for positive amount
 		
 		if($user->save()){
@@ -557,13 +562,18 @@ class ChallengesController extends Controller
 				//Update status to funded
 				
 				//Email for positive amount
-					if($request->adjust_percent > 0){
+					//if($request->adjust_percent > 0){
 						$email_content = get_email(8);
 						if(!empty($email_content))
 						{
+							if($request->adjust_amount > 0){
+								$get_type = 'up -';
+							}else{
+								$get_type = 'down';
+							}
 							$maildata = [
 								'subject' => $email_content->message_subject,
-								'body' => str_replace(array("[LOGO]", "[PERCENT_VALUE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $request->adjust_percent, $APP_NAME, date('Y')), $email_content->message),
+								'body' => str_replace(array("[LOGO]", "[PERCENT_VALUE]", "[TYPE]", "[SCREEN_NAME]", "[YEAR]"), array($logo, $request->adjust_percent, $get_type, $APP_NAME, date('Y')), $email_content->message),
 								'toEmails' => array($get_challenge->email),
 							];
 							try {
@@ -572,7 +582,7 @@ class ChallengesController extends Controller
 								//
 							}
 						}
-					}
+					//}
 				//Email for positive amount
 			}
 		}
